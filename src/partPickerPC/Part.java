@@ -13,6 +13,13 @@ public class Part
 	public Part(){
 		attributes = new ArrayList<String>();
 	}
+	
+	public Part(String type, double price)
+	{
+		this.type = type;								// Just figured if a different obj was making this
+		this.price = price;								// you might want this too since it's faster
+		attributes = new ArrayList<String>();
+	}
 	public double getSalePercent(){						//GETTERS
 		return this.salePercentage;
 	}
