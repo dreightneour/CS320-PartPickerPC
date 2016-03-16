@@ -2,10 +2,11 @@ package partPickerPC;
 
 public class User 
 {
-	private char name;
-	private char password;
+	//name and password values
+	private String name;
+	private String password;
 	
-	public void User(name, password){
+	public void User(String name, String password){
 		this.name = name;
 		this.password = password;
 	}
