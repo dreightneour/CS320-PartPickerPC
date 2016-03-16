@@ -6,17 +6,20 @@ public class User
 	private String name;
 	private String password;
 	
+	//constructor
 	public void User(String name, String password){
 		this.name = name;
 		this.password = password;
 	}
 	
-	public char getName(){
+	//return value of name
+	public String getName(){
 		
 		return User.name;
 	}
 	
-	public char getPassword(){
+	//return value of password
+	public String getPassword(){
 		
 		return User.password;
 	}
