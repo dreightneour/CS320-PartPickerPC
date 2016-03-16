@@ -15,12 +15,12 @@ public class User
 	//return value of name
 	public String getName(){
 		
-		return User.name;
+		return name;
 	}
 	
 	//return value of password
 	public String getPassword(){
 		
-		return User.password;
+		return password;
 	}
 }
