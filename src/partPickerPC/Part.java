@@ -12,7 +12,7 @@ public class Part
 	}
 	
 	public Part(double price)
-	{														// Just figured if a different obj was making this
+	{													// Just figured if a different obj was making this
 		this.price = price;								// you might want this too since it's faster
 	}
 	public double getSalePercent(){						//GETTERS
