@@ -10,6 +10,7 @@ public class User
 	public User(String name, String password){
 		this.name = name;
 		this.password = password;
+		int b = 0;
 	}
 	
 	//return value of name
@@ -20,5 +21,6 @@ public class User
 	//return value of password
 	public String getPassword(){
 		return password;
+		
 	}
 }
