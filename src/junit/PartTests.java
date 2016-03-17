@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import partPickerPC.Part;
 
 public class PartTests extends TestCase {
-
+	
 	Part p;
 	String sp = "3.4 GHz";
 	String manufact = "Intel";

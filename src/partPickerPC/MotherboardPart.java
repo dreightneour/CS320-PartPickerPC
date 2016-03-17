@@ -1,7 +1,7 @@
 package partPickerPC;
 
 public class MotherboardPart extends Part {
-	
+	int b = 0;
 	private String brand, model, socketType, cpuSeries, chipset,
 	memorySlots, maxMemory, supportedChannel, pciE2x16, pciEx1, pci;
 	

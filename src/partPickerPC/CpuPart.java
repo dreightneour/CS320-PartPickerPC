@@ -1,7 +1,7 @@
 package partPickerPC;
 
 public class CpuPart extends Part {
-
+	
 	private String socketType, name, brand, series
 	, frequency, cores;
 	
