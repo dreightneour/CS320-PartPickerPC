@@ -14,13 +14,11 @@ public class User
 	
 	//return value of name
 	public String getName(){
-		
 		return name;
 	}
 	
 	//return value of password
 	public String getPassword(){
-		
 		return password;
 	}
 }
