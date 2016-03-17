@@ -2,7 +2,7 @@ package partPickerPC;
 
 public class User 
 {
-	int b = 0;
+	
 	//name and password values
 	private String name;
 	private String password;

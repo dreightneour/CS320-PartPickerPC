@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Part 
 {
-	int b = 0;
+	
 	private double price; 								//cost
 	private boolean isOnSale; 							//is it on sale
 	private double salePercentage; 						//what is the percentage mark down of the sale

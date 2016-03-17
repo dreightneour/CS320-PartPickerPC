@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Build 
 {
-	int b = 0;
+	
 	private ArrayList<Part> theParts;  // holds all the parts
 	
 	public Build()

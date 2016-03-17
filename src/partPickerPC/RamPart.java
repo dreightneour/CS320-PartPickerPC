@@ -1,7 +1,7 @@
 package partPickerPC;
 
 public class RamPart extends Part {
-	int b = 0;
+	
 	private String brand, series, model, capacity, type, multichannelType;
 	
 	public RamPart(String brand, String series, String model, String capacity, String type, String multichannelType)
