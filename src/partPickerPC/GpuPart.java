@@ -1,7 +1,7 @@
 package partPickerPC;
 
 public class GpuPart extends Part {
-
+	int b = 0;
 	 private String brand, model, slotType, gpuBase, memorySize;
 	 
 	 public GpuPart(String brand, String model, String slotType, String gpuBase, String memorySize)

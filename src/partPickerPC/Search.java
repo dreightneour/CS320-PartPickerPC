@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 
 public class Search{
 
-
+	int b = 0;
     public static void main(String[] args) throws Exception {
         String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
         Document document = Jsoup.connect(url).get();

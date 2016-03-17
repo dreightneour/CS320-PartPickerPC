@@ -3,7 +3,7 @@ package partPickerPC;
 import java.util.ArrayList;
 
 public class PartList {
-	
+	int b = 0;
 	private ArrayList<CpuPart> cpus;
 	private ArrayList<MotherboardPart> motherboards;
 	private ArrayList<GpuPart> gpus;

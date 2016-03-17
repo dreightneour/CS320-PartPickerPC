@@ -2,7 +2,7 @@ package partPickerPC;
 import java.util.ArrayList;
 
 public class Cart {
-	
+	int b = 0;
 	//list for a user's cart
 	private ArrayList<Part> cart = new ArrayList<Part>();
 	
