@@ -42,7 +42,7 @@ public class IndexServlet extends HttpServlet {
 			String password = req.getParameter("password");
 			if (req.getParameter("login") != null)
 			{
-			if (username == null || password == null && loginvalue != 0 || username == "" || password == "") {
+			if (username == null || password == null || username == "" || password == "") {
 				loginvalue = 0;
 				System.out.println("notting");
 			}
@@ -51,13 +51,19 @@ public class IndexServlet extends HttpServlet {
 					if (userpassword.get(username).compareTo(password) == 0)
 					{
 						loginvalue = 1;
+						System.out.println("1" + loginvalue);
 					}
 					else
 					{
 						loginvalue = 2;
+						System.out.println("2" + loginvalue);
 					}
 					
 				}
+			else
+			{
+				loginvalue = 2;
+			}
 				
 		
 			
@@ -72,19 +78,26 @@ public class IndexServlet extends HttpServlet {
 		//req.setAttribute("result", result);
 		if (loginvalue == 1)
 		{
+			System.out.println("1" + loginvalue);
 			result = "success";
+			req.setAttribute("loggedin", true);
 			//req.getRequestDispatcher("/_view/addNumbers.jsp").forward(req, resp);
-			resp.sendRedirect("/lol/addNumbers");
+			//resp.sendRedirect("/lol/addNumbers");
 		}
 		else if (loginvalue == 2)
 		{
+			System.out.println("2" + loginvalue);
 			result = "failure";
+			req.setAttribute("loggedin", false);
 			
 		}
 		else if (loginvalue == 0)
 		{
+			System.out.println("000" + loginvalue);
 			result = "please enter a username or password";
+			req.setAttribute("hiddenornah", "none");
 		}
+		System.out.println("" + loginvalue);
 		req.setAttribute("userVerify", result);
 		
 		
