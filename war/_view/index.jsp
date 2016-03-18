@@ -7,7 +7,7 @@
 	</head>
 
 	<body>
-	<form class="loginwindow"  method="post" onsubmit="return myFunction();">
+	<form class="loginwindow"  method="post" action="${pageContext.servletContext.contextPath}/index"  >
 		<div style="background-color:black; color:white; padding:20px;">
 
 <h2 class="loginwindow">Login</h2>
@@ -26,11 +26,9 @@
 					<td><input type="password" name="password" size="15" value="${password}" /></td>
 				</tr>
 				<tr>
-					<td><input id="submit" type="submit" name="login" size="20" value="Login" onclick="myTest()"  >  </td>
+					<td><input id="submit" type="submit" name="login" size="20" value="Login"   >  </td>
 				</tr>					
-				<tr>
-					<td><button id="mytest" type="button" value="Test" onclick="myTest()">  </button> </td>
-				</tr>
+				
 	</table>
 </div>
 ${userVerify}
@@ -38,29 +36,11 @@ ${userVerify}
 
 </div>
 
-		<button type="button" onclick="myTest()">Hide content of p</button>
 </div>
 
 
 
 		</form>
-<script>
 
-var loggedin = ${loggedin};
-function myTest() {
-
-	var elements = document.getElementsByClassName('loginwindow')
-	for (var i = 0; i < elements.length; i++){
-    elements[i].style.visibility = "hidden";
-}
-}
-function myFunction() {
-	
-	var elements = document.getElementsByClassName('loginwindow')
-	for (var i = 0; i < elements.length; i++){
-    elements[i].style.visibility = "hidden";
-	}
-}
-</script>
 	</body>
 </html>

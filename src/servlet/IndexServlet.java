@@ -44,19 +44,16 @@ public class IndexServlet extends HttpServlet {
 			{
 			if (username == null || password == null || username == "" || password == "") {
 				loginvalue = 0;
-				System.out.println("notting");
 			}
 			else if (userpassword.containsKey(username))
 				{
 					if (userpassword.get(username).compareTo(password) == 0)
 					{
 						loginvalue = 1;
-						System.out.println("1" + loginvalue);
 					}
 					else
 					{
 						loginvalue = 2;
-						System.out.println("2" + loginvalue);
 					}
 					
 				}
@@ -81,8 +78,7 @@ public class IndexServlet extends HttpServlet {
 			System.out.println("1" + loginvalue);
 			result = "success";
 			req.setAttribute("loggedin", true);
-			//req.getRequestDispatcher("/_view/addNumbers.jsp").forward(req, resp);
-			//resp.sendRedirect("/lol/addNumbers");
+			resp.sendRedirect("/ppc/homepage");
 		}
 		else if (loginvalue == 2)
 		{

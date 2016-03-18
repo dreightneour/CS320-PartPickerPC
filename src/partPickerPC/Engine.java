@@ -13,7 +13,7 @@ public class Engine
 
 		// Create and register a webapp context
 		WebAppContext handler = new WebAppContext();
-		handler.setContextPath("/PartPickerPC");
+		handler.setContextPath("/ppc");
 		handler.setWar("./war"); // web app is in the war directory of the project
 		server.setHandler(handler);
 		
