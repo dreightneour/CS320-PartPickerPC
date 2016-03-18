@@ -43,19 +43,27 @@ public class Search{
         {
         	if(i == 10000)
         	{
-        		html = html.substring(i, html.length() - 1);
+        		html = html.substring(i, html.length());
         		i = 0;
+        		int b = html.length();
+        		b = b;
               
             } 
-        	if(html.substring(i, i+4) == "specs")
+        	if(html.substring(i, i+5).equals("Specs"))
         	{
-        		if(html.substring(i - 4, i-3) == "id")
+        		String id = html.substring(i - 4, i-2);
+        		if(id.equals("id"))
         		{
         			for(int j = i; j < i + 5000; j++)
         			{
-        				if(html.substring(j, j + 4)== "Brand")
+        				if(html.substring(j, j + 5).equals("Brand"))
         				{
-        					brand = html.substring(j + 13, j+18);
+        					brand = html.substring(j+60 , j+ 65);
+        				}
+        				
+        				if(html.substring(j, j + 6).equals("Series"))
+        				{
+        					series = html.substring(j+61 , j+ 68);
         				}
         			}
         			break;
