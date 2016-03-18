@@ -1,6 +1,8 @@
 
 package partPickerPC;
 
+import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,18 +11,37 @@ import org.jsoup.select.Elements;
 public class Search{
 
 	
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
         String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
         Document document = Jsoup.connect(url).get();
 
-        String question = document.select("#question .post-text").text();
-        System.out.println("Question: " + question);
-
-        Elements answerers = document.select("#answers .user-details a");
-        for (Element answerer : answerers) {
-            System.out.println("Answerer: " + answerer.text());
-	        }
-	 }
+       
+	}*/
+    
+    //public Search(PartType type)
+    //{
+    //	
+    //}
+    
+    public CpuPart getCPU() throws IOException
+    {
+        String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
+        Document document = Jsoup.connect(url).get();
+        
+        String html = document.toString();
+        for(int i = 0; i < html.length(); i++)
+        {
+        	if(html.substring(i, i+4) == "specs")
+        	{
+        		if(html.substring(i - 4, i-3) == "id")
+        		{
+        			
+        		}
+        	}
+        }
+        
+    	return new CpuPart(html, html, html, html, html, html);
+    }
 
 }
 
