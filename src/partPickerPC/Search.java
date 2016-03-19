@@ -65,6 +65,27 @@ public class Search{
         				{
         					series = html.substring(j+61 , j+ 68);
         				}
+        				
+        				if(html.substring(j, j + 10).equals("# of Cores"))
+        				{
+        					cores = html.substring(j+69 , j+ 78);
+        				}
+        				
+        				if(html.substring(j, j + 19).equals("Operating Frequency"))
+        				{
+        					frequency = html.substring(j+78 , j+ 85);
+        				}
+        				
+        				if(html.substring(j, j + 11).equals("Socket Type"))
+        				{
+        					socketType = html.substring(j+70 , j+ 78);
+        				}
+        				
+        				if(html.substring(j, j + 7).equals("   Name"))
+        				{
+        					name = html.substring(j+67 , j+ 75);
+        				}
+        				
         			}
         			break;
         		}
