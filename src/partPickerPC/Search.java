@@ -38,6 +38,9 @@ public class Search{
         String frequency= new String();
         String cores= new String();
         
+        int startSub = 0;
+        int endSub = 0;
+        
         //Find where the specs are and retrieve
         for(int i = 0; i < html.length(); i++)
         {
@@ -58,32 +61,104 @@ public class Search{
         			{
         				if(html.substring(j, j + 5).equals("Brand"))
         				{
-        					brand = html.substring(j+60 , j+ 65);
+        					for(int k = j; k < j + 200; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					brand = html.substring(startSub , endSub);
         				}
         				
         				if(html.substring(j, j + 6).equals("Series"))
         				{
-        					series = html.substring(j+61 , j+ 68);
+        					for(int k = j; k < j + 200; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					series = html.substring(startSub , endSub);
         				}
         				
         				if(html.substring(j, j + 10).equals("# of Cores"))
         				{
-        					cores = html.substring(j+69 , j+ 78);
+        					for(int k = j; k < j + 200; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					cores = html.substring(startSub , endSub);
         				}
         				
         				if(html.substring(j, j + 19).equals("Operating Frequency"))
         				{
-        					frequency = html.substring(j+78 , j+ 85);
+        					for(int k = j; k < j + 200; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					frequency = html.substring(startSub , endSub);
         				}
         				
         				if(html.substring(j, j + 11).equals("Socket Type"))
         				{
-        					socketType = html.substring(j+70 , j+ 78);
+        					for(int k = j; k < j + 200; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					socketType = html.substring(startSub , endSub);
         				}
         				
         				if(html.substring(j, j + 7).equals("   Name"))
         				{
-        					name = html.substring(j+67 , j+ 75);
+        					for(int k = j; k < j + 100; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					name = html.substring(startSub , endSub);
         				}
         				
         			}
