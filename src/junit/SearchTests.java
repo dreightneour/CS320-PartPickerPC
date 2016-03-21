@@ -48,5 +48,26 @@ public class SearchTests extends TestCase
 	}
 	
 	
+	public void testCpuSearch3() throws Exception
+	{	
+		String frequency = "4.0 GHz (4.2GHz Turbo)";
+		String brand = "AMD";
+		String series = "FX-Series";
+		String socketType = "Socket AM3+";
+		String name = "FX-8350 Black Edition";
+		String cores = "8-Core";				
+		CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores);
+		CpuPart cpu1Check = Search.getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819113284");	
+		
+		assertEquals(cpu.getBrand(), cpu1Check.getBrand());
+		assertEquals(cpu.getCores(), cpu1Check.getCores());
+		assertEquals(cpu.getFrequency(), cpu1Check.getFrequency());
+		assertEquals(cpu.getName(), cpu1Check.getName());
+		assertEquals(cpu.getSeries(), cpu1Check.getSeries());
+		assertEquals(cpu.getSocketType(), cpu1Check.getSocketType());
+
+	
+	}
+	
 	
 }
