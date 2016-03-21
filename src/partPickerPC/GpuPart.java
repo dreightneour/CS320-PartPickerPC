@@ -11,6 +11,7 @@ public class GpuPart extends Part {
 		 this.slotType = slotType;
 		 this.gpuBase = gpuBase;
 		 this.memorySize = memorySize;
+		 setPartType("gpu");
 	 }
 
 	public String getBrand() {
@@ -32,5 +33,8 @@ public class GpuPart extends Part {
 	public String getMemorySize() {
 		return memorySize;
 	}
+
+
+
 
 }

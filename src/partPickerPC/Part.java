@@ -7,7 +7,8 @@ public class Part
 	
 	private double price; 								//cost
 	private boolean isOnSale; 							//is it on sale
-	private double salePercentage; 						//what is the percentage mark down of the sale
+	private double salePercentage;						//what is the percentage mark down of the sale
+	private String partType;
 	
 	public Part(){
 	}
@@ -38,6 +39,15 @@ public class Part
 	}
 	public void setSalePercentage(double percent){
 		this.salePercentage = percent;
+	}
+
+	public String getPartType() {
+		return partType;
+	}
+
+	public void setPartType(String partType)
+	{
+		this.partType = partType;
 	}
 	
 	

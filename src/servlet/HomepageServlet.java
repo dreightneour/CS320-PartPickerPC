@@ -15,7 +15,9 @@ public class HomepageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		 username = req.getParameter("username");
+		 username = (String) req.getSession().getAttribute("theUser");
+		 username = username.toUpperCase();
+		 req.setAttribute("username", username);
 		
 		req.getRequestDispatcher("/_view/homepage.jsp").forward(req, resp);
 	}
@@ -25,8 +27,8 @@ public class HomepageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		// Decode form parameters and dispatch to controller
-		req.setAttribute("username", username);
+		resp.sendRedirect("/ppc/quickbuild");
+		
 
 			
 		

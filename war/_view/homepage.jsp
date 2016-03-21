@@ -7,7 +7,11 @@
 	</head>
 
 	<body>
-<h2>Welcome to PC PART PICKER ${username}</h2>
-
+<h2 style="background-color:blue; color:red: padding:30px;"> Welcome to Part Picker PC ${username}</h2>
+<FORM method="post" action="${pageContext.servletContext.contextPath}/homepage">
+<div >
+<button> Let's make a Quick Build!!!</button>
+</div>
+</FORM>
 	</body>
 </html>

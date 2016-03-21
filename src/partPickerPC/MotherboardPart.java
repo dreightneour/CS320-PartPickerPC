@@ -5,10 +5,12 @@ public class MotherboardPart extends Part {
 	private String brand, model, socketType, cpuSeries, chipset,
 	memorySlots, maxMemory, supportedChannel, pciE2x16, pciEx1, pci;
 	
-	public MotherboardPart(String brand, String model)		// brand and model are mandatory
+	public MotherboardPart(String brand, String model, String socketType)		// brand and model are mandatory
 	{
 		this.brand = brand;
 		this.model = model;
+		this.socketType = socketType;
+		setPartType("motherboard");
 	}
 	
 	public String getBrand()
@@ -92,6 +94,9 @@ public class MotherboardPart extends Part {
 	public void setPci(String pci) {
 		this.pci = pci;
 	}
+
+
+
 
 
 	

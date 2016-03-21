@@ -50,6 +50,7 @@ public class IndexServlet extends HttpServlet {
 					if (userpassword.get(username).compareTo(password) == 0)
 					{
 						loginvalue = 1;
+						req.getSession().setAttribute("theUser", username);
 					}
 					else
 					{

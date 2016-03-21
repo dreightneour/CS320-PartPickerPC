@@ -14,6 +14,7 @@ public class CpuPart extends Part {
 		this.series = series;
 		this.frequency = frequency;
 		this.cores = cores;
+		setPartType("cpu");
 	}
 
 	public String getSocketType() {
@@ -39,6 +40,9 @@ public class CpuPart extends Part {
 	public String getCores() {
 		return cores;
 	}
+
+
+
 
 	
 	

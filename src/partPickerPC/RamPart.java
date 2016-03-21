@@ -12,6 +12,7 @@ public class RamPart extends Part {
 		this.capacity = capacity;
 		this.type = type;
 		this.multichannelType = multichannelType;
+		setPartType("ram");
 	}
 
 	public String getBrand() {
