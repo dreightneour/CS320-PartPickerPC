@@ -12,10 +12,10 @@ public class Search{
 
 	
     public static void main(String[] args) throws Exception {
-       // String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
+    	// String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
         //Document document = Jsoup.connect(url).get();
     	CpuPart cpu;// = getCPU();
-       cpu = getCPU();
+    	cpu = getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369");
     }
     
     //public Search(PartType type)
@@ -23,10 +23,10 @@ public class Search{
     //	
     //}
     
-    public static CpuPart getCPU() throws IOException
+    public static CpuPart getCPU(String url) throws IOException
     {
     	//open the webpage
-        String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
+        //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
         Document document = Jsoup.connect(url).get();
         
         String html = document.toString();
