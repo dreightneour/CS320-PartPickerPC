@@ -428,7 +428,7 @@ public class Search{
         		{
         			for(int j = i; j < i + 5000; j++)
         			{
-        				if(html.substring(j, j + 5).equals("Brand"))
+        				if(html.substring(j, j + 5).equals("Brand") && brand.equals(""))
         				{
         					for(int k = j; k < j + 200; k++)
         					{

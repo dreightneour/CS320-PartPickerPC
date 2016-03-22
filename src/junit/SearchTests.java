@@ -2,6 +2,9 @@ package junit;
 
 import junit.framework.TestCase;
 import partPickerPC.CpuPart;
+import partPickerPC.RamPart;
+import partPickerPC.GpuPart;
+import partPickerPC.MotherboardPart;
 import partPickerPC.Search;
 
 public class SearchTests extends TestCase
@@ -69,5 +72,120 @@ public class SearchTests extends TestCase
 	
 	}
 	
+	public void testMotherboardSearch1() throws Exception
+	{	
+		String brand = "ASUS";
+		String model = "CROSSBLADE RANGER";
+		String socketType = "FM2+";
+		
+		MotherboardPart mother = new MotherboardPart(brand, model, socketType);
+		MotherboardPart motherCheck = Search.getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813132255");	
+		
+		assertEquals(mother.getBrand(), motherCheck.getBrand());
+		assertEquals(mother.getModel(), motherCheck.getModel());
+		assertEquals(mother.getSocketType(), motherCheck.getSocketType());
+
+	
+	}
+	
+	public void testMotherboardSearch2() throws Exception
+	{	
+		String brand = "MSI";
+		String model = "Z97 GAMING 5";
+		String socketType = "LGA 1150";
+		
+		MotherboardPart mother = new MotherboardPart(brand, model, socketType);
+		MotherboardPart motherCheck = Search.getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770");	
+		
+		assertEquals(mother.getBrand(), motherCheck.getBrand());
+		assertEquals(mother.getModel(), motherCheck.getModel());
+		assertEquals(mother.getSocketType(), motherCheck.getSocketType());
+
+	
+	}
+	
+	public void testGpuSearch1() throws Exception
+	{	
+		String memorySize = "2GB";
+		String brand = "EVGA";
+		String gpuBase = "GDDR5";
+		String slotType = "PCI Express 3.0 x16";
+		String model = "02G-P4-2958-KR";
+			
+		GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize);
+		GpuPart gpu1Check = Search.getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159");	
+		
+		assertEquals(gpu.getBrand(), gpu1Check.getBrand());
+		assertEquals(gpu.getModel(), gpu1Check.getModel());
+		assertEquals(gpu.getSlotType(), gpu1Check.getSlotType());
+		assertEquals(gpu.getGpuBase(), gpu1Check.getGpuBase());
+		assertEquals(gpu.getMemorySize(), gpu1Check.getMemorySize());
+
+	
+	}
+	
+	public void testGpuSearch2() throws Exception
+	{	
+		String memorySize = "8GB";
+		String brand = "MSI";
+		String gpuBase = "GDDR5";
+		String slotType = "PCI Express 3.0";
+		String model = "R9 390X GAMING 8G";
+			
+		GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize);
+		GpuPart gpu1Check = Search.getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814127872");	
+		
+		assertEquals(gpu.getBrand(), gpu1Check.getBrand());
+		assertEquals(gpu.getModel(), gpu1Check.getModel());
+		assertEquals(gpu.getSlotType(), gpu1Check.getSlotType());
+		assertEquals(gpu.getGpuBase(), gpu1Check.getGpuBase());
+		assertEquals(gpu.getMemorySize(), gpu1Check.getMemorySize());
+
+	
+	}
+	
+	public void testRamSearch1() throws Exception
+	{	
+		String multichannelType = "Dual Channel Kit";
+		String brand = "CORSAIR";
+		String capacity = "8GB (2 x 4GB)";
+		String type = "240-Pin DDR3 SDRAM";
+		String model = "CMZ8GX3M2A1600C9";
+		String series = "Vengeance";
+			
+		RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType);
+		RamPart ram1Check = Search.getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144");	
+		
+		assertEquals(ram.getBrand(), ram1Check.getBrand());
+		assertEquals(ram.getModel(), ram1Check.getModel());
+		assertEquals(ram.getSeries(), ram1Check.getSeries());
+		assertEquals(ram.getCapacity(), ram1Check.getCapacity());
+		assertEquals(ram.getType(), ram1Check.getType());
+		assertEquals(ram.getMultichannelType(), ram1Check.getMultichannelType());
+
+	
+	}
+	
+	public void testRamSearch2() throws Exception
+	{	
+		String multichannelType = "";
+		String brand = "HyperX";
+		String capacity = "16GB (2 x 8GB)";
+		String type = "288-Pin DDR4 SDRAM";
+		String model = "HX426C15FBK2/16";
+		String series = "FURY";
+			
+		RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType);
+		RamPart ram1Check = Search.getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820104573");	
+		
+		assertEquals(ram.getBrand(), ram1Check.getBrand());
+		assertEquals(ram.getModel(), ram1Check.getModel());
+		assertEquals(ram.getSeries(), ram1Check.getSeries());
+		assertEquals(ram.getCapacity(), ram1Check.getCapacity());
+		assertEquals(ram.getType(), ram1Check.getType());
+		assertEquals(ram.getMultichannelType(), ram1Check.getMultichannelType());
+
+	
+	}
 	
 }
