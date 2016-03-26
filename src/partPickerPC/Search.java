@@ -2,6 +2,7 @@
 package partPickerPC;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.DataNode;
@@ -12,11 +13,20 @@ import org.jsoup.select.Elements;
 
 public class Search{
 
+	private static ArrayList<CpuPart> cpuList = new ArrayList<CpuPart>();
+	private ArrayList<MotherboardPart> motherList = new ArrayList<MotherboardPart>();
+	private ArrayList<GpuPart> gpuList = new ArrayList<GpuPart>();
+	private ArrayList<RamPart> ramList = new ArrayList<RamPart>();
+	
 	
     public static void main(String[] args) throws Exception {
     	// String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
         //Document document = Jsoup.connect(url).get();
-    	CpuPart cpu;// = getCPU();
+    	
+    	
+    	cpuList = getArrayCpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007671%208000%204814&IsNodeId=1&page=1&bop=And&Pagesize=90");
+    	
+    	/*CpuPart cpu;// = getCPU();
     	cpu = getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369");
     	MotherboardPart mother;
     	mother = getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770");
@@ -24,18 +34,139 @@ public class Search{
     	gpu = getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159");
     	RamPart ram;
     	ram = getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144");
+    	*/
     }
+    
+
     
     //public Search(PartType type)
     //{
     //	
     //}
     
+    public static ArrayList<CpuPart> getArrayCpu(String url) throws IOException
+    {
+    	boolean next = true;
+    	ArrayList<CpuPart> cpuList = new ArrayList<CpuPart>();
+    	while(next == true)
+    	{
+    		next = false;
+	        Document document = Jsoup.connect(url).timeout(50000).get();
+	        
+	        String html = document.toString();
+	    	
+	        int startSub = 0;
+	        int endSub = 0;      
+	        
+	        Elements scriptElements = document.getElementsByTag("a");
+	        
+	        String urlList = new String();
+	        
+	       //Element element = scriptElements.get(98);
+	        for (Element element :scriptElements )
+	        { 
+	       		//for (DataNode node : element.dataNodes()) {
+	               //System.out.println(node.getWholeData());
+		   		String priceHtml = element.outerHtml();
+		   		//boolean found = false;
+		   		for(int i = 0; i < priceHtml.length() - 100; i++)
+		   		{
+		   			startSub = 0;
+	    	   		/*if(priceHtml.substring(i, i + 22).equals("call-to-action-details"))// && found == false)
+	    	   		{
+	    	   			for(int k = i; k < i + 200; k++)
+						{
+							if(priceHtml.substring(k, k + 1).equals("=") && startSub == 0)
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 1).equals(">"))
+							{
+								endSub = k - 1;
+								break;
+							}
+						}
+						urlList = priceHtml.substring(startSub , endSub);
+						cpuList.add(getCPU(urlList));
+						//found = true;
+					}
+	    	   		*/
+	    	   		if(priceHtml.substring(i, i + 9).equals("itemImage"))// && found == false)
+	    	   		{
+	    	   			for(int k = i; k < i + 500; k++)
+						{
+							if(priceHtml.substring(k, k + 5).equals("href=") && startSub == 0)
+							{
+								startSub = k + 6;
+							}
+							if(priceHtml.substring(k, k + 1).equals(">"))
+							{
+								endSub = k - 1;
+								break;
+							}
+						}
+						urlList = priceHtml.substring(startSub , endSub);
+						cpuList.add(getCPU(urlList));
+						//found = true;
+					}
+					
+	               //System.out.println("-------------------");            
+	           	}
+	    	   	
+	        }
+	        
+	        scriptElements = document.getElementsByTag("link");
+	        
+	        urlList = new String();
+	        
+	       //Element element = scriptElements.get(98);
+	        for (Element element :scriptElements ){ 
+	       		//for (DataNode node : element.dataNodes()) {
+	               //System.out.println(node.getWholeData());
+		   		String priceHtml = element.outerHtml();
+		   		for(int i = 0; i < priceHtml.length() - 20; i++)
+		   		{
+		   			startSub = 0;
+	    	   		if(priceHtml.substring(i, i + 4).equals("next"))
+	    	   		{
+	    	   			for(int k = i; k < i + 200; k++)
+						{
+							if(priceHtml.substring(k, k + 1).equals("=") && startSub == 0)
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 1).equals(">"))
+							{
+								endSub = k - 1;
+								break;
+							}
+						}
+	    	   			
+						url = priceHtml.substring(startSub , endSub);
+						next = true;
+						break;
+						//cpuList.add(getCPU(urlList));
+	    	   		}
+	               //System.out.println("-------------------");            
+	           	}
+		   		if(next == true)
+		   		{
+		   			break;
+		   		}
+	    	   	
+	        }
+	        
+	        
+    	}
+    	//cpuList = cpuList;
+    	return cpuList;
+    }
+    
     public static CpuPart getCPU(String url) throws IOException
     {
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
-        Document document = Jsoup.connect(url).get();
+        Document document = Jsoup.connect(url).timeout(50000).get();
         String html = document.toString();
         
 
@@ -105,7 +236,7 @@ public class Search{
         }
         
         //Find where the specs are and retrieve
-        for(int i = 0; i < html.length(); i++)
+        for(int i = 0; i < html.length() - 6; i++)
         {
         	if(i == 10000)
         	{
@@ -119,7 +250,7 @@ public class Search{
         		{
         			for(int j = i; j < i + 5000; j++)
         			{
-        				if(html.substring(j, j + 5).equals("Brand"))
+        				if(html.substring(j, j + 5).equals("Brand") && brand.equals(""))
         				{
         					for(int k = j; k < j + 200; k++)
         					{
@@ -206,7 +337,7 @@ public class Search{
         				
         				if(html.substring(j, j + 7).equals("   Name"))
         				{
-        					for(int k = j; k < j + 100; k++)
+        					for(int k = j; k < j + 200; k++)
         					{
         						if(html.substring(k, k + 4).equals("<dd>"))
         						{
@@ -317,7 +448,7 @@ public class Search{
 
         
         //Find where the specs are and retrieve
-        for(int i = 0; i < html.length(); i++)
+        for(int i = 0; i < html.length() - 6; i++)
         {
         	if(i == 10000)
         	{
@@ -477,7 +608,7 @@ public class Search{
         }
         
         //Find where the specs are and retrieve
-        for(int i = 0; i < html.length(); i++)
+        for(int i = 0; i < html.length() - 6; i++)
         {
         	if(i == 10000)
         	{
@@ -674,7 +805,7 @@ public class Search{
         }
         
         //Find where the specs are and retrieve
-        for(int i = 0; i < html.length(); i++)
+        for(int i = 0; i < html.length() - 6; i++)
         {
         	if(i == 10000)
         	{
