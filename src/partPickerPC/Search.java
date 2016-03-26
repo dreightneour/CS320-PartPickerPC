@@ -4,8 +4,10 @@ package partPickerPC;
 import java.io.IOException;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 
 public class Search{
@@ -16,12 +18,12 @@ public class Search{
         //Document document = Jsoup.connect(url).get();
     	CpuPart cpu;// = getCPU();
     	cpu = getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369");
-    	MotherboardPart mother;
-    	mother = getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770");
-    	GpuPart gpu;// = getCPU();
-    	gpu = getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159");
-    	RamPart ram;
-    	ram = getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144");
+    	//MotherboardPart mother;
+    	//mother = getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770");
+    	//GpuPart gpu;// = getCPU();
+    	//gpu = getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159");
+    	//RamPart ram;
+    	//ram = getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144");
     }
     
     //public Search(PartType type)
@@ -34,8 +36,11 @@ public class Search{
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
         Document document = Jsoup.connect(url).get();
-        
         String html = document.toString();
+        
+        Elements scriptElements = document.getElementsByTag("script");
+        
+
         
         String socketType= new String();
         String name = new String();
@@ -44,8 +49,56 @@ public class Search{
         String frequency= new String();
         String cores= new String();
         
+        String price = new String();
+        String salePrice = new String();
+        
         int startSub = 0;
-        int endSub = 0;
+        int endSub = 0;        
+        
+       //Element element = scriptElements.get(98);
+        for (Element element :scriptElements ){ 
+       		for (DataNode node : element.dataNodes()) {
+               //System.out.println(node.getWholeData());
+    	   		String priceHtml = node.getWholeData();
+    	   		for(int i = 0; i < priceHtml.length() - 100; i++)
+    	   		{
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_unit_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 50; k++)
+						{
+							if(priceHtml.substring(k, k + 1).equals("'"))
+							{
+								startSub = k + 1;
+							}
+							if(priceHtml.substring(k, k + 1).equals("'"))
+							{
+								endSub = k+7;
+								break;
+							}
+						}
+						price = priceHtml.substring(startSub , endSub);
+					}
+	    	   		
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_sale_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 200; k++)
+						{
+							if(priceHtml.substring(k, k + 1).equals("'"))
+							{
+								startSub = k + 1;
+							}
+							if(priceHtml.substring(k, k + 1).equals("'"))
+							{
+								endSub = k+7;
+								break;
+							}
+						}
+						salePrice = priceHtml.substring(startSub , endSub);
+					}
+    	   		}
+               //System.out.println("-------------------");            
+           	}
+        }
         
         //Find where the specs are and retrieve
         for(int i = 0; i < html.length(); i++)
@@ -172,7 +225,25 @@ public class Search{
         }
 
         //return the CPUPART
-    	return new CpuPart(socketType, name, brand, series, frequency, cores);
+    	CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores);
+    	double priceD = Double.parseDouble(price);
+    	double saleD = Double.parseDouble(salePrice);
+    	//double priceD = Double.parseDouble(price);
+    	
+    	if(saleD != priceD)
+    	{
+    		cpu.setSale(true);
+    		cpu.setSalePercentage((priceD - saleD) / priceD);
+    	}
+    	else
+    	{
+    		cpu.setSale(false);
+    		cpu.setSalePercentage(0.0);
+    	}
+
+    	cpu.setPrice(priceD);
+    	
+    	return cpu;
     }
     
     public static MotherboardPart getMotherboard(String url) throws IOException
