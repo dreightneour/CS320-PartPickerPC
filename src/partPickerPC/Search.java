@@ -18,12 +18,12 @@ public class Search{
         //Document document = Jsoup.connect(url).get();
     	CpuPart cpu;// = getCPU();
     	cpu = getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369");
-    	//MotherboardPart mother;
-    	//mother = getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770");
-    	//GpuPart gpu;// = getCPU();
-    	//gpu = getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159");
-    	//RamPart ram;
-    	//ram = getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144");
+    	MotherboardPart mother;
+    	mother = getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770");
+    	GpuPart gpu;// = getCPU();
+    	gpu = getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159");
+    	RamPart ram;
+    	ram = getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144");
     }
     
     //public Search(PartType type)
@@ -38,7 +38,7 @@ public class Search{
         Document document = Jsoup.connect(url).get();
         String html = document.toString();
         
-        Elements scriptElements = document.getElementsByTag("script");
+
         
 
         
@@ -49,11 +49,15 @@ public class Search{
         String frequency= new String();
         String cores= new String();
         
-        String price = new String();
-        String salePrice = new String();
+
         
         int startSub = 0;
         int endSub = 0;        
+        
+        Elements scriptElements = document.getElementsByTag("script");
+        
+        String price = new String();
+        String salePrice = new String();
         
        //Element element = scriptElements.get(98);
         for (Element element :scriptElements ){ 
@@ -66,13 +70,13 @@ public class Search{
 	    	   		{
 	    	   			for(int k = i; k < i + 50; k++)
 						{
-							if(priceHtml.substring(k, k + 1).equals("'"))
+							if(priceHtml.substring(k, k + 2).equals("['"))
 							{
-								startSub = k + 1;
+								startSub = k + 2;
 							}
-							if(priceHtml.substring(k, k + 1).equals("'"))
+							if(priceHtml.substring(k, k + 2).equals("']"))
 							{
-								endSub = k+7;
+								endSub = k;
 								break;
 							}
 						}
@@ -83,13 +87,13 @@ public class Search{
 	    	   		{
 	    	   			for(int k = i; k < i + 200; k++)
 						{
-							if(priceHtml.substring(k, k + 1).equals("'"))
+							if(priceHtml.substring(k, k + 2).equals("['"))
 							{
-								startSub = k + 1;
+								startSub = k + 2;
 							}
-							if(priceHtml.substring(k, k + 1).equals("'"))
+							if(priceHtml.substring(k, k + 2).equals("']"))
 							{
-								endSub = k+7;
+								endSub = k;
 								break;
 							}
 						}
@@ -250,7 +254,7 @@ public class Search{
     {
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
-        Document document = Jsoup.connect(url).get();
+        Document document = Jsoup.connect(url).timeout(50000).get();
         
         String html = document.toString();
         
@@ -260,6 +264,57 @@ public class Search{
         
         int startSub = 0;
         int endSub = 0;
+        
+        Elements scriptElements = document.getElementsByTag("script");
+        
+        String price = new String();
+        String salePrice = new String();
+        
+       //Element element = scriptElements.get(98);
+        for (Element element :scriptElements ){ 
+       		for (DataNode node : element.dataNodes()) {
+               //System.out.println(node.getWholeData());
+    	   		String priceHtml = node.getWholeData();
+    	   		for(int i = 0; i < priceHtml.length() - 100; i++)
+    	   		{
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_unit_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 50; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						price = priceHtml.substring(startSub , endSub);
+					}
+	    	   		
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_sale_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 200; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						salePrice = priceHtml.substring(startSub , endSub);
+					}
+    	   		}
+               //System.out.println("-------------------");            
+           	}
+        }
+
         
         //Find where the specs are and retrieve
         for(int i = 0; i < html.length(); i++)
@@ -333,9 +388,25 @@ public class Search{
         	}
         	
         }
+        MotherboardPart mother = new MotherboardPart(brand, model, socketType);
+    	double priceD = Double.parseDouble(price);
+    	double saleD = Double.parseDouble(salePrice);
+    	//double priceD = Double.parseDouble(price);
+    	
+    	if(saleD != priceD)
+    	{
+    		mother.setSale(true);
+    		mother.setSalePercentage((priceD - saleD) / priceD);
+    	}
+    	else
+    	{
+    		mother.setSale(false);
+    		mother.setSalePercentage(0.0);
+    	}
 
+    	mother.setPrice(priceD);
         //return the CPUPART
-    	return new MotherboardPart(brand, model, socketType);
+    	return mother;
     }
     
     public static GpuPart getGpu(String url) throws IOException
@@ -354,6 +425,56 @@ public class Search{
         
         int startSub = 0;
         int endSub = 0;
+        
+        Elements scriptElements = document.getElementsByTag("script");
+        
+        String price = new String();
+        String salePrice = new String();
+        
+       //Element element = scriptElements.get(98);
+        for (Element element :scriptElements ){ 
+       		for (DataNode node : element.dataNodes()) {
+               //System.out.println(node.getWholeData());
+    	   		String priceHtml = node.getWholeData();
+    	   		for(int i = 0; i < priceHtml.length() - 100; i++)
+    	   		{
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_unit_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 50; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						price = priceHtml.substring(startSub , endSub);
+					}
+	    	   		
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_sale_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 200; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						salePrice = priceHtml.substring(startSub , endSub);
+					}
+    	   		}
+               //System.out.println("-------------------");            
+           	}
+        }
         
         //Find where the specs are and retrieve
         for(int i = 0; i < html.length(); i++)
@@ -463,14 +584,32 @@ public class Search{
         }
 
         //return the CPUPART
-    	return new GpuPart(brand, model, slotType, gpuBase, memorySize);
+    	GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize);
+    	double priceD = Double.parseDouble(price);
+    	double saleD = Double.parseDouble(salePrice);
+    	//double priceD = Double.parseDouble(price);
+    	
+    	if(saleD != priceD)
+    	{
+    		gpu.setSale(true);
+    		gpu.setSalePercentage((priceD - saleD) / priceD);
+    	}
+    	else
+    	{
+    		gpu.setSale(false);
+    		gpu.setSalePercentage(0.0);
+    	}
+
+    	gpu.setPrice(priceD);
+    	
+    	return gpu;
     }
     
     public static RamPart getRam(String url) throws IOException
     {
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
-        Document document = Jsoup.connect(url).get();
+        Document document = Jsoup.connect(url).timeout(50000).get();
         
         String html = document.toString();
         
@@ -483,6 +622,56 @@ public class Search{
         
         int startSub = 0;
         int endSub = 0;
+        
+        Elements scriptElements = document.getElementsByTag("script");
+        
+        String price = new String();
+        String salePrice = new String();
+        
+       //Element element = scriptElements.get(98);
+        for (Element element :scriptElements ){ 
+       		for (DataNode node : element.dataNodes()) {
+               //System.out.println(node.getWholeData());
+    	   		String priceHtml = node.getWholeData();
+    	   		for(int i = 0; i < priceHtml.length() - 100; i++)
+    	   		{
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_unit_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 50; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						price = priceHtml.substring(startSub , endSub);
+					}
+	    	   		
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_sale_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 200; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						salePrice = priceHtml.substring(startSub , endSub);
+					}
+    	   		}
+               //System.out.println("-------------------");            
+           	}
+        }
         
         //Find where the specs are and retrieve
         for(int i = 0; i < html.length(); i++)
@@ -609,7 +798,26 @@ public class Search{
         }
 
         //return the CPUPART
-    	return new RamPart(brand, series, model, capacity, type, multichannelType);
+    	RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType);
+    	
+    	double priceD = Double.parseDouble(price);
+    	double saleD = Double.parseDouble(salePrice);
+    	//double priceD = Double.parseDouble(price);
+    	
+    	if(saleD != priceD)
+    	{
+    		ram.setSale(true);
+    		ram.setSalePercentage((priceD - saleD) / priceD);
+    	}
+    	else
+    	{
+    		ram.setSale(false);
+    		ram.setSalePercentage(0.0);
+    	}
+
+    	ram.setPrice(priceD);
+    	
+    	return ram;
     }
 
 }
