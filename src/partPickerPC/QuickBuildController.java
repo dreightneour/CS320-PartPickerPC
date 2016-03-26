@@ -10,7 +10,7 @@ public class QuickBuildController {
 		this.model = model;
 	}
 	
-	public Build giveCheapest()
+	public Build giveCheapest()			// gives the cheapest build from compatible builds
 	{
 		Build cheap = model.getCompatibleBuilds().get(0);
 		Build current;
@@ -28,7 +28,7 @@ public class QuickBuildController {
 		return cheap;
 	}
 	
-	public Build giveExpensive()
+	public Build giveExpensive()  // gives expensive
 	{
 		Build expensive = model.getCompatibleBuilds().get(0);
 		Build current = new Build();
@@ -43,7 +43,7 @@ public class QuickBuildController {
 		return expensive;
 	}
 	
-	public Build giveCompatibleBuild(int counter)
+	public Build giveCompatibleBuild(int counter)  // gives any build that works
 	{
 		if (counter < model.getCompatibleBuilds().size())
 		{

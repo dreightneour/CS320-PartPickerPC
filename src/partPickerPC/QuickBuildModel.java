@@ -11,7 +11,7 @@ public class QuickBuildModel {
 		PartList parts = new PartList();
 		compatibleBuilds = new ArrayList<Build>();
 		actualCompatibleBuilds = new ArrayList<Build>();
-		for (int i = 0; i < parts.getCpus().size(); i++)
+		for (int i = 0; i < parts.getCpus().size(); i++)		// this makes every possible build
 		{
 			for (int j = 0; j < parts.getMotherboards().size(); j++)
 			{
@@ -25,7 +25,7 @@ public class QuickBuildModel {
 			}
 		}
 		Build[] test = new Build[compatibleBuilds.size()];
-		for (int i = 0; i < compatibleBuilds.size(); i++)
+		for (int i = 0; i < compatibleBuilds.size(); i++)			// this removes incompatible builds
 		{
 			
 			test[i] = compatibleBuilds.get(i);

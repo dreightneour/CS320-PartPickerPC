@@ -1,16 +1,18 @@
 package partPickerPC;
 
-public class MotherboardPart extends Part {
+public class MotherboardPart implements PartInterface {
 	int b = 0;
 	private String brand, model, socketType, cpuSeries, chipset,
-	memorySlots, maxMemory, supportedChannel, pciE2x16, pciEx1, pci;
+	memorySlots, maxMemory, supportedChannel, pciE2x16, pciEx1, pci, url;
+	double price;
 	
-	public MotherboardPart(String brand, String model, String socketType)		// brand and model are mandatory
+	public MotherboardPart(String brand, String model, String socketType, String url, double price)		// brand and model are mandatory
 	{
 		this.brand = brand;
 		this.model = model;
 		this.socketType = socketType;
-		setPartType("motherboard");
+		this.url = url;
+		this.price = price;
 	}
 	
 	public String getBrand()
@@ -93,6 +95,22 @@ public class MotherboardPart extends Part {
 
 	public void setPci(String pci) {
 		this.pci = pci;
+	}
+
+	@Override
+	public double getPrice() {
+		return price;
+	}
+
+	@Override
+	public void setPrice(double price) {
+		this.price = price;
+		
+	}
+
+	@Override
+	public String getUrl() {
+		return url;
 	}
 
 

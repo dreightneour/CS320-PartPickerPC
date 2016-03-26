@@ -3,31 +3,34 @@ package partPickerPC;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Build 
 {
 	
-	private ArrayList<Part> theParts;  // holds all the parts
+	private ArrayList<PartInterface> theParts;  // holds all the parts
 	private double price;
 	public Build()
 	{
-		theParts = new ArrayList<Part>();
+		theParts = new ArrayList<>();
 		price = 0;
 	}
 	
-	public Build(CpuPart cpu, MotherboardPart motherboard, GpuPart gpu, RamPart ram)
+	public Build(CpuPart cpu, MotherboardPart motherboard, GpuPart gpu, RamPart ram) // used to make a build
 	{
+		theParts = new ArrayList<PartInterface>();
 		price = 0;
-		theParts = new ArrayList<Part>();
 		addPart(cpu);
 		addPart(motherboard);
 		addPart(gpu);
 		addPart(ram);
+		
 	}
 	
 	
-	public boolean checkCompatible(Part added)				// for minimal this just checks if there's more than
-	{													    // one type of part in a build
+	public boolean checkCompatible(PartInterface added)				// for minimal this just checks if there's more than
+	{													    		// one type of part in a build
+
 		for (int i = 0; i < theParts.size(); i++)
 		{
 			if (theParts.get(i).equals(added))
@@ -41,44 +44,44 @@ public class Build
 		System.err.println("1");
 	}
 	
-	public void addPart(Part addedPart)					// adds part
+	public void addPart(PartInterface addedPart)					// adds part
 	{													// not sure what to do if there's multiple
 		if (checkCompatible(addedPart))
 		{
-			if (addedPart.getPartType().compareTo("motherboard") == 0)
+			if (addedPart instanceof MotherboardPart )
 			{
 				if (theParts.size() == 1)
 				{
 				if (checkSocketType((CpuPart) theParts.get(0), (MotherboardPart) addedPart))
 				{
 					theParts.add(addedPart);
-					price += addedPart.getPrice();
+					price += addedPart.getPrice();			// puts motherboard in the 2nd slot
 				}
 				}
 			}
 			else
 			{
-			if (addedPart.getPartType().compareTo("gpu") == 0)
+			if (addedPart instanceof GpuPart)
 			{
 				if (theParts.size() == 2)
 				{
-					theParts.add(addedPart);
+					theParts.add(addedPart); 				// puts gpu in the 3rd slot
 					price+= addedPart.getPrice();
 				}
 			}
-			else if (addedPart.getPartType().compareTo("ram") == 0)
+			else if (addedPart instanceof RamPart)
 			{
 				if (theParts.size() == 3)
 				{
-					theParts.add(addedPart);
+					theParts.add(addedPart);			// ram in the 4th slot
 					price+= addedPart.getPrice();
 				}
 			}
-			else if (addedPart.getPartType().compareTo("cpu") == 0)
+			else if (addedPart instanceof CpuPart)
 			{
 				if (theParts.size() == 0)
 				{
-					theParts.add(addedPart);
+					theParts.add(addedPart);			// cpu in the 1st slot
 					price+= addedPart.getPrice();
 				}
 			}
@@ -93,14 +96,14 @@ public class Build
 	
 	public boolean checkSocketType(CpuPart cpu, MotherboardPart motherboard)
 	{
-		if (cpu.getSocketType().compareTo(motherboard.getSocketType()) == 0)
+		if (cpu.getSocketType().compareTo(motherboard.getSocketType()) == 0)	// compares cpu and mb sockettype
 		{
 			return true;
 		}
 		return false;
 	}
 	
-	public ArrayList<Part> getTheParts()
+	public ArrayList<PartInterface> getTheParts()
 	{
 		return theParts;
 	}
