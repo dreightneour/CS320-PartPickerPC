@@ -360,11 +360,11 @@ public class Search{
         }
 
         //return the CPUPART
-    	CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores);
+    	
     	double priceD = Double.parseDouble(price);
     	double saleD = Double.parseDouble(salePrice);
     	//double priceD = Double.parseDouble(price);
-    	
+    	/*
     	if(saleD != priceD)
     	{
     		cpu.setSale(true);
@@ -377,7 +377,9 @@ public class Search{
     	}
 
     	cpu.setPrice(priceD);
+    	*/
     	
+    	CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores, url, priceD);
     	return cpu;
     }
     
@@ -519,11 +521,11 @@ public class Search{
         	}
         	
         }
-        MotherboardPart mother = new MotherboardPart(brand, model, socketType);
+        
     	double priceD = Double.parseDouble(price);
     	double saleD = Double.parseDouble(salePrice);
     	//double priceD = Double.parseDouble(price);
-    	
+    	/*
     	if(saleD != priceD)
     	{
     		mother.setSale(true);
@@ -536,6 +538,8 @@ public class Search{
     	}
 
     	mother.setPrice(priceD);
+    	*/
+    	MotherboardPart mother = new MotherboardPart(brand, model, socketType, url, priceD);
         //return the CPUPART
     	return mother;
     }
@@ -715,12 +719,12 @@ public class Search{
         }
 
         //return the CPUPART
-    	GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize);
+    	
     	double priceD = Double.parseDouble(price);
     	double saleD = Double.parseDouble(salePrice);
     	//double priceD = Double.parseDouble(price);
     	
-    	if(saleD != priceD)
+    	/*if(saleD != priceD)
     	{
     		gpu.setSale(true);
     		gpu.setSalePercentage((priceD - saleD) / priceD);
@@ -732,7 +736,8 @@ public class Search{
     	}
 
     	gpu.setPrice(priceD);
-    	
+    	*/
+    	GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize, url, priceD);
     	return gpu;
     }
     
@@ -929,12 +934,12 @@ public class Search{
         }
 
         //return the CPUPART
-    	RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType);
+    	
     	
     	double priceD = Double.parseDouble(price);
     	double saleD = Double.parseDouble(salePrice);
     	//double priceD = Double.parseDouble(price);
-    	
+    	/*
     	if(saleD != priceD)
     	{
     		ram.setSale(true);
@@ -947,7 +952,8 @@ public class Search{
     	}
 
     	ram.setPrice(priceD);
-    	
+    	*/
+    	RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, url, priceD);
     	return ram;
     }
 
