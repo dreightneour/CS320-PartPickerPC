@@ -1,12 +1,13 @@
 package partPickerPC;
 
-public class CpuPart extends Part {
+public class CpuPart implements PartInterface {
 	
 	private String socketType, name, brand, series
-	, frequency, cores;
+	, frequency, cores, url;
+	double price;
 	
 	public CpuPart(String socketType, String name, String brand, String series,					// all the important cpu information
-				   String frequency, String cores)
+				   String frequency, String cores, String url, double price)
 	{
 		this.socketType = socketType;
 		this.name = name;
@@ -14,7 +15,9 @@ public class CpuPart extends Part {
 		this.series = series;
 		this.frequency = frequency;
 		this.cores = cores;
-		setPartType("cpu");
+		this.url = url;
+		this.price = price;
+		//setPartType("cpu");
 	}
 
 	public String getSocketType() {
@@ -40,6 +43,24 @@ public class CpuPart extends Part {
 	public String getCores() {
 		return cores;
 	}
+
+	@Override
+	public double getPrice() {
+		return price;
+	}
+
+	@Override
+	public void setPrice(double price) {
+		this.price = price;
+		
+	}
+
+	@Override
+	public String getUrl() {
+		return url;
+	}
+
+
 
 
 

@@ -1,10 +1,12 @@
 package partPickerPC;
 
-public class RamPart extends Part {
+public class RamPart implements PartInterface {
 	
-	private String brand, series, model, capacity, type, multichannelType;
+	private String brand, series, model, capacity, type, multichannelType, url;
+	private double price;
 	
-	public RamPart(String brand, String series, String model, String capacity, String type, String multichannelType)
+	public RamPart(String brand, String series, String model, String capacity, String type, String multichannelType
+					, String url, double price)
 	{
 		this.brand = brand;
 		this.series = series;
@@ -12,7 +14,8 @@ public class RamPart extends Part {
 		this.capacity = capacity;
 		this.type = type;
 		this.multichannelType = multichannelType;
-		setPartType("ram");
+		this.url = url;
+		this.price = price;
 	}
 
 	public String getBrand() {
@@ -37,6 +40,22 @@ public class RamPart extends Part {
 
 	public String getMultichannelType() {
 		return multichannelType;
+	}
+
+	@Override
+	public double getPrice() {
+		return price;
+	}
+
+	@Override
+	public void setPrice(double price) {
+		this.price = price;
+		
+	}
+
+	@Override
+	public String getUrl() {
+		return url;
 	}
 
 
