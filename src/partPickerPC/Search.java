@@ -379,7 +379,7 @@ public class Search{
     	cpu.setPrice(priceD);
     	*/
     	
-    	CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores, url, saleD);
+    	CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores, url, priceD, saleD);
     	return cpu;
     }
     
@@ -539,7 +539,7 @@ public class Search{
 
     	mother.setPrice(priceD);
     	*/
-    	MotherboardPart mother = new MotherboardPart(brand, model, socketType, url, saleD);
+    	MotherboardPart mother = new MotherboardPart(brand, model, socketType, url, priceD, saleD);
         //return the CPUPART
     	return mother;
     }
@@ -737,7 +737,7 @@ public class Search{
 
     	gpu.setPrice(priceD);
     	*/
-    	GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize, url, saleD);
+    	GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize, url, priceD, saleD);
     	return gpu;
     }
     
@@ -953,7 +953,7 @@ public class Search{
 
     	ram.setPrice(priceD);
     	*/
-    	RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, url, saleD);
+    	RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, url, priceD, saleD);
     	return ram;
     }
 

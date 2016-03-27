@@ -6,7 +6,7 @@ public class RamPart implements PartInterface {
 	private double price;
 	
 	public RamPart(String brand, String series, String model, String capacity, String type, String multichannelType
-					, String url, double price)
+					, String url, double price, double sale)
 	{
 		this.brand = brand;
 		this.series = series;

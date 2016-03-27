@@ -18,7 +18,7 @@ public class SearchTests extends TestCase
 		String socketType = "LGA 1150";
 		String name = "Core i7-4790K";
 		String cores = "Quad-Core";				
-		CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores, "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369", 349.99);
+		CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores, "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369", 349.99, 1);
 		CpuPart cpu1Check = Search.getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369");	
 		
 		assertEquals(cpu.getBrand(), cpu1Check.getBrand());
@@ -39,7 +39,7 @@ public class SearchTests extends TestCase
 		String socketType2 = "LGA 1150";
 		String name2 = "Core i5-4690K";
 		String cores2 = "Quad-Core";				
-		CpuPart cpu2 = new CpuPart(socketType2, name2, brand2, series2, frequency2, cores2, "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117372", 1);
+		CpuPart cpu2 = new CpuPart(socketType2, name2, brand2, series2, frequency2, cores2, "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117372", 1, 1);
 		CpuPart cpu2Check = Search.getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117372");	
 		
 		assertEquals(cpu2.getBrand(), cpu2Check.getBrand());
@@ -59,7 +59,7 @@ public class SearchTests extends TestCase
 		String socketType = "Socket AM3+";
 		String name = "FX-8350 Black Edition";
 		String cores = "8-Core";				
-		CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores, "http://www.newegg.com/Product/Product.aspx?Item=N82E16819113284", 1);
+		CpuPart cpu = new CpuPart(socketType, name, brand, series, frequency, cores, "http://www.newegg.com/Product/Product.aspx?Item=N82E16819113284", 1, 1);
 		CpuPart cpu1Check = Search.getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819113284");	
 		
 		assertEquals(cpu.getBrand(), cpu1Check.getBrand());
@@ -78,7 +78,7 @@ public class SearchTests extends TestCase
 		String model = "CROSSBLADE RANGER";
 		String socketType = "FM2+";
 		
-		MotherboardPart mother = new MotherboardPart(brand, model, socketType, "http://www.newegg.com/Product/Product.aspx?Item=N82E16813132255", 1);
+		MotherboardPart mother = new MotherboardPart(brand, model, socketType, "http://www.newegg.com/Product/Product.aspx?Item=N82E16813132255", 1, 1);
 		MotherboardPart motherCheck = Search.getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813132255");	
 		
 		assertEquals(mother.getBrand(), motherCheck.getBrand());
@@ -94,7 +94,7 @@ public class SearchTests extends TestCase
 		String model = "Z97 GAMING 5";
 		String socketType = "LGA 1150";
 		
-		MotherboardPart mother = new MotherboardPart(brand, model, socketType, "http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770", 1);
+		MotherboardPart mother = new MotherboardPart(brand, model, socketType, "http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770", 1, 1);
 		MotherboardPart motherCheck = Search.getMotherboard("http://www.newegg.com/Product/Product.aspx?Item=N82E16813130770");	
 		
 		assertEquals(mother.getBrand(), motherCheck.getBrand());
@@ -112,7 +112,7 @@ public class SearchTests extends TestCase
 		String slotType = "PCI Express 3.0 x16";
 		String model = "02G-P4-2958-KR";
 			
-		GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize, "http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159", 1);
+		GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize, "http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159", 1, 1);
 		GpuPart gpu1Check = Search.getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814487159");	
 		
 		assertEquals(gpu.getBrand(), gpu1Check.getBrand());
@@ -132,7 +132,7 @@ public class SearchTests extends TestCase
 		String slotType = "PCI Express 3.0";
 		String model = "R9 390X GAMING 8G";
 			
-		GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize, "http://www.newegg.com/Product/Product.aspx?Item=N82E16814127872", 1);
+		GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize, "http://www.newegg.com/Product/Product.aspx?Item=N82E16814127872", 1, 1);
 		GpuPart gpu1Check = Search.getGpu("http://www.newegg.com/Product/Product.aspx?Item=N82E16814127872");	
 		
 		assertEquals(gpu.getBrand(), gpu1Check.getBrand());
@@ -153,7 +153,7 @@ public class SearchTests extends TestCase
 		String model = "CMZ8GX3M2A1600C9";
 		String series = "Vengeance";
 			
-		RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, "http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144", 1);
+		RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, "http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144", 1, 1);
 		RamPart ram1Check = Search.getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820233144");	
 		
 		assertEquals(ram.getBrand(), ram1Check.getBrand());
@@ -175,7 +175,7 @@ public class SearchTests extends TestCase
 		String model = "HX426C15FBK2/16";
 		String series = "FURY";
 			
-		RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, "http://www.newegg.com/Product/Product.aspx?Item=N82E16820104573", 1);
+		RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, "http://www.newegg.com/Product/Product.aspx?Item=N82E16820104573", 1, 1);
 		RamPart ram1Check = Search.getRam("http://www.newegg.com/Product/Product.aspx?Item=N82E16820104573");	
 		
 		assertEquals(ram.getBrand(), ram1Check.getBrand());

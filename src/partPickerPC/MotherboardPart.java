@@ -6,7 +6,7 @@ public class MotherboardPart implements PartInterface {
 	memorySlots, maxMemory, supportedChannel, pciE2x16, pciEx1, pci, url;
 	double price;
 	
-	public MotherboardPart(String brand, String model, String socketType, String url, double price)		// brand and model are mandatory
+	public MotherboardPart(String brand, String model, String socketType, String url, double price, double sale)		// brand and model are mandatory
 	{
 		this.brand = brand;
 		this.model = model;

@@ -7,7 +7,7 @@ public class CpuPart implements PartInterface {
 	double price;
 	
 	public CpuPart(String socketType, String name, String brand, String series,					// all the important cpu information
-				   String frequency, String cores, String url, double price)
+				   String frequency, String cores, String url, double price, double sale)
 	{
 		this.socketType = socketType;
 		this.name = name;
