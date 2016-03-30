@@ -802,7 +802,7 @@ public class Search{
     {
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
-        Document document = Jsoup.connect(url).get();
+        Document document = Jsoup.connect(url).timeout(50000).get();
         
         String html = document.toString();
         
