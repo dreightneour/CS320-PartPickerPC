@@ -40,6 +40,8 @@ public class IndexServlet extends HttpServlet {
 		
 			String username = req.getParameter("username");
 			String password = req.getParameter("password");
+			String regusername = req.getParameter("registerusername");
+			String regpassword = req.getParameter("registerpassword");
 			if (req.getParameter("login") != null)
 			{
 			if (username == null || password == null || username == "" || password == "") {
@@ -99,9 +101,19 @@ public class IndexServlet extends HttpServlet {
 		
 		
 			}
-			else if  (req.getParameter("test") != null)
+			
+			else if  (req.getParameter("registerlogin") != null)
 			{
-				req.setAttribute("userVerify", "YOO DIFFERENT METHOD");
+				if (regusername == null || regpassword == null || regusername == "" || regpassword == "")
+				{
+					result = "please enter a username or password";
+					req.setAttribute("userVerify", result);
+				}
+				else
+				{
+					req.getSession().setAttribute("theUser", regusername);
+					resp.sendRedirect("/ppc/homepage");
+				}
 			}
 			
 		
