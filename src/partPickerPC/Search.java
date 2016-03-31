@@ -14,9 +14,9 @@ import org.jsoup.select.Elements;
 public class Search{
 
 	private static ArrayList<CpuPart> cpuList = new ArrayList<CpuPart>();
-	private ArrayList<MotherboardPart> motherList = new ArrayList<MotherboardPart>();
-	private ArrayList<GpuPart> gpuList = new ArrayList<GpuPart>();
-	private ArrayList<RamPart> ramList = new ArrayList<RamPart>();
+	private static ArrayList<MotherboardPart> motherList = new ArrayList<MotherboardPart>();
+	private static ArrayList<GpuPart> gpuList = new ArrayList<GpuPart>();
+	private static ArrayList<RamPart> ramList = new ArrayList<RamPart>();
 	
 	
     public static void main(String[] args) throws Exception {
@@ -25,6 +25,14 @@ public class Search{
     	
     	
     	cpuList = getArrayCpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007671%208000%204814&IsNodeId=1&page=1&bop=And&Pagesize=90");
+    	motherList = getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007625%204814&IsNodeId=1&bop=And&Pagesize=30&Page=1");
+    	ArrayList<MotherboardPart> mother2 = getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007627%204814%208000&IsNodeId=1&bop=And&page=1");
+    	for(int i = 0; i < mother2.size(); i++)
+    	{
+    		motherList.add(mother2.get(i));
+    	}
+    	gpuList = getArrayGpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007709+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&Page=1");    	
+    	ramList = getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1");
     	
     	/*CpuPart cpu;// = getCPU();
     	cpu = getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369");
@@ -72,25 +80,6 @@ public class Search{
 		   		for(int i = 0; i < priceHtml.length() - 100; i++)
 		   		{
 		   			startSub = 0;
-	    	   		/*if(priceHtml.substring(i, i + 22).equals("call-to-action-details"))// && found == false)
-	    	   		{
-	    	   			for(int k = i; k < i + 200; k++)
-						{
-							if(priceHtml.substring(k, k + 1).equals("=") && startSub == 0)
-							{
-								startSub = k + 2;
-							}
-							if(priceHtml.substring(k, k + 1).equals(">"))
-							{
-								endSub = k - 1;
-								break;
-							}
-						}
-						urlList = priceHtml.substring(startSub , endSub);
-						cpuList.add(getCPU(urlList));
-						//found = true;
-					}
-	    	   		*/
 	    	   		if(priceHtml.substring(i, i + 9).equals("itemImage"))// && found == false)
 	    	   		{
 	    	   			for(int k = i; k < i + 500; k++)
@@ -245,7 +234,16 @@ public class Search{
             } 
         	if(html.substring(i, i+5).equals("Specs"))
         	{
-        		String id = html.substring(i - 4, i-2);
+        		String id;
+        		if(i > 5)
+        		{
+        			id = html.substring(i - 4, i-2);
+        		}
+        		else
+        		{
+        			id = "id";
+        		}
+        		
         		if(id.equals("id"))
         		{
         			for(int j = i; j < i + 5000; j++)
@@ -383,6 +381,129 @@ public class Search{
     	return cpu;
     }
     
+    public static ArrayList<MotherboardPart> getArrayMotherboard(String url) throws IOException
+    {
+     	boolean next = true;
+    	ArrayList<MotherboardPart> motherList = new ArrayList<MotherboardPart>();
+    	while(next == true)
+    	{
+    		next = false;
+	        Document document = Jsoup.connect(url).timeout(50000).get();
+	        
+	        String html = document.toString();
+	    	
+	        int startSub = 0;
+	        int endSub = 0;      
+	        
+	        Elements scriptElements = document.getElementsByTag("a");
+	        
+	        String urlList = new String();
+	        
+	       //Element element = scriptElements.get(98);
+	        for (Element element :scriptElements )
+	        { 
+	       		//for (DataNode node : element.dataNodes()) {
+	               //System.out.println(node.getWholeData());
+		   		String priceHtml = element.outerHtml();
+		   		//boolean found = false;
+		   		for(int i = 0; i < priceHtml.length() - 100; i++)
+		   		{
+		   			startSub = 0;
+	    	   		if(priceHtml.substring(i, i + 9).equals("itemImage"))// && found == false)
+	    	   		{
+	    	   			for(int k = i; k < i + 500; k++)
+						{
+							if(priceHtml.substring(k, k + 5).equals("href=") && startSub == 0)
+							{
+								startSub = k + 6;
+							}
+							if(priceHtml.substring(k, k + 1).equals(">"))
+							{
+								endSub = k - 1;
+								break;
+							}
+						}
+						urlList = priceHtml.substring(startSub , endSub);
+						motherList.add(getMotherboard(urlList));
+						//found = true;
+					}
+					
+	               //System.out.println("-------------------");            
+	           	}
+	    	   	
+	        }
+	        
+	        scriptElements = document.getElementsByTag("script");
+	        
+	        urlList = new String();
+	        String page = new String();
+	        String endPage = new String();
+        	for (Element element :scriptElements ){ 
+           		for (DataNode node : element.dataNodes()) {
+                   //System.out.println(node.getWholeData());
+        	   		String priceHtml = node.getWholeData();
+        	   		for(int i = 0; i < priceHtml.length() - 20; i++)
+        	   		{
+    	    	   		if(priceHtml.substring(i, i + 8).equals("pageIdex"))
+    	    	   		{
+    	    	   			for(int k = i; k < i + 50; k++)
+    						{
+    							if(priceHtml.substring(k, k + 1).equals(":"))
+    							{
+    								startSub = k + 1;
+    							}
+    							if(priceHtml.substring(k, k + 1).equals(","))
+    							{
+    								endSub = k;
+    								break;
+    							}
+    						}
+    						page = priceHtml.substring(startSub , endSub);
+    					}
+    	    	   		
+    	    	   		if(priceHtml.substring(i, i + 9).equals("pageCount") && endPage.equals(""))
+    	    	   		{
+    	    	   			for(int k = i; k < priceHtml.length() - 2; k++)
+    						{
+    	    	   				endSub = priceHtml.length();
+    							if(priceHtml.substring(k, k + 1).equals(":"))
+    							{
+    								startSub = k + 1;
+    							}
+    							if(priceHtml.substring(k, k + 1).equals(","))
+    							{
+    								endSub = k;
+    								break;
+    							}
+    						}
+    						endPage = priceHtml.substring(startSub , endSub);
+    					}
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals(""))
+    	    	   		{
+    	    	   			next = true;
+    	    	   			break;
+    	    	   		}
+    	    	   		
+        	   		}
+                   //System.out.println("-------------------");            
+               	}
+		   		if(next == true)
+		   		{
+		   			int pageNum = Integer.parseInt(url.substring(url.length() - 1, url.length()));
+		   			pageNum++;
+		   			String pageNumS = Integer.toString(pageNum);
+		   			url = url.substring(0, url.length() - 1) + pageNumS;
+		   			break;
+		   		}
+	    	   	
+	        }
+	        
+	        
+    	}
+    	//cpuList = cpuList;
+    	return motherList;
+    }
+    
     public static MotherboardPart getMotherboard(String url) throws IOException
     {
     	//open the webpage
@@ -459,7 +580,16 @@ public class Search{
             } 
         	if(html.substring(i, i+5).equals("Specs"))
         	{
-        		String id = html.substring(i - 4, i-2);
+        		String id;
+        		if(i > 4)
+        		{
+        			id = html.substring(i - 4, i-2);
+        		}
+        		else
+        		{
+        			id = "id";
+        		}
+        		
         		if(id.equals("id"))
         		{
         			for(int j = i; j < i + 5000; j++)
@@ -483,7 +613,7 @@ public class Search{
         				
         				if(html.substring(j, j + 5).equals("Model"))
         				{
-        					for(int k = j; k < j + 200; k++)
+        					for(int k = j; k < j + 500; k++)
         					{
         						if(html.substring(k, k + 4).equals("<dd>"))
         						{
@@ -544,11 +674,135 @@ public class Search{
     	return mother;
     }
     
+    public static ArrayList<GpuPart> getArrayGpu(String url) throws IOException
+    {
+     	boolean next = true;
+    	ArrayList<GpuPart> gpuList = new ArrayList<GpuPart>();
+    	while(next == true)
+    	{
+    		next = false;
+	        Document document = Jsoup.connect(url).timeout(50000).get();
+	        
+	        String html = document.toString();
+	    	
+	        int startSub = 0;
+	        int endSub = 0;      
+	        
+	        Elements scriptElements = document.getElementsByTag("a");
+	        
+	        String urlList = new String();
+	        
+	       //Element element = scriptElements.get(98);
+	        for (Element element :scriptElements )
+	        { 
+	       		//for (DataNode node : element.dataNodes()) {
+	               //System.out.println(node.getWholeData());
+		   		String priceHtml = element.outerHtml();
+		   		//boolean found = false;
+		   		for(int i = 0; i < priceHtml.length() - 100; i++)
+		   		{
+		   			startSub = 0;
+	    	   		if(priceHtml.substring(i, i + 9).equals("itemImage"))// && found == false)
+	    	   		{
+	    	   			for(int k = i; k < i + 500; k++)
+						{
+							if(priceHtml.substring(k, k + 5).equals("href=") && startSub == 0)
+							{
+								startSub = k + 6;
+							}
+							if(priceHtml.substring(k, k + 1).equals(">"))
+							{
+								endSub = k - 1;
+								break;
+							}
+						}
+						urlList = priceHtml.substring(startSub , endSub);
+						gpuList.add(getGpu(urlList));
+						//found = true;
+					}
+					
+	               //System.out.println("-------------------");            
+	           	}
+	    	   	
+	        }
+	        
+	        scriptElements = document.getElementsByTag("script");
+	        
+	        urlList = new String();
+	        String page = new String();
+	        String endPage = new String();
+        	for (Element element :scriptElements ){ 
+           		for (DataNode node : element.dataNodes()) {
+                   //System.out.println(node.getWholeData());
+        	   		String priceHtml = node.getWholeData();
+        	   		for(int i = 0; i < priceHtml.length() - 20; i++)
+        	   		{
+    	    	   		if(priceHtml.substring(i, i + 8).equals("pageIdex"))
+    	    	   		{
+    	    	   			for(int k = i; k < i + 50; k++)
+    						{
+    							if(priceHtml.substring(k, k + 1).equals(":"))
+    							{
+    								startSub = k + 1;
+    							}
+    							if(priceHtml.substring(k, k + 1).equals(","))
+    							{
+    								endSub = k;
+    								break;
+    							}
+    						}
+    						page = priceHtml.substring(startSub , endSub);
+    					}
+    	    	   		
+    	    	   		if(priceHtml.substring(i, i + 9).equals("pageCount") && endPage.equals(""))
+    	    	   		{
+    	    	   			for(int k = i; k < priceHtml.length() - 2; k++)
+    						{
+    	    	   				endSub = priceHtml.length();
+    							if(priceHtml.substring(k, k + 1).equals(":"))
+    							{
+    								startSub = k + 1;
+    							}
+    							if(priceHtml.substring(k, k + 1).equals(","))
+    							{
+    								endSub = k;
+    								break;
+    							}
+    						}
+    						endPage = priceHtml.substring(startSub , endSub);
+    					}
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals(""))
+    	    	   		{
+    	    	   			next = true;
+    	    	   			break;
+    	    	   		}
+    	    	   		
+        	   		}
+                   //System.out.println("-------------------");            
+               	}
+		   		if(next == true)
+		   		{
+		   			int pageNum = Integer.parseInt(url.substring(url.length() - 1, url.length()));
+		   			pageNum++;
+		   			String pageNumS = Integer.toString(pageNum);
+		   			url = url.substring(0, url.length() - 1) + pageNumS;
+		   			break;
+		   		}
+	    	   	
+	        }
+	        
+	        
+    	}
+    	//cpuList = cpuList;
+    	return gpuList;
+    }
+   
+    
     public static GpuPart getGpu(String url) throws IOException
     {
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
-        Document document = Jsoup.connect(url).get();
+        Document document = Jsoup.connect(url).timeout(50000).get();
         
         String html = document.toString();
         
@@ -645,7 +899,7 @@ public class Search{
         				
         				if(html.substring(j, j + 5).equals("Model"))
         				{
-        					for(int k = j; k < j + 200; k++)
+        					for(int k = j; k < j + 500; k++)
         					{
         						if(html.substring(k, k + 4).equals("<dd>"))
         						{
@@ -718,10 +972,15 @@ public class Search{
         	
         }
 
+        double priceD = 0.0;
+        double saleD = 0.0;
         //return the CPUPART
-    	
-    	double priceD = Double.parseDouble(price);
-    	double saleD = Double.parseDouble(salePrice);
+    	if(!price.equals("MAP"))
+    	{
+    		priceD = Double.parseDouble(price);
+    		saleD = Double.parseDouble(salePrice);
+    	}
+
     	//double priceD = Double.parseDouble(price);
     	
     	/*if(saleD != priceD)
@@ -740,6 +999,130 @@ public class Search{
     	GpuPart gpu = new GpuPart(brand, model, slotType, gpuBase, memorySize, url, priceD, saleD);
     	return gpu;
     }
+    
+    public static ArrayList<RamPart> getArrayRam(String url) throws IOException
+    {
+     	boolean next = true;
+    	ArrayList<RamPart> ramList = new ArrayList<RamPart>();
+    	while(next == true)
+    	{
+    		next = false;
+	        Document document = Jsoup.connect(url).timeout(50000).get();
+	        
+	        String html = document.toString();
+	    	
+	        int startSub = 0;
+	        int endSub = 0;      
+	        
+	        Elements scriptElements = document.getElementsByTag("a");
+	        
+	        String urlList = new String();
+	        
+	       //Element element = scriptElements.get(98);
+	        for (Element element :scriptElements )
+	        { 
+	       		//for (DataNode node : element.dataNodes()) {
+	               //System.out.println(node.getWholeData());
+		   		String priceHtml = element.outerHtml();
+		   		//boolean found = false;
+		   		for(int i = 0; i < priceHtml.length() - 100; i++)
+		   		{
+		   			startSub = 0;
+	    	   		if(priceHtml.substring(i, i + 9).equals("itemImage"))// && found == false)
+	    	   		{
+	    	   			for(int k = i; k < i + 500; k++)
+						{
+							if(priceHtml.substring(k, k + 5).equals("href=") && startSub == 0)
+							{
+								startSub = k + 6;
+							}
+							if(priceHtml.substring(k, k + 1).equals(">"))
+							{
+								endSub = k - 1;
+								break;
+							}
+						}
+						urlList = priceHtml.substring(startSub , endSub);
+						ramList.add(getRam(urlList));
+						//found = true;
+					}
+					
+	               //System.out.println("-------------------");            
+	           	}
+	    	   	
+	        }
+	        
+	        scriptElements = document.getElementsByTag("script");
+	        
+	        urlList = new String();
+	        String page = new String();
+	        String endPage = new String();
+        	for (Element element :scriptElements ){ 
+           		for (DataNode node : element.dataNodes()) {
+                   //System.out.println(node.getWholeData());
+        	   		String priceHtml = node.getWholeData();
+        	   		for(int i = 0; i < priceHtml.length() - 20; i++)
+        	   		{
+    	    	   		if(priceHtml.substring(i, i + 8).equals("pageIdex"))
+    	    	   		{
+    	    	   			for(int k = i; k < i + 50; k++)
+    						{
+    							if(priceHtml.substring(k, k + 1).equals(":"))
+    							{
+    								startSub = k + 1;
+    							}
+    							if(priceHtml.substring(k, k + 1).equals(","))
+    							{
+    								endSub = k;
+    								break;
+    							}
+    						}
+    						page = priceHtml.substring(startSub , endSub);
+    					}
+    	    	   		
+    	    	   		if(priceHtml.substring(i, i + 9).equals("pageCount") && endPage.equals(""))
+    	    	   		{
+    	    	   			for(int k = i; k < priceHtml.length() - 2; k++)
+    						{
+    	    	   				endSub = priceHtml.length();
+    							if(priceHtml.substring(k, k + 1).equals(":"))
+    							{
+    								startSub = k + 1;
+    							}
+    							if(priceHtml.substring(k, k + 1).equals(","))
+    							{
+    								endSub = k;
+    								break;
+    							}
+    						}
+    						endPage = priceHtml.substring(startSub , endSub);
+    					}
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals(""))
+    	    	   		{
+    	    	   			next = true;
+    	    	   			break;
+    	    	   		}
+    	    	   		
+        	   		}
+                   //System.out.println("-------------------");            
+               	}
+		   		if(next == true)
+		   		{
+		   			int pageNum = Integer.parseInt(url.substring(url.length() - 1, url.length()));
+		   			pageNum++;
+		   			String pageNumS = Integer.toString(pageNum);
+		   			url = url.substring(0, url.length() - 1) + pageNumS;
+		   			break;
+		   		}
+	    	   	
+	        }
+	        
+	        
+    	}
+    	//cpuList = cpuList;
+    	return ramList;
+    }
+   
     
     public static RamPart getRam(String url) throws IOException
     {
