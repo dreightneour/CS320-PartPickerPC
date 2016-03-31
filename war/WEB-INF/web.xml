@@ -14,10 +14,15 @@
     <servlet-name>HomepageServlet</servlet-name>
     <servlet-class>servlet.HomepageServlet</servlet-class>
   </servlet>
-     <servlet>
+  <servlet>
     <servlet-name>QuickBuildServlet</servlet-name>
     <servlet-class>servlet.QuickBuildServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AllPartsServlet</servlet-name>
+    <servlet-class>servlet.AllPartsServlet</servlet-class>
+  </servlet>
+  
  
   
 
@@ -34,6 +39,10 @@
       <servlet-mapping>
     <servlet-name>QuickBuildServlet</servlet-name>
     <url-pattern>/quickbuild</url-pattern>
+  </servlet-mapping>
+        <servlet-mapping>
+    <servlet-name>AllPartsServlet</servlet-name>
+    <url-pattern>/allparts</url-pattern>
   </servlet-mapping>
 
 </web-app>

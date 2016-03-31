@@ -1,11 +1,14 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jetty.server.HttpConnection.Output;
 
 import partPickerPC.Build;
 import partPickerPC.CpuPart;
@@ -24,22 +27,16 @@ public class AllPartsServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		username = (String) req.getSession().getAttribute("theUser");
-		username = username.toUpperCase();
-		req.setAttribute("username", username);
+		//username = (String) req.getSession().getAttribute("theUser");
+		//username = username.toUpperCase();
+		//req.setAttribute("username", username);
 		
 		PartList parts = new PartList();
-		for (int i = 0; i < parts.getCpus().size(); i++)
-		{
-			// set cpu stuff
-			req.setAttribute("cpuModel" + i, parts.getCpus().get(i).getName());
-			req.setAttribute("cpuPrice" + i, parts.getCpus().get(i).getPrice());
-			req.setAttribute("cpuBrand" + i, parts.getCpus().get(i).getBrand());
-			req.setAttribute("cpuSeries" + i, parts.getCpus().get(i).getSeries());
-			req.setAttribute("cpuSocket" + i, parts.getCpus().get(i).getSocketType());
-			req.setAttribute("cpuFrequency" + i, parts.getCpus().get(i).getFrequency());
-			req.setAttribute("cpuCores" + i, parts.getCpus().get(i).getCores());
-		}
+		req.setAttribute("cpus", parts.getCpus());
+		req.setAttribute("motherboards", parts.getMotherboards());
+		req.setAttribute("gpus", parts.getGpus());
+		req.setAttribute("rams", parts.getRams());
+
 		req.getRequestDispatcher("/_view/allparts.jsp").forward(req, resp);
 	}
 	

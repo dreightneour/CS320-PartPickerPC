@@ -15,9 +15,19 @@ public class HomepageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		 username = (String) req.getSession().getAttribute("theUser");
-		 username = username.toUpperCase();
-		 req.setAttribute("username", username);
+		if (req.getSession().getAttribute("theUser") != null)
+		{
+			username = (String) req.getSession().getAttribute("theUser");
+			username = username.toUpperCase();
+			req.setAttribute("username", username);
+		}
+		else
+		{
+			req.getSession().setAttribute("theUser", "guest");
+			username = (String) req.getSession().getAttribute("theUser");
+			username = username.toUpperCase();
+			req.setAttribute("username", username);
+		}
 		
 		req.getRequestDispatcher("/_view/homepage.jsp").forward(req, resp);
 	}
@@ -26,8 +36,14 @@ public class HomepageServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+		if (req.getParameter("quickbuild") != null)
+		{
 		resp.sendRedirect("/ppc/quickbuild");
+		}
+		else if (req.getParameter("allparts") != null)
+		{
+		resp.sendRedirect("/ppc/allparts");
+		}
 		
 
 			

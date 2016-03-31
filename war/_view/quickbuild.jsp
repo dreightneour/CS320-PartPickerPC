@@ -35,7 +35,7 @@ Your Quick Build is...
 <th>Cores</th>
 </tr>
 <tr>
-<td>${cpuModel}</td>
+<td><a href="${cpuLink}" target="_blank">${cpuModel}</a></td>
 <td>${cpuPrice}</td>
 <td>${cpuBrand}</td>
 <td>${cpuSeries}</td>
@@ -53,7 +53,7 @@ Your Quick Build is...
 <th>Socket Type</th>
 </tr>
 <tr>
-<td>${motherboardModel}</td>
+<td><a href="${motherboardLink}" target="_blank">${motherboardModel}</a></td>
 <td>${motherboardPrice}</td>
 <td>${motherboardBrand}</td>
 <td>${motherboardSocket}</td>
@@ -70,7 +70,7 @@ Your Quick Build is...
 <th>Memory Size(GB)</th>
 </tr>
 <tr>
-<td>${gpuModel}</td>
+<td><a href="${gpuLink}" target="_blank">${gpuModel}</a></td>
 <td>${gpuPrice}</td>
 <td>${gpuBrand}</td>
 <td>${gpuSeries}</td>
@@ -90,7 +90,7 @@ Your Quick Build is...
 <th>Multi-Channel Type</th>
 </tr>
 <tr>
-<td>${ramModel}</td>
+<td><a href="${ramLink}" target="_blank">${ramModel}</a></td>
 <td>${ramPrice}</td>
 <td>${ramBrand}</td>
 <td>${ramSeries}</td>
