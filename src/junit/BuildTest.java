@@ -16,27 +16,11 @@ public class BuildTest extends TestCase {
 		int counter = 0;
 		 ArrayList<Build> theBuilds = new ArrayList<Build>();
 		 PartList parts = new PartList();
-		 for (int i = 0; i < parts.getCpus().size(); i++)
-		 {
-			 for (int j = 0; j < parts.getMotherboards().size(); j++)
-			 {
-				 for (int f = 0; f < parts.getGpus().size(); f++)
-				 {
-					for (int b = 0; b < parts.getRams().size(); b++)
-					{
-						theBuilds.add(new Build(parts.getCpus().get(i), parts.getMotherboards().get(j), parts.getGpus().get(f), parts.getRams().get(b)));
-						counter++;
-					}
-				 }
-			 }
-		 }
-	for (int i = 0; i < theBuilds.size(); i++)
-	{
-		if (theBuilds.get(i).getTheParts().size() == 5)
-		{
-			System.out.println("" + theBuilds.get(i).getTheParts().size());
-		}
-	}
+		 Build testing = new Build();
+		 testing.addPart(parts.getCpus().get(0));
+		 assertEquals(1, testing.getTheParts().size());
+		 
+		 
 	}
 	
 	public void testCompatible() throws Exception
