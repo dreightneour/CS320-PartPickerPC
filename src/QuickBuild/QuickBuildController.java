@@ -1,4 +1,6 @@
-package partPickerPC;
+package QuickBuild;
+
+import partPickerPC.Build;
 
 public class QuickBuildController {
 
@@ -16,13 +18,11 @@ public class QuickBuildController {
 		Build current;
 		for (int i = 1; i < model.getCompatibleBuilds().size(); i++)
 		{
-			if (model.getCompatibleBuilds().get(i).getTheParts().size() == 4)
-			{
+
 			current = model.getCompatibleBuilds().get(i);
 			if (current.getPrice() < cheap.getPrice())
 			{
 				cheap = current;
-			}
 			}
 		}
 		return cheap;

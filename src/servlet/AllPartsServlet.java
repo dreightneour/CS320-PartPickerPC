@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.HttpConnection.Output;
 
+import Parts.CpuPart;
+import Parts.GpuPart;
+import Parts.MotherboardPart;
+import Parts.PartList;
+import Parts.RamPart;
+import QuickBuild.QuickBuildController;
+import QuickBuild.QuickBuildModel;
 import partPickerPC.Build;
-import partPickerPC.CpuPart;
-import partPickerPC.GpuPart;
-import partPickerPC.MotherboardPart;
-import partPickerPC.PartList;
-import partPickerPC.QuickBuildController;
-import partPickerPC.QuickBuildModel;
-import partPickerPC.RamPart;
 
 public class AllPartsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

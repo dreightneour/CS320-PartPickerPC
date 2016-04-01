@@ -1,6 +1,8 @@
-package partPickerPC;
+package Parts;
 
-public class Storage {
+import partPickerPC.PartInterface;
+
+public class StoragePart implements PartInterface {
 	private String capacity;
 	private String storageType;
 	private String dataSpeed;
@@ -10,7 +12,7 @@ public class Storage {
 	private double price;
 	private double sale;
 	
-	public Storage(String capacity, String storageType, String dataSpeed, String url, String brand, String model, double price, double sale){
+	public StoragePart(String capacity, String storageType, String dataSpeed, String url, String brand, String model, double price, double sale){
 		this.capacity = capacity;
 		this.storageType = storageType;
 		this.dataSpeed = dataSpeed;

@@ -1,10 +1,10 @@
 package junit;
 
+import Parts.CpuPart;
+import Parts.GpuPart;
+import Parts.MotherboardPart;
+import Parts.RamPart;
 import junit.framework.TestCase;
-import partPickerPC.CpuPart;
-import partPickerPC.RamPart;
-import partPickerPC.GpuPart;
-import partPickerPC.MotherboardPart;
 import partPickerPC.Search;
 
 public class SearchTests extends TestCase

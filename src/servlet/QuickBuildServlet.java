@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Parts.CpuPart;
+import Parts.GpuPart;
+import Parts.MotherboardPart;
+import Parts.RamPart;
+import QuickBuild.QuickBuildController;
+import QuickBuild.QuickBuildModel;
 import partPickerPC.Build;
-import partPickerPC.CpuPart;
-import partPickerPC.GpuPart;
-import partPickerPC.MotherboardPart;
-import partPickerPC.QuickBuildController;
-import partPickerPC.QuickBuildModel;
-import partPickerPC.RamPart;
 
 public class QuickBuildServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -65,14 +65,19 @@ public class QuickBuildServlet extends HttpServlet {
 			}
 			else if  (req.getParameter("anotherbuild") != null)
 			{
+			try {
 			 theBuild = controller.giveCompatibleBuild(counter);
-			counter++;
+			 counter++;
+			} catch (NullPointerException exception)
+			{
+				counter = 0;
+			}
 			}
 			price = theBuild.getPrice();
-			CpuPart cpu = (CpuPart) theBuild.getTheParts().get(0);
-			MotherboardPart motherboard = (MotherboardPart) theBuild.getTheParts().get(1);
-			GpuPart gpu = (GpuPart) theBuild.getTheParts().get(2);
-			RamPart ram = (RamPart) theBuild.getTheParts().get(3);
+			CpuPart cpu =  theBuild.getCpu();
+			MotherboardPart motherboard = theBuild.getMb();
+			GpuPart gpu =  theBuild.getGpu();
+			RamPart ram = theBuild.getRam();
 			// set cpu stuff
 			req.setAttribute("cpuLink", cpu.getUrl());
 			req.setAttribute("cpuModel", cpu.getName());

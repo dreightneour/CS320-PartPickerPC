@@ -1,7 +1,7 @@
 package junit;
 
+import Parts.CpuPart;
 import junit.framework.TestCase;
-import partPickerPC.CpuPart;
 
 public class CpuPartTest extends TestCase {
 	CpuPart c;

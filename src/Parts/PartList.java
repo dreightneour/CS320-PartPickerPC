@@ -1,4 +1,4 @@
-package partPickerPC;
+package Parts;
 
 import java.util.ArrayList;
 

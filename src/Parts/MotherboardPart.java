@@ -1,4 +1,6 @@
-package partPickerPC;
+package Parts;
+
+import partPickerPC.PartInterface;
 
 public class MotherboardPart implements PartInterface {
 	int b = 0;

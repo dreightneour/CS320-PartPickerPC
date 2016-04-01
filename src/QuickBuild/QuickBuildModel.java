@@ -1,6 +1,9 @@
-package partPickerPC;
+package QuickBuild;
 
 import java.util.ArrayList;
+
+import Parts.PartList;
+import partPickerPC.Build;
 
 public class QuickBuildModel {
 	private PartList parts;
@@ -29,7 +32,7 @@ public class QuickBuildModel {
 		{
 			
 			test[i] = compatibleBuilds.get(i);
-			if (test[i].getTheParts().size() != 4)
+			if (!test[i].isThisCompatible())
 			{
 				test[i] = null;
 			}

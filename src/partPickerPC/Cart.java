@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class Cart {
 	
 	//list for a user's cart
-	private ArrayList<Part> cart = new ArrayList<Part>();
 	
 	//add a part to the cart
 	public void addPart(Part part){

@@ -11,6 +11,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 
+import Parts.CpuPart;
+import Parts.GpuPart;
+import Parts.MotherboardPart;
+import Parts.RamPart;
+
 public class Search{
 
 	private static ArrayList<CpuPart> cpuList = new ArrayList<CpuPart>();

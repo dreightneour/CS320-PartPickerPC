@@ -2,35 +2,76 @@ package junit;
 
 import java.util.ArrayList;
 
+import Parts.CpuPart;
+import Parts.MotherboardPart;
+import Parts.PartList;
 import junit.framework.TestCase;
 import partPickerPC.Build;
-import partPickerPC.CpuPart;
-import partPickerPC.MotherboardPart;
-import partPickerPC.PartList;
 
 public class BuildTest extends TestCase {
 	
-	
-	public void testBuildAdd() throws Exception
+	private PartList thing = new PartList();
+	public void testBuildAdd1() throws Exception
 	{
-		int counter = 0;
-		 ArrayList<Build> theBuilds = new ArrayList<Build>();
-		 PartList parts = new PartList();
-		 Build testing = new Build();
-		 testing.addPart(parts.getCpus().get(0));
-		 assertEquals(1, testing.getTheParts().size());
-		 
+		Build build = new Build();
+		build.addPart(thing.getCpus().get(0));
+		build.addPart(thing.getRams().get(0));
+		
+		assertEquals(thing.getCpus().get(0), build.getCpu());
+		assertEquals(thing.getRams().get(0), build.getRam());
 		 
 	}
 	
-	public void testCompatible() throws Exception
+	public void testBuildAdd2() throws Exception
 	{
-		PartList thing = new PartList();
+		
+		Build build = new Build(null, null, null, thing.getRams().get(0));
+		assertEquals(thing.getRams().get(0), build.getRam());
+		assertEquals(null, build.getCpu());
+		
+	}
+	
+	public void testBuildAdd3() throws Exception
+	{
+		Build build = new Build(new CpuPart("socket", null, null, null, null, null, null, 0, 0), null, thing.getGpus().get(0), thing.getRams().get(0));
+		assertFalse(build.isThisCompatible());
+		MotherboardPart mb = new MotherboardPart(null, null, "socket", null, 0, 0);
+		build.addPart(mb);
+		assertTrue(build.isThisCompatible());
+	}
+	
+	public void testCheckCompatible1() throws Exception
+	{
+		
 		CpuPart a = thing.getCpus().get(0);
 		CpuPart b = thing.getCpus().get(1);
 		Build stuff = new Build();
 		stuff.addPart(a);
-		stuff.addPart(b);
-		assertEquals(1, stuff.getTheParts().size());
+		assertFalse(stuff.checkCompatible(b));
+	}
+	public void testCheckCompatible2() throws Exception
+	{
+		
+		CpuPart a = thing.getCpus().get(0);
+		Build stuff = new Build();
+		assertTrue(stuff.checkCompatible(a));
+	}
+	
+	public void testRemovePart() throws Exception
+	{
+		Build build = new Build(thing.getCpus().get(0), null, thing.getGpus().get(0), thing.getRams().get(0));
+		build.removePart("cpu");
+		assertEquals(null, build.getCpu());
+		assertEquals(thing.getGpus().get(0), build.getGpu());
+		build.removePart("gpu");
+		assertEquals(null, build.getGpu());
+	}
+	
+	public void testIsThisCompatible() throws Exception
+	{
+		Build build = new Build();
+		Build buildfull = new Build(new CpuPart("socket", null, null, null, null, null, null, 0, 0), new MotherboardPart(null, null, "socket", null, 0, 0), thing.getGpus().get(0), thing.getRams().get(0));
+		assertTrue(buildfull.isThisCompatible());
+		assertFalse(build.isThisCompatible());
 	}
 }

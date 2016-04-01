@@ -1,7 +1,7 @@
 package junit;
 
+import Parts.GpuPart;
 import junit.framework.TestCase;
-import partPickerPC.GpuPart;
 
 public class GpuPartTest extends TestCase {
 	

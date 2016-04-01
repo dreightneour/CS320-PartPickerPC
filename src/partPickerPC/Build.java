@@ -5,21 +5,27 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Parts.CpuPart;
+import Parts.GpuPart;
+import Parts.MotherboardPart;
+import Parts.RamPart;
+
 public class Build 
 {
-	
-	private ArrayList<PartInterface> theParts;  // holds all the parts
+	private CpuPart cpu;
+	private MotherboardPart mb;
+	private GpuPart gpu;
+	private RamPart ram;
 	private double price;
 	public Build()
 	{
-		theParts = new ArrayList<>();
 		price = 0;
 	}
 	
 	public Build(CpuPart cpu, MotherboardPart motherboard, GpuPart gpu, RamPart ram) // used to make a build
 	{
-		theParts = new ArrayList<PartInterface>();
 		price = 0;
+
 		addPart(cpu);
 		addPart(motherboard);
 		addPart(gpu);
@@ -28,70 +34,103 @@ public class Build
 	}
 	
 	
+	public CpuPart getCpu() {
+		return cpu;
+	}
+
+	public MotherboardPart getMb() {
+		return mb;
+	}
+
+	public GpuPart getGpu() {
+		return gpu;
+	}
+
+	public RamPart getRam() {
+		return ram;
+	}
+
 	public boolean checkCompatible(PartInterface added)				// for minimal this just checks if there's more than
 	{													    		// one type of part in a build
 
-		for (int i = 0; i < theParts.size(); i++)
+		if ((added instanceof CpuPart && cpu == null) || (added instanceof MotherboardPart && mb == null) ||
+				(added instanceof GpuPart && gpu == null) || (added instanceof RamPart && ram == null))
 		{
-			if (theParts.get(i).equals(added))
-			{
-				return false;
-			}
+			return true;
 		}
-		return true;
+		return false;
 	}
-	public void test(){
-		System.err.println("1");
-	}
+
 	
 	public void addPart(PartInterface addedPart)					// adds part
 	{													// not sure what to do if there's multiple
 		if (checkCompatible(addedPart))
 		{
-			if (addedPart instanceof MotherboardPart )
+			if (addedPart instanceof MotherboardPart)   //f
 			{
-				if (theParts.size() == 1)
+				if (cpu != null)  // if there's a cpu, check the socket types
 				{
-				if (checkSocketType((CpuPart) theParts.get(0), (MotherboardPart) addedPart))
+					if (checkSocketType(cpu, (MotherboardPart)addedPart))
+					{
+					mb = (MotherboardPart) addedPart;
+					price += addedPart.getPrice();
+					}
+				}
+				else
 				{
-					theParts.add(addedPart);
-					price += addedPart.getPrice();			// puts motherboard in the 2nd slot
+					mb = (MotherboardPart) addedPart;
+					price += addedPart.getPrice();
 				}
-				}
-			}
-			else
-			{
-			if (addedPart instanceof GpuPart)
-			{
-				if (theParts.size() == 2)
-				{
-					theParts.add(addedPart); 				// puts gpu in the 3rd slot
-					price+= addedPart.getPrice();
-				}
-			}
-			else if (addedPart instanceof RamPart)
-			{
-				if (theParts.size() == 3)
-				{
-					theParts.add(addedPart);			// ram in the 4th slot
-					price+= addedPart.getPrice();
-				}
+				
 			}
 			else if (addedPart instanceof CpuPart)
 			{
-				if (theParts.size() == 0)
+				if (mb != null)  // if there's a motherboard, check the socket types
 				{
-					theParts.add(addedPart);			// cpu in the 1st slot
-					price+= addedPart.getPrice();
+					if (checkSocketType((CpuPart) addedPart, mb))
+					{
+						cpu = (CpuPart) addedPart;
+						price += addedPart.getPrice();
+					}
+				}
+				else
+				{
+					cpu = (CpuPart) addedPart;
+					price += addedPart.getPrice();
 				}
 			}
+			else if (addedPart instanceof GpuPart)
+			{
+				gpu = (GpuPart) addedPart;
+				price+= addedPart.getPrice();
 			}
+			else if (addedPart instanceof RamPart)
+			{
+				ram = (RamPart) addedPart;
+				price+= addedPart.getPrice();
+			}
+			
 		}
 	}
 	
-	public void removePart(int number)				// removes selected part
+	public void removePart(String part)				// removes selected part (string should be cpu, mb, gpu, or ram)
 	{
-		theParts.remove(number);
+		if (part.compareTo("cpu") == 0)
+		{
+			cpu = null;
+		}
+		else if (part.compareTo("mb") == 0)
+		{
+			mb = null;
+		}
+		else if (part.compareTo("gpu") == 0)
+		{
+			gpu = null;
+		}
+		else if (part.compareTo("ram") == 0)
+		{
+			ram = null;
+		}
 	}
 	
 	public boolean checkSocketType(CpuPart cpu, MotherboardPart motherboard)
@@ -103,10 +142,7 @@ public class Build
 		return false;
 	}
 	
-	public ArrayList<PartInterface> getTheParts()
-	{
-		return theParts;
-	}
+
 	
 	public double getPrice()
 	{
@@ -119,5 +155,14 @@ public class Build
 	    BigDecimal bd = new BigDecimal(value);
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
+	}
+	
+	public boolean isThisCompatible()  // build is not compatible without having all the parts
+	{
+		if (cpu == null || mb == null || gpu == null || ram == null)
+		{
+			return false;
+		}
+		return true;
 	}
 }

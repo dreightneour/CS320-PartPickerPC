@@ -1,7 +1,7 @@
 package junit;
 
+import Parts.RamPart;
 import junit.framework.TestCase;
-import partPickerPC.RamPart;
 
 public class RamPartTest extends TestCase {
 	RamPart r;

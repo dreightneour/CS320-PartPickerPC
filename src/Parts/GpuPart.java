@@ -1,4 +1,6 @@
-package partPickerPC;
+package Parts;
+
+import partPickerPC.PartInterface;
 
 public class GpuPart implements PartInterface {
 	

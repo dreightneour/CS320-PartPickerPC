@@ -1,7 +1,7 @@
 package junit;
 
+import Parts.MotherboardPart;
 import junit.framework.TestCase;
-import partPickerPC.MotherboardPart;
 
 public class MotherBoardTest extends TestCase {
 	MotherboardPart mb;
