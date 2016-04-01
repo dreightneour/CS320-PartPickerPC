@@ -9,6 +9,7 @@ import Parts.CpuPart;
 import Parts.GpuPart;
 import Parts.MotherboardPart;
 import Parts.RamPart;
+import Parts.StoragePart;
 
 public class Build 
 {
@@ -16,6 +17,7 @@ public class Build
 	private MotherboardPart mb;
 	private GpuPart gpu;
 	private RamPart ram;
+	private StoragePart storage;
 	private double price;
 	public Build()
 	{
@@ -30,7 +32,6 @@ public class Build
 		addPart(motherboard);
 		addPart(gpu);
 		addPart(ram);
-		
 	}
 	
 	

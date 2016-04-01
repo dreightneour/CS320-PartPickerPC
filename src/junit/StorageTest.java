@@ -1,9 +1,9 @@
 package junit;
 
+import Parts.StoragePart;
 import junit.framework.TestCase;
-import partPickerPC.Storage;
 public class StorageTest extends TestCase {
-	Storage s;
+	StoragePart s;
 	String capacity = "12 TB";
 	String storageType = "HD";
 	String dataSpeed = "7200 RPM";
@@ -14,7 +14,7 @@ public class StorageTest extends TestCase {
 	double sale = 43.72;
 	
 	protected void setUp() throws Exception{
-		s = new Storage (capacity, storageType, dataSpeed, url, brand, model, price, sale);
+		s = new StoragePart (capacity, storageType, dataSpeed, url, brand, model, price, sale);
 	}
 	
 	public void testgetType() throws Exception{
