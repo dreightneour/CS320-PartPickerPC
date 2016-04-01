@@ -1,6 +1,6 @@
-package partPickerPC;
+/*package partPickerPC;
 import java.util.ArrayList;
-
+//import Parts.PartList;
 public class Cart {
 	
 	//list for a user's cart
@@ -32,3 +32,4 @@ public class Cart {
 	}
 	
 }
+*/

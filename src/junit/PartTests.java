@@ -1,4 +1,4 @@
-package junit;
+/*package junit;
 
 import junit.framework.TestCase;
 import partPickerPC.Part;
@@ -20,7 +20,7 @@ public class PartTests extends TestCase {
 		p.updateAttributes(manufact);
 		p.updateAttributes(series);
 		assertEquals(3, p.getAttr().size());*/
-	}
+/*	}
 	
 	public void testPrice() throws Exception{
 		p.setPrice(price);
@@ -36,3 +36,4 @@ public class PartTests extends TestCase {
 	}
 
 }
+*/
