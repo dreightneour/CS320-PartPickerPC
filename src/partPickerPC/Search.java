@@ -38,7 +38,7 @@ public class Search{
     	}
     	gpuList = getArrayGpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007709+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&Page=1");    	
     	ramList = getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1");
-    	
+    	int b = 0;
     	/*CpuPart cpu;// = getCPU();
     	cpu = getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369");
     	MotherboardPart mother;
@@ -657,8 +657,14 @@ public class Search{
         	
         }
         
-    	double priceD = Double.parseDouble(price);
-    	double saleD = Double.parseDouble(salePrice);
+    	double priceD = 0.0;
+    	double saleD = 0.0;
+    	
+    	if(!price.equals("MAP"))
+    	{
+    		priceD = Double.parseDouble(price);
+    		saleD = Double.parseDouble(salePrice);
+    	}
     	//double priceD = Double.parseDouble(price);
     	/*
     	if(saleD != priceD)
@@ -681,6 +687,7 @@ public class Search{
     
     public static ArrayList<GpuPart> getArrayGpu(String url) throws IOException
     {
+    	int pageSpots = 1;
      	boolean next = true;
     	ArrayList<GpuPart> gpuList = new ArrayList<GpuPart>();
     	while(next == true)
@@ -785,13 +792,18 @@ public class Search{
         	   		}
                    //System.out.println("-------------------");            
                	}
+           		int pageNum = 0;
 		   		if(next == true)
 		   		{
-		   			int pageNum = Integer.parseInt(url.substring(url.length() - 1, url.length()));
+		   			pageNum = Integer.parseInt(url.substring(url.length() - pageSpots, url.length()));
 		   			pageNum++;
 		   			String pageNumS = Integer.toString(pageNum);
 		   			url = url.substring(0, url.length() - 1) + pageNumS;
 		   			break;
+		   		}
+		   		if(pageNum % Math.pow(10.0, pageSpots) == 0 && pageNum > 0)
+		   		{
+		   			pageSpots++;
 		   		}
 	    	   	
 	        }
@@ -880,7 +892,15 @@ public class Search{
             } 
         	if(html.substring(i, i+5).equals("Specs"))
         	{
-        		String id = html.substring(i - 4, i-2);
+        		String id;
+        		if(i > 4)
+        		{
+        			id = html.substring(i - 4, i-2);
+        		}
+        		else
+        		{
+        			id = "id";
+        		}
         		if(id.equals("id"))
         		{
         			for(int j = i; j < i + 5000; j++)
@@ -1207,7 +1227,15 @@ public class Search{
             } 
         	if(html.substring(i, i+5).equals("Specs"))
         	{
-        		String id = html.substring(i - 4, i-2);
+        		String id;
+        		if(i > 4)
+        		{
+        			id = html.substring(i - 4, i-2);
+        		}
+        		else
+        		{
+        			id = "id";
+        		}
         		if(id.equals("id"))
         		{
         			for(int j = i; j < i + 5000; j++)
@@ -1231,7 +1259,7 @@ public class Search{
         				
         				if(html.substring(j, j + 5).equals("Model"))
         				{
-        					for(int k = j; k < j + 200; k++)
+        					for(int k = j; k < j + 500; k++)
         					{
         						if(html.substring(k, k + 4).equals("<dd>"))
         						{
