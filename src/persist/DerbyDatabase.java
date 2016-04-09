@@ -2,7 +2,10 @@ package persist;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import Parts.CpuPart;
@@ -90,13 +93,59 @@ public class DerbyDatabase implements IDatabase {
 	private interface Transaction<ResultType> {
 		public ResultType execute(Connection conn) throws SQLException;
 	}
+	
+	public CpuPart loadCpu(ResultSet r, int index) throws SQLException{
+		CpuPart c = new CpuPart(
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getDouble(index++),
+				r.getDouble(index++)		
+		);
+				
+			return c;
+	}
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<CpuPart> findAllCpus() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<CpuPart>>(){
+
+			@Override
+			public List<CpuPart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				try{
+					stmt = conn.prepareStatement(
+							"select * from CPU"
+							
+							);
+					List<CpuPart> result = new ArrayList<CpuPart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadCpu(resultSet,1));
+					}
+					return result;
+			}
+			
+			finally{
+			DBUtil.closeQuietly(resultSet);
+			DBUtil.closeQuietly(stmt);
+		}
 	}
-
-
+		});
+	}
 	@Override
 	public List<GpuPart> findAllGpus() {
 		// TODO Auto-generated method stub
