@@ -32,7 +32,142 @@ public class DerbyDatabase implements IDatabase {
 	
 	
 	public void createTables(){
-		
+		executeTransaction(new Transaction<Boolean>(){
+
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
+				PreparedStatement stmt5 = null;
+				PreparedStatement stmt6 = null;
+				PreparedStatement stmt7 = null;
+				
+				try{
+					stmt1 = conn.prepareStatement(
+							"create table cpus (" +
+							"	cpu_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +									
+							"	sockettype varchar(40)," +
+							"	name varchar(40)" +
+							"	brand varchar(40)," +
+							"	series varchar(40)" +
+							"	frequency varchar(40)," +
+							"	cores varchar(40)" +
+							"	url varchar(40)," +
+							"	price varchar(40)" +
+							"	sale varchar(40)," +
+							")"
+						);	
+					stmt1.executeUpdate();
+					stmt2 = conn.prepareStatement(
+							"create table gpus (" +
+							"	gpu_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +									
+							"	brand varchar(40)," +
+							"	slottype varchar(40)" +
+							"	gpubase varchar(40)," +
+							"	memorysize varchar(40)" +
+							"	url varchar(40)," +
+							"	price varchar(40)" +
+							"	sale varchar(40)," +
+							")"
+					);
+					stmt2.executeUpdate();
+					
+					stmt3 = conn.prepareStatement(
+							"create table motherboards (" +
+							"	motherboard_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +									
+							"	brand varchar(40)," +
+							"	model varchar(40)" +
+							"	sockettype varchar(40)," +
+							"	url varchar(40)" +
+							"	price varchar(40)," +
+							"	sale varchar(40)," +
+							")"
+					);
+					stmt3.executeUpdate();
+					
+					
+					
+					stmt4 = conn.prepareStatement(
+							"create table psus (" +
+							"	psu_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +									
+							"	wattage varchar(40)," +
+							"	brand varchar(40)" +
+							"	url varchar(40)," +
+							"	model varchar(40)" +
+							"	price varchar(40)," +
+							"	sale varchar(40)," +
+							")"
+					);
+					stmt4.executeUpdate();
+					
+					
+					
+					stmt5 = conn.prepareStatement(
+							"create table rams (" +
+							"	ram_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +									
+							"	brand varchar(40)," +
+							"	series varchar(40)" +
+							"	model varchar(40)," +
+							"	capacity varchar(40)" +
+							"	type varchar(40)," +
+							"	multichanneltype varchar(40)," +
+							"	url varchar(40)," +
+							"	price varchar(40)," +
+							"	sale varchar(40)," +
+							")"
+					);
+					stmt5.executeUpdate();
+					
+					
+					stmt6 = conn.prepareStatement(
+							"create table storages (" +
+							"	storage_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +									
+							"	capacity varchar(40)," +
+							"	storagetype varchar(40)" +
+							"	dataspeed varchar(40)," +
+							"	url varchar(40)" +
+							"	brand varchar(40)," +
+							"	model varchar(40)," +
+							"	price varchar(40)," +
+							"	sale varchar(40)," +
+							")"
+					);
+					stmt6.executeUpdate();
+					stmt7 = conn.prepareStatement(
+							"create table users (" +
+							"	user_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	username varchar(50)," +
+							"	password varchar(20)" +
+							")"
+					);
+					stmt7.executeUpdate();
+					
+					
+					
+					
+					return true;
+				}finally{
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(stmt5);
+					DBUtil.closeQuietly(stmt6);
+					DBUtil.closeQuietly(stmt7);
+				}
+				
+			}
+			
+		});
 	}
 	
 	
