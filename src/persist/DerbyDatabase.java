@@ -11,6 +11,7 @@ import Parts.MotherboardPart;
 import Parts.PowerSupplyPart;
 import Parts.RamPart;
 import Parts.StoragePart;
+import partPickerPC.User;
 
 
 public class DerbyDatabase implements IDatabase {
@@ -132,16 +133,10 @@ public class DerbyDatabase implements IDatabase {
 
 
 	@Override
-	public List<String> findAllUsernames() {
+	public List<User> findAllUsers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
-	@Override
-	public List<String> findAllPasswords() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

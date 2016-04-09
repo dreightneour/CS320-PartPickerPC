@@ -3,6 +3,7 @@ package persist;
 import java.util.List;
 
 import Parts.*;
+import partPickerPC.*;
 
 public interface IDatabase {
 	public List<CpuPart> findAllCpus();
@@ -11,6 +12,5 @@ public interface IDatabase {
 	public List<PowerSupplyPart> findAllPSUs();
 	public List<StoragePart> findAllStorage();
 	public List<RamPart> findAllRam();
-	public List<String> findAllUsernames();
-	public List<String> findAllPasswords();
+	public List<User> findAllUsers();
 }
