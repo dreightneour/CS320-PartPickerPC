@@ -245,9 +245,33 @@ public class DerbyDatabase implements IDatabase {
 			return c;
 	}
 	
+	public GpuPart loadGpu(ResultSet r, int index) throws SQLException{
+		GpuPart g = new GpuPart(
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getDouble(index++),
+				r.getDouble(index++)		
+		);
+				
+			return g;
+	}
 	
-	
-	
+	public MotherboardPart loadMotherboard(ResultSet r, int index) throws SQLException{
+		MotherboardPart mb = new MotherboardPart(
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getDouble(index++),
+				r.getDouble(index++)		
+		);
+				
+			return mb;
+	}
 	
 	
 	@Override
@@ -283,8 +307,34 @@ public class DerbyDatabase implements IDatabase {
 	}
 	@Override
 	public List<GpuPart> findAllGpus() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<GpuPart>>(){
+
+			@Override
+			public List<GpuPart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				try{
+					stmt = conn.prepareStatement(
+							"select * from CPU"
+							
+							);
+					List<GpuPart> result = new ArrayList<GpuPart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadGpu(resultSet,1));
+					}
+					return result;
+			}
+			
+			finally{
+			DBUtil.closeQuietly(resultSet);
+			DBUtil.closeQuietly(stmt);
+		}
+	}
+		});
 	}
 
 
