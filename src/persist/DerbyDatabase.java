@@ -3,9 +3,17 @@ package persist;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+
+import Parts.CpuPart;
+import Parts.GpuPart;
+import Parts.MotherboardPart;
+import Parts.PowerSupplyPart;
+import Parts.RamPart;
+import Parts.StoragePart;
 
 
-public class DerbyDatabase {
+public class DerbyDatabase implements IDatabase {
 	static {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -80,6 +88,60 @@ public class DerbyDatabase {
 	}
 	private interface Transaction<ResultType> {
 		public ResultType execute(Connection conn) throws SQLException;
+	}
+	@Override
+	public List<CpuPart> findAllCpus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<GpuPart> findAllGpus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<MotherboardPart> findAllMobos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<PowerSupplyPart> findAllPSUs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<StoragePart> findAllStorage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<RamPart> findAllRam() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<String> findAllUsernames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<String> findAllPasswords() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
