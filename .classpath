@@ -34,5 +34,7 @@
 	<classpathentry kind="lib" path="lib/jsp/jetty-jsp-2.1-7.4.4.v20110707.jar"/>
 	<classpathentry kind="lib" path="lib/jsp/org.apache.jasper.glassfish_2.1.0.v201007080150.jar"/>
 	<classpathentry kind="lib" path="lib/jsp/org.apache.taglibs.standard.glassfish_1.2.0.v201004190952.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CS320_Derby"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CS320_Jetty"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
