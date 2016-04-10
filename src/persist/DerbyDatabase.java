@@ -315,7 +315,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				try{
 					stmt = conn.prepareStatement(
-							"select * from CPU"
+							"select * from GPU"
 							
 							);
 					List<GpuPart> result = new ArrayList<GpuPart>();
@@ -340,8 +340,34 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public List<MotherboardPart> findAllMobos() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<MotherboardPart>>(){
+			
+			@Override
+			public List<MotherboardPart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from Motherboard"
+							);
+					List<MotherboardPart> result = new ArrayList<MotherboardPart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadMotherboard(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 
