@@ -69,12 +69,12 @@ public class DerbyDatabase implements IDatabase {
 							"	gpu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	brand varchar(40)," +
-							"	slottype varchar(40)" +
+							"	slottype varchar(40)," +
 							"	gpubase varchar(40)," +
-							"	memorysize varchar(40)" +
+							"	memorysize varchar(40)," +
 							"	url varchar(100)," +
-							"	price varchar(40)" +
-							"	sale varchar(40)," +
+							"	price varchar(40)," +
+							"	sale varchar(40)" +
 							")"
 					);
 					stmt2.executeUpdate();
@@ -84,11 +84,11 @@ public class DerbyDatabase implements IDatabase {
 							"	motherboard_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	brand varchar(40)," +
-							"	model varchar(40)" +
+							"	model varchar(40)," +
 							"	sockettype varchar(40)," +
-							"	url varchar(40)" +
+							"	url varchar(100)," +
 							"	price varchar(40)," +
-							"	sale varchar(40)," +
+							"	sale varchar(40)" +
 							")"
 					);
 					stmt3.executeUpdate();
@@ -100,11 +100,11 @@ public class DerbyDatabase implements IDatabase {
 							"	psu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	wattage varchar(40)," +
-							"	brand varchar(40)" +
-							"	url varchar(40)," +
-							"	model varchar(40)" +
+							"	brand varchar(40)," +
+							"	url varchar(100)," +
+							"	model varchar(40)," +
 							"	price varchar(40)," +
-							"	sale varchar(40)," +
+							"	sale varchar(40)" +
 							")"
 					);
 					stmt4.executeUpdate();
@@ -116,14 +116,14 @@ public class DerbyDatabase implements IDatabase {
 							"	ram_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	brand varchar(40)," +
-							"	series varchar(40)" +
+							"	series varchar(40)," +
 							"	model varchar(40)," +
-							"	capacity varchar(40)" +
+							"	capacity varchar(40)," +
 							"	type varchar(40)," +
 							"	multichanneltype varchar(40)," +
-							"	url varchar(40)," +
+							"	url varchar(100)," +
 							"	price varchar(40)," +
-							"	sale varchar(40)," +
+							"	sale varchar(40)" +
 							")"
 					);
 					stmt5.executeUpdate();
@@ -134,13 +134,13 @@ public class DerbyDatabase implements IDatabase {
 							"	storage_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	capacity varchar(40)," +
-							"	storagetype varchar(40)" +
+							"	storagetype varchar(40)," +
 							"	dataspeed varchar(40)," +
-							"	url varchar(40)" +
+							"	url varchar(100)," +
 							"	brand varchar(40)," +
 							"	model varchar(40)," +
 							"	price varchar(40)," +
-							"	sale varchar(40)," +
+							"	sale varchar(40)" +
 							")"
 					);
 					stmt6.executeUpdate();
