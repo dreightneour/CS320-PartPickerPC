@@ -271,7 +271,7 @@ public class DerbyDatabase implements IDatabase {
 				r.getDouble(index++),
 				r.getDouble(index++)		
 		);
-			g.setGpuId(temp);
+			g.setGpuId(temp);	
 			return g;
 	}
 	
@@ -289,8 +289,50 @@ public class DerbyDatabase implements IDatabase {
 			return mb;
 	}
 	
-	
-	
+	public PowerSupplyPart loadPowerSupply(ResultSet r, int index) throws SQLException{
+		int temp = index++;
+		PowerSupplyPart ps = new PowerSupplyPart(
+				r.getInt(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getDouble(index++),
+				r.getInt(index++)		
+		);
+			ps.setPsuId(temp);	
+			return ps;
+	}
+	public StoragePart loadStorage(ResultSet r, int index) throws SQLException{
+		int temp = index++;
+		StoragePart s = new StoragePart(
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getDouble(index++),
+				r.getDouble(index++)		
+		);
+			s.setHddId(temp);	
+			return s;
+	}
+	public RamPart loadRam(ResultSet r, int index) throws SQLException{
+		int temp = index++;
+		RamPart ram = new RamPart(
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getDouble(index++),
+				r.getDouble(index++)		
+		);
+			ram.setRamId(temp);	
+			return ram;
+	}
 	@Override
 	public List<CpuPart> findAllCpus() {
 		return executeTransaction(new Transaction<List<CpuPart>>(){
@@ -334,7 +376,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				try{
 					stmt = conn.prepareStatement(
-							"select * from GPU"
+							"select * from gpus"
 							
 							);
 					List<GpuPart> result = new ArrayList<GpuPart>();
@@ -368,7 +410,7 @@ public class DerbyDatabase implements IDatabase {
 				
 				try{
 					stmt = conn.prepareStatement(
-							"select * from Motherboard"
+							"select * from motherboards"
 							);
 					List<MotherboardPart> result = new ArrayList<MotherboardPart>();
 					resultSet = stmt.executeQuery();
@@ -392,22 +434,100 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public List<PowerSupplyPart> findAllPSUs() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<PowerSupplyPart>>(){
+					
+					@Override
+					public List<PowerSupplyPart> execute(Connection conn) throws SQLException {
+						PreparedStatement stmt = null;
+						ResultSet resultSet = null;
+						
+						try{
+							stmt = conn.prepareStatement(
+									"select * from psus"
+									);
+							List<PowerSupplyPart> result = new ArrayList<PowerSupplyPart>();
+							resultSet = stmt.executeQuery();
+							boolean found = false;
+							while(resultSet.next()){
+								found = true;
+								
+								result.add(loadPowerSupply(resultSet,1));
+							}
+							return result;
+						}
+						
+						finally{
+							DBUtil.closeQuietly(resultSet);
+							DBUtil.closeQuietly(stmt);
+						}
+					}
+				});
 	}
 
 
 	@Override
 	public List<StoragePart> findAllStorage() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<StoragePart>>(){
+			
+			@Override
+			public List<StoragePart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from storages"
+							);
+					List<StoragePart> result = new ArrayList<StoragePart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadStorage(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 
 	@Override
 	public List<RamPart> findAllRam() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<RamPart>>(){
+					
+					@Override
+					public List<RamPart> execute(Connection conn) throws SQLException {
+						PreparedStatement stmt = null;
+						ResultSet resultSet = null;
+						
+						try{
+							stmt = conn.prepareStatement(
+									"select * from rams"
+									);
+							List<RamPart> result = new ArrayList<RamPart>();
+							resultSet = stmt.executeQuery();
+							boolean found = false;
+							while(resultSet.next()){
+								found = true;
+								
+								result.add(loadRam(resultSet,1));
+							}
+							return result;
+						}
+						
+						finally{
+							DBUtil.closeQuietly(resultSet);
+							DBUtil.closeQuietly(stmt);
+						}
+					}
+				});
 	}
 
 
