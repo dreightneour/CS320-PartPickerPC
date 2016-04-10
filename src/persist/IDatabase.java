@@ -12,5 +12,5 @@ public interface IDatabase {
 	public List<PowerSupplyPart> findAllPSUs();
 	public List<StoragePart> findAllStorage();
 	public List<RamPart> findAllRam();
-	public List<User> findAllUsers();
+	public User findUser(final String username, final String password);
 }

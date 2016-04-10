@@ -366,11 +366,55 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 
+
 	@Override
-	public List<User> findAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+	public User findUser(final String username, final String password)  {
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from users " +
+							" where username = ? and password = ? " );
+					stmt.setString(1, username);
+					stmt.setString(2, password);
+					
+					User result = null;
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						User user = new User();
+						loadUser(user, resultSet, 1);
+						result = user;
+						
+						
+					}
+					
+					if (!found) {
+						System.out.println("No authors were found in the database");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+					
 	}
+	
+	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException {
+		user.setUserId(resultSet.getInt(index++));
+		user.setName(resultSet.getString(index++));
+		user.setPassword(resultSet.getString(index++));
+}
 
 
 }
