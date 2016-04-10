@@ -11,6 +11,7 @@ public class StoragePart implements PartInterface {
 	private String model;
 	private double price;
 	private double sale;
+	public int hddId;
 	
 	public StoragePart(String capacity, String storageType, String dataSpeed, String url, String brand, String model, double price, double sale){
 		this.capacity = capacity;
@@ -23,6 +24,14 @@ public class StoragePart implements PartInterface {
 		this.sale = sale;
 	}
 	
+	public int getHddId() {
+		return hddId;
+	}
+
+	public void setHddId(int hddId) {
+		this.hddId = hddId;
+	}
+
 	public String getCapacity(){
 		return capacity;
 	}

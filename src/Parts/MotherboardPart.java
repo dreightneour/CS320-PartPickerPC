@@ -7,7 +7,15 @@ public class MotherboardPart implements PartInterface {
 	private String brand, model, socketType, cpuSeries, chipset,
 	memorySlots, maxMemory, supportedChannel, pciE2x16, pciEx1, pci, url;
 	double price;
-	
+	public int moboId;
+	public int getMoboId() {
+		return moboId;
+	}
+
+	public void setMoboId(int moboId) {
+		this.moboId = moboId;
+	}
+
 	public MotherboardPart(String brand, String model, String socketType, String url, double price, double sale)		// brand and model are mandatory
 	{
 		this.brand = brand;

@@ -6,8 +6,17 @@ public class GpuPart implements PartInterface {
 	
 	 private String brand, model, slotType, gpuBase, memorySize, url;
 	 private double price;
+	 public int gpuId;
 	 
-	 public GpuPart(String brand, String model, String slotType, String gpuBase, String memorySize, String url, double price, double sale)
+	 public int getGpuId() {
+		return gpuId;
+	}
+
+	public void setGpuId(int gpuId) {
+		this.gpuId = gpuId;
+	}
+
+	public GpuPart(String brand, String model, String slotType, String gpuBase, String memorySize, String url, double price, double sale)
 	 {
 		 this.brand = brand;
 		 this.model = model;

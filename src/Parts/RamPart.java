@@ -6,7 +6,16 @@ public class RamPart implements PartInterface {
 	
 	private String brand, series, model, capacity, type, multichannelType, url;
 	private double price;
+	public int ramId;
 	
+	public int getRamId() {
+		return ramId;
+	}
+
+	public void setRamId(int ramId) {
+		this.ramId = ramId;
+	}
+
 	public RamPart(String brand, String series, String model, String capacity, String type, String multichannelType
 					, String url, double price, double sale)
 	{

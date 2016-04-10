@@ -20,6 +20,15 @@ public class PowerSupplyPart implements PartInterface {
 	private String model;
 	private double price;
 	private int sale;
+	public int psuId;
+	public int getPsuId() {
+		return psuId;
+	}
+
+	public void setPsuId(int psuId) {
+		this.psuId = psuId;
+	}
+
 	public PowerSupplyPart(int wattage, String brand, String url, String model, double price, int sale){
 		this.wattage = wattage;
 		this.brand = brand;

@@ -260,6 +260,7 @@ public class DerbyDatabase implements IDatabase {
 
 	
 	public GpuPart loadGpu(ResultSet r, int index) throws SQLException{
+		int temp = index++;
 		GpuPart g = new GpuPart(
 				r.getString(index++),
 				r.getString(index++),
@@ -270,11 +271,12 @@ public class DerbyDatabase implements IDatabase {
 				r.getDouble(index++),
 				r.getDouble(index++)		
 		);
-				
+			g.setGpuId(temp);
 			return g;
 	}
 	
 	public MotherboardPart loadMotherboard(ResultSet r, int index) throws SQLException{
+		int temp = index++;
 		MotherboardPart mb = new MotherboardPart(
 				r.getString(index++),
 				r.getString(index++),
@@ -283,9 +285,10 @@ public class DerbyDatabase implements IDatabase {
 				r.getDouble(index++),
 				r.getDouble(index++)		
 		);
-				
+			mb.setMoboId(temp);
 			return mb;
 	}
+	
 	
 	
 	@Override
