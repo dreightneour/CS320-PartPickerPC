@@ -23,22 +23,29 @@ public class Search{
 	private static ArrayList<GpuPart> gpuList = new ArrayList<GpuPart>();
 	private static ArrayList<RamPart> ramList = new ArrayList<RamPart>();
 	
-	
+	public static void getThisTestThing() throws Exception
+	{
+		setCpuList(getArrayCpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007671%208000%204814&IsNodeId=1&page=1&bop=And&Pagesize=90"));
+		for (int i = 0; i < cpuList.size(); i++)
+		{
+			System.out.println(""+ cpuList.get(i).getBrand());
+		}
+	}
     public static void main(String[] args) throws Exception {
     	// String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
         //Document document = Jsoup.connect(url).get();
     	
-    	
-    	cpuList = getArrayCpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007671%208000%204814&IsNodeId=1&page=1&bop=And&Pagesize=90");
-    	motherList = getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007625%204814&IsNodeId=1&bop=And&Pagesize=30&Page=1");
-    	ArrayList<MotherboardPart> mother2 = getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007627%204814%208000&IsNodeId=1&bop=And&page=1");
-    	for(int i = 0; i < mother2.size(); i++)
-    	{
-    		motherList.add(mother2.get(i));
-    	}
-    	gpuList = getArrayGpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007709+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&Page=1");    	
-    	ramList = getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1");
-    	int b = 0;
+    	getThisTestThing();
+    	//setCpuList(getArrayCpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007671%208000%204814&IsNodeId=1&page=1&bop=And&Pagesize=90"));
+    	//motherList = getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007625%204814&IsNodeId=1&bop=And&Pagesize=30&Page=1");
+    	//ArrayList<MotherboardPart> mother2 = getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007627%204814%208000&IsNodeId=1&bop=And&page=1");
+    	//for(int i = 0; i < mother2.size(); i++)
+    	//{
+    	//	motherList.add(mother2.get(i));
+    	//}
+    	//gpuList = getArrayGpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007709+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&Page=1");    	
+    	//ramList = getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1");
+    	//int b = 0;
     	/*CpuPart cpu;// = getCPU();
     	cpu = getCPU("http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369");
     	MotherboardPart mother;
@@ -1372,6 +1379,12 @@ public class Search{
     	RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, url, priceD, saleD);
     	return ram;
     }
+	public static ArrayList<CpuPart> getCpuList() {
+		return cpuList;
+	}
+	public static void setCpuList(ArrayList<CpuPart> cpuList) {
+		Search.cpuList = cpuList;
+	}
 
 }
 

@@ -17,11 +17,16 @@ import Parts.PartList;
 import Parts.RamPart;
 import QuickBuild.QuickBuildController;
 import QuickBuild.QuickBuildModel;
+
 import partPickerPC.Build;
+import persist.DatabaseProvider;
+import persist.DerbyDatabase;
+import persist.IDatabase;
 
 public class AllPartsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String username;
+	
 
 	
 	@Override
@@ -30,9 +35,14 @@ public class AllPartsServlet extends HttpServlet {
 		//username = (String) req.getSession().getAttribute("theUser");
 		//username = username.toUpperCase();
 		//req.setAttribute("username", username);
+		IDatabase db    = null;
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();	
+
+
 		
 		PartList parts = new PartList();
-		req.setAttribute("cpus", parts.getCpus());
+		req.setAttribute("cpus", db.findAllCpus());
 		req.setAttribute("motherboards", parts.getMotherboards());
 		req.setAttribute("gpus", parts.getGpus());
 		req.setAttribute("rams", parts.getRams());

@@ -1,5 +1,6 @@
 package persist;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +15,8 @@ import Parts.MotherboardPart;
 import Parts.PowerSupplyPart;
 import Parts.RamPart;
 import Parts.StoragePart;
+
+import partPickerPC.Search;
 import partPickerPC.User;
 
 
@@ -50,18 +53,18 @@ public class DerbyDatabase implements IDatabase {
 							"	cpu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	sockettype varchar(40)," +
-							"	name varchar(40)" +
+							"	name varchar(40)," +
 							"	brand varchar(40)," +
-							"	series varchar(40)" +
+							"	series varchar(40)," +
 							"	frequency varchar(40)," +
-							"	cores varchar(40)" +
-							"	url varchar(40)," +
-							"	price varchar(40)" +
-							"	sale varchar(40)," +
+							"	cores varchar(40)," +
+							"	url varchar(100)," +
+							"	price varchar(40)," +
+							"	sale varchar(40)" +
 							")"
 						);	
 					stmt1.executeUpdate();
-					stmt2 = conn.prepareStatement(
+					/*stmt2 = conn.prepareStatement(
 							"create table gpus (" +
 							"	gpu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
@@ -69,7 +72,7 @@ public class DerbyDatabase implements IDatabase {
 							"	slottype varchar(40)" +
 							"	gpubase varchar(40)," +
 							"	memorysize varchar(40)" +
-							"	url varchar(40)," +
+							"	url varchar(100)," +
 							"	price varchar(40)" +
 							"	sale varchar(40)," +
 							")"
@@ -153,10 +156,11 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					
-					
+					*/
 					return true;
 				}finally{
 					DBUtil.closeQuietly(stmt1);
+					
 					DBUtil.closeQuietly(stmt2);
 					DBUtil.closeQuietly(stmt3);
 					DBUtil.closeQuietly(stmt4);
@@ -213,7 +217,7 @@ public class DerbyDatabase implements IDatabase {
 		}
 	}
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/rjones38/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/dreid3/workspace/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -221,15 +225,22 @@ public class DerbyDatabase implements IDatabase {
 		
 		return conn;
 	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public static void main(String[] args) throws IOException {
+		System.out.println("Creating tables...");
+		DerbyDatabase db = new DerbyDatabase();
+		db.createTables();
+		
+		System.out.println("Loading initial data...");
+		db.loadInitialData();
+		
+		System.out.println("Success!");
 	}
 	private interface Transaction<ResultType> {
 		public ResultType execute(Connection conn) throws SQLException;
 	}
 	
 	public CpuPart loadCpu(ResultSet r, int index) throws SQLException{
+		int temp = index++;
 		CpuPart c = new CpuPart(
 				r.getString(index++),
 				r.getString(index++),
@@ -241,9 +252,12 @@ public class DerbyDatabase implements IDatabase {
 				r.getDouble(index++),
 				r.getDouble(index++)		
 		);
-				
+				c.setCpuId(temp);
 			return c;
 	}
+
+
+
 	
 	public GpuPart loadGpu(ResultSet r, int index) throws SQLException{
 		GpuPart g = new GpuPart(
@@ -273,49 +287,6 @@ public class DerbyDatabase implements IDatabase {
 			return mb;
 	}
 	
-	public PowerSupplyPart loadPowerSupply(ResultSet r, int index) throws SQLException{
-		PowerSupplyPart ps = new PowerSupplyPart(
-				r.getInt(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getDouble(index++),
-				r.getInt(index++)		
-		);
-				
-			return ps;
-	}
-	
-	public StoragePart loadStorage(ResultSet r, int index) throws SQLException{
-		StoragePart s = new StoragePart(
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getDouble(index++),
-				r.getDouble(index++)		
-		);
-				
-			return s;
-	}
-	
-	public RamPart loadRam(ResultSet r, int index) throws SQLException{
-		RamPart ram = new RamPart(
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getString(index++),
-				r.getDouble(index++),
-				r.getDouble(index++)		
-		);
-				
-			return ram;
-	}
 	
 	@Override
 	public List<CpuPart> findAllCpus() {
@@ -327,7 +298,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				try{
 					stmt = conn.prepareStatement(
-							"select * from CPU"
+							"select * from cpus"
 							
 							);
 					List<CpuPart> result = new ArrayList<CpuPart>();
@@ -338,7 +309,9 @@ public class DerbyDatabase implements IDatabase {
 						
 						result.add(loadCpu(resultSet,1));
 					}
+					System.out.println( result.get(10).getUrl());
 					return result;
+					
 			}
 			
 			finally{
@@ -416,103 +389,23 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public List<PowerSupplyPart> findAllPSUs() {
-		return executeTransaction(new Transaction<List<PowerSupplyPart>>(){
-					
-					@Override
-					public List<PowerSupplyPart> execute(Connection conn) throws SQLException {
-						PreparedStatement stmt = null;
-						ResultSet resultSet = null;
-						
-						try{
-							stmt = conn.prepareStatement(
-									"select * from PSU"
-									);
-							List<PowerSupplyPart> result = new ArrayList<PowerSupplyPart>();
-							resultSet = stmt.executeQuery();
-							boolean found = false;
-							while(resultSet.next()){
-								found = true;
-								
-								result.add(loadPowerSupply(resultSet,1));
-							}
-							return result;
-						}
-						
-						finally{
-							DBUtil.closeQuietly(resultSet);
-							DBUtil.closeQuietly(stmt);
-						}
-					}
-				});
-			}
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	@Override
 	public List<StoragePart> findAllStorage() {
-		return executeTransaction(new Transaction<List<StoragePart>>(){
-			
-			@Override
-			public List<StoragePart> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				
-				try{
-					stmt = conn.prepareStatement(
-							"select * from Storage"
-							);
-					List<StoragePart> result = new ArrayList<StoragePart>();
-					resultSet = stmt.executeQuery();
-					boolean found = false;
-					while(resultSet.next()){
-						found = true;
-						
-						result.add(loadStorage(resultSet,1));
-					}
-					return result;
-				}
-				
-				finally{
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-		});
+		// TODO Auto-generated method stub
+		return null;
 	}
-
-	
 
 
 	@Override
 	public List<RamPart> findAllRam() {
-		return executeTransaction(new Transaction<List<RamPart>>(){
-					
-					@Override
-					public List<RamPart> execute(Connection conn) throws SQLException {
-						PreparedStatement stmt = null;
-						ResultSet resultSet = null;
-						
-						try{
-							stmt = conn.prepareStatement(
-									"select * from Storage"
-									);
-							List<RamPart> result = new ArrayList<RamPart>();
-							resultSet = stmt.executeQuery();
-							boolean found = false;
-							while(resultSet.next()){
-								found = true;
-								
-								result.add(loadRam(resultSet,1));
-							}
-							return result;
-						}
-						
-						finally{
-							DBUtil.closeQuietly(resultSet);
-							DBUtil.closeQuietly(stmt);
-						}
-					}
-				});
-			}
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 
@@ -564,6 +457,50 @@ public class DerbyDatabase implements IDatabase {
 		user.setName(resultSet.getString(index++));
 		user.setPassword(resultSet.getString(index++));
 }
+	
+	public void loadInitialData() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				ArrayList<CpuPart> cpuList;
+				try {
+					Search.getThisTestThing();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				cpuList = Search.getCpuList();
+				
+				
+
+				PreparedStatement insertCpu= null;
+
+				try {
+					insertCpu = conn.prepareStatement("insert into cpus (sockettype, name, brand, series, frequency, cores, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
+					for (CpuPart cpu : cpuList) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertCpu.setString(1, cpu.getSocketType());
+						insertCpu.setString(2,  cpu.getName());
+						insertCpu.setString(3, cpu.getBrand());
+						insertCpu.setString(4, cpu.getSeries());
+						insertCpu.setString(5,  cpu.getFrequency());
+						insertCpu.setString(6, cpu.getCores());
+						insertCpu.setString(7, cpu.getUrl());
+						insertCpu.setDouble(8,  cpu.getPrice());
+						insertCpu.setDouble(9, 0.0);
+	
+						insertCpu.addBatch();
+					}
+					insertCpu.executeBatch();
+					
+					
+					return true;
+				} finally {
+					DBUtil.closeQuietly(insertCpu);
+				}
+			}
+		});
+	}
 
 
 }

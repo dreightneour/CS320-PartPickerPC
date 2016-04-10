@@ -6,6 +6,7 @@ public class CpuPart implements PartInterface {
 	
 	private String socketType, name, brand, series
 	, frequency, cores, url;
+	public int cpuId;
 	double price;
 	
 	public CpuPart(String socketType, String name, String brand, String series,					// all the important cpu information
@@ -20,6 +21,14 @@ public class CpuPart implements PartInterface {
 		this.url = url;
 		this.price = price;
 		//setPartType("cpu");
+	}
+
+	public int getCpuId() {
+		return cpuId;
+	}
+
+	public void setCpuId(int cpuId) {
+		this.cpuId = cpuId;
 	}
 
 	public String getSocketType() {
