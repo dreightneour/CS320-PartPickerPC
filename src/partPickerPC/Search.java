@@ -26,11 +26,11 @@ public class Search{
 	public static void getThisTestThing() throws Exception
 	{
 		setCpuList(getArrayCpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007671%208000%204814&IsNodeId=1&page=1&bop=And&Pagesize=90"));
-		for (int i = 0; i < cpuList.size(); i++)
-		{
-			System.out.println(""+ cpuList.get(i).getBrand());
-		}
+		setGpuList(getArrayGpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007709+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&Page=1"));
+		setMotherList(getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007625%204814&IsNodeId=1&bop=And&Pagesize=30&Page=1"));
+		setRamList(getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1"));
 	}
+
     public static void main(String[] args) throws Exception {
     	// String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
         //Document document = Jsoup.connect(url).get();
@@ -1384,6 +1384,24 @@ public class Search{
 	}
 	public static void setCpuList(ArrayList<CpuPart> cpuList) {
 		Search.cpuList = cpuList;
+	}
+	public static ArrayList<MotherboardPart> getMotherList() {
+		return motherList;
+	}
+	public static void setMotherList(ArrayList<MotherboardPart> motherList) {
+		Search.motherList = motherList;
+	}
+	public static ArrayList<GpuPart> getGpuList() {
+		return gpuList;
+	}
+	public static void setGpuList(ArrayList<GpuPart> gpuList) {
+		Search.gpuList = gpuList;
+	}
+	public static ArrayList<RamPart> getRamList() {
+		return ramList;
+	}
+	public static void setRamList(ArrayList<RamPart> ramList) {
+		Search.ramList = ramList;
 	}
 
 }

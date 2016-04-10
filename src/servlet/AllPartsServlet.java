@@ -43,9 +43,9 @@ public class AllPartsServlet extends HttpServlet {
 		
 		PartList parts = new PartList();
 		req.setAttribute("cpus", db.findAllCpus());
-		req.setAttribute("motherboards", parts.getMotherboards());
-		req.setAttribute("gpus", parts.getGpus());
-		req.setAttribute("rams", parts.getRams());
+		req.setAttribute("motherboards", db.findAllMobos());
+		//req.setAttribute("gpus", db.findAllGpus());
+		req.setAttribute("rams", db.findAllRam());
 
 		req.getRequestDispatcher("/_view/allparts.jsp").forward(req, resp);
 	}

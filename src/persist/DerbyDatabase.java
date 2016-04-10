@@ -52,29 +52,29 @@ public class DerbyDatabase implements IDatabase {
 							"create table cpus (" +
 							"	cpu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
-							"	sockettype varchar(40)," +
-							"	name varchar(40)," +
-							"	brand varchar(40)," +
-							"	series varchar(40)," +
-							"	frequency varchar(40)," +
-							"	cores varchar(40)," +
-							"	url varchar(100)," +
-							"	price varchar(40)," +
-							"	sale varchar(40)" +
+							"	sockettype varchar(200)," +
+							"	name varchar(200)," +
+							"	brand varchar(200)," +
+							"	series varchar(200)," +
+							"	frequency varchar(200)," +
+							"	cores varchar(200)," +
+							"	url varchar(200)," +
+							"	price varchar(200)," +
+							"	sale varchar(200)" +
 							")"
 						);	
 					stmt1.executeUpdate();
-					/*stmt2 = conn.prepareStatement(
+					stmt2 = conn.prepareStatement(
 							"create table gpus (" +
 							"	gpu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
-							"	brand varchar(40)," +
-							"	slottype varchar(40)," +
-							"	gpubase varchar(40)," +
-							"	memorysize varchar(40)," +
-							"	url varchar(100)," +
-							"	price varchar(40)," +
-							"	sale varchar(40)" +
+							"	brand varchar(200)," +
+							"	slottype varchar(200)," +
+							"	gpubase varchar(200)," +
+							"	memorysize varchar(200)," +
+							"	url varchar(200)," +
+							"	price varchar(200)," +
+							"	sale varchar(200)" +
 							")"
 					);
 					stmt2.executeUpdate();
@@ -83,31 +83,32 @@ public class DerbyDatabase implements IDatabase {
 							"create table motherboards (" +
 							"	motherboard_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
-							"	brand varchar(40)," +
-							"	model varchar(40)," +
-							"	sockettype varchar(40)," +
-							"	url varchar(100)," +
-							"	price varchar(40)," +
-							"	sale varchar(40)" +
+							"	brand varchar(200)," +
+							"	model varchar(200)," +
+							"	sockettype varchar(200)," +
+							"	url varchar(200)," +
+							"	price varchar(200)," +
+							"	sale varchar(200)" +
 							")"
 					);
 					stmt3.executeUpdate();
 					
 					
 					
-					stmt4 = conn.prepareStatement(
+					/*stmt4 = conn.prepareStatement(
 							"create table psus (" +
 							"	psu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
-							"	wattage varchar(40)," +
-							"	brand varchar(40)," +
-							"	url varchar(100)," +
-							"	model varchar(40)," +
-							"	price varchar(40)," +
-							"	sale varchar(40)" +
+							"	wattage varchar(200)," +
+							"	brand varchar(200)," +
+							"	url varchar(200)," +
+							"	model varchar(200)," +
+							"	price varchar(200)," +
+							"	sale varchar(200)" +
 							")"
 					);
 					stmt4.executeUpdate();
+					*/
 					
 					
 					
@@ -115,21 +116,21 @@ public class DerbyDatabase implements IDatabase {
 							"create table rams (" +
 							"	ram_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
-							"	brand varchar(40)," +
-							"	series varchar(40)," +
-							"	model varchar(40)," +
-							"	capacity varchar(40)," +
-							"	type varchar(40)," +
-							"	multichanneltype varchar(40)," +
-							"	url varchar(100)," +
-							"	price varchar(40)," +
-							"	sale varchar(40)" +
+							"	brand varchar(200)," +
+							"	series varchar(200)," +
+							"	model varchar(200)," +
+							"	capacity varchar(200)," +
+							"	type varchar(200)," +
+							"	multichanneltype varchar(200)," +
+							"	url varchar(200)," +
+							"	price varchar(200)," +
+							"	sale varchar(200)" +
 							")"
 					);
 					stmt5.executeUpdate();
 					
 					
-					stmt6 = conn.prepareStatement(
+					/*stmt6 = conn.prepareStatement(
 							"create table storages (" +
 							"	storage_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
@@ -153,10 +154,11 @@ public class DerbyDatabase implements IDatabase {
 							")"
 					);
 					stmt7.executeUpdate();
-					
-					
-					
 					*/
+					
+					
+					
+					
 					return true;
 				}finally{
 					DBUtil.closeQuietly(stmt1);
@@ -354,7 +356,6 @@ public class DerbyDatabase implements IDatabase {
 						
 						result.add(loadCpu(resultSet,1));
 					}
-					System.out.println( result.get(10).getUrl());
 					return result;
 					
 			}
@@ -586,6 +587,9 @@ public class DerbyDatabase implements IDatabase {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				ArrayList<CpuPart> cpuList;
+				ArrayList<GpuPart> gpuList;
+				ArrayList<MotherboardPart> motherboardList;
+				ArrayList<RamPart> ramList;
 				try {
 					Search.getThisTestThing();
 				} catch (Exception e) {
@@ -593,13 +597,22 @@ public class DerbyDatabase implements IDatabase {
 					e.printStackTrace();
 				}
 				cpuList = Search.getCpuList();
+				gpuList = Search.getGpuList();
+				motherboardList = Search.getMotherList();
+				ramList = Search.getRamList();
 				
 				
 
 				PreparedStatement insertCpu= null;
+				PreparedStatement insertGpu= null;
+				PreparedStatement insertMotherboard= null;
+				PreparedStatement insertRam= null;
 
 				try {
 					insertCpu = conn.prepareStatement("insert into cpus (sockettype, name, brand, series, frequency, cores, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
+					insertGpu = conn.prepareStatement("insert into gpus (brand, slottype, gpubase, memorysize, url, price, sale) values (?, ?, ?, ?, ? , ?, ?)");
+					insertMotherboard = conn.prepareStatement("insert into motherboards (brand, model, sockettype, url, price, sale) values (?, ?, ?, ?, ? , ?)");
+					insertRam = conn.prepareStatement("insert into rams (brand, series, model, capacity, type, multichanneltype, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
 					for (CpuPart cpu : cpuList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertCpu.setString(1, cpu.getSocketType());
@@ -614,8 +627,51 @@ public class DerbyDatabase implements IDatabase {
 	
 						insertCpu.addBatch();
 					}
-					insertCpu.executeBatch();
 					
+					for (GpuPart gpu : gpuList) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertGpu.setString(1, gpu.getBrand());
+						insertGpu.setString(2,  gpu.getSlotType());
+						insertGpu.setString(3, gpu.getGpuBase());
+						insertGpu.setString(4, gpu.getMemorySize());
+						insertGpu.setString(5,  gpu.getUrl());
+						insertGpu.setDouble(6,  gpu.getPrice());
+						insertGpu.setDouble(7, 0.0);
+
+	
+						insertGpu.addBatch();
+					}
+					
+					for (MotherboardPart motherboard: motherboardList) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertMotherboard.setString(1, motherboard.getBrand());
+						insertMotherboard.setString(2,  motherboard.getModel());
+						insertMotherboard.setString(3, motherboard.getSocketType());
+						insertMotherboard.setString(4, motherboard.getUrl());
+						insertMotherboard.setDouble(5,  motherboard.getPrice());
+						insertMotherboard.setDouble(6, 0.0);
+	
+						insertMotherboard.addBatch();
+					}
+					
+					for (RamPart ram : ramList) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertRam.setString(1, ram.getBrand());
+						insertRam.setString(2,  ram.getSeries());
+						insertRam.setString(3, ram.getModel());
+						insertRam.setString(4, ram.getCapacity());
+						insertRam.setString(5,  ram.getType());
+						insertRam.setString(6, ram.getMultichannelType());
+						insertRam.setString(7, ram.getUrl());
+						insertRam.setDouble(8,  ram.getPrice());
+						insertRam.setDouble(9, 0.0);
+	
+						insertRam.addBatch();
+					}
+					insertCpu.executeBatch();
+					insertGpu.executeBatch();
+					insertMotherboard.executeBatch();
+					insertRam.executeBatch();
 					
 					return true;
 				} finally {
