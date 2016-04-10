@@ -273,6 +273,33 @@ public class DerbyDatabase implements IDatabase {
 			return mb;
 	}
 	
+	public PowerSupplyPart loadPowerSupply(ResultSet r, int index) throws SQLException{
+		PowerSupplyPart ps = new PowerSupplyPart(
+				r.getInt(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getDouble(index++),
+				r.getInt(index++)		
+		);
+				
+			return ps;
+	}
+	
+	public StoragePart loadStorage(ResultSet r, int index) throws SQLException{
+		StoragePart s = new StoragePart(
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getDouble(index++),
+				r.getDouble(index++)		
+		);
+				
+			return s;
+	}
 	
 	@Override
 	public List<CpuPart> findAllCpus() {
@@ -373,8 +400,34 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public List<PowerSupplyPart> findAllPSUs() {
-		// TODO Auto-generated method stub
-		return null;
+return executeTransaction(new Transaction<List<PowerSupplyPart>>(){
+			
+			@Override
+			public List<PowerSupplyPart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from PSU"
+							);
+					List<PowerSupplyPart> result = new ArrayList<PowerSupplyPart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadPowerSupply(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 
 
