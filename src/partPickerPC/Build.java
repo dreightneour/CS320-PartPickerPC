@@ -19,6 +19,7 @@ public class Build
 	private RamPart ram;
 	private StoragePart storage;
 	private double price;
+	private String error;
 	public Build()
 	{
 		price = 0;
@@ -59,6 +60,7 @@ public class Build
 		{
 			return true;
 		}
+		error = "You already have a part of this type. Delete it if you want to change";
 		return false;
 	}
 
@@ -76,6 +78,10 @@ public class Build
 					mb = (MotherboardPart) addedPart;
 					price += addedPart.getPrice();
 					}
+					else
+					{
+						error = "The Cpu you have in your build is not compatible with this Motherboard due to socket type conflictions";
+					}
 				}
 				else
 				{
@@ -92,6 +98,10 @@ public class Build
 					{
 						cpu = (CpuPart) addedPart;
 						price += addedPart.getPrice();
+					}
+					else
+					{
+						error = "The Motherboard you have in your build is not compatible with this Cpu due to socket type conflictions";
 					}
 				}
 				else
@@ -165,5 +175,43 @@ public class Build
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean didPartGetAdded(PartInterface part)
+	{
+		if (part instanceof CpuPart)
+		{
+			if (cpu == null)
+			{
+				return false;
+			}
+		}
+		else if (part instanceof MotherboardPart)
+		{
+			if (mb == null)
+			{
+				return false;
+			}
+		}
+		else if (part instanceof GpuPart)
+		{
+			if (gpu == null)
+			{
+				return false;
+			}
+		}
+		else if (part instanceof RamPart)
+		{
+			if (ram == null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public String getError()
+	{
+		return error;
 	}
 }
