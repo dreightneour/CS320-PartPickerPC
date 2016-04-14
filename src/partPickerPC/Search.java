@@ -26,9 +26,10 @@ public class Search{
 	public static void getThisTestThing() throws Exception
 	{
 		setCpuList(getArrayCpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007671%208000%204814&IsNodeId=1&page=1&bop=And&Pagesize=90"));
+		setGpuList(getArrayGpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007709+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&Page=1"));
 		setMotherList(getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007625%204814&IsNodeId=1&bop=And&Pagesize=30&Page=1"));
 		setRamList(getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1"));
-		setGpuList(getArrayGpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007709+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&Page=1"));
+		
 	}
 
     public static void main(String[] args) throws Exception {
@@ -167,7 +168,7 @@ public class Search{
     {
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
-        Document document = Jsoup.connect(url).timeout(50000).get();
+        Document document = Jsoup.connect(url).timeout(500000).get();
         String html = document.toString();
         
 
@@ -520,7 +521,7 @@ public class Search{
     {
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
-        Document document = Jsoup.connect(url).timeout(50000).get();
+        Document document = Jsoup.connect(url).timeout(500000).get();
         
         String html = document.toString();
         
@@ -638,10 +639,10 @@ public class Search{
         						}
         					}
         					model = html.substring(startSub , endSub);
-        					//if(model.length() > 150)
-        					//{
-        					//	int b = 0;
-        					//}
+        					if(model.length() > 150)
+        					{
+        						int b = 0;
+        					}
         				}
         				
         				if(html.substring(j, j + 11).equals("Socket Type"))
@@ -948,10 +949,10 @@ public class Search{
         						}
         					}
         					model = html.substring(startSub , endSub);
-        					//if(model.length() > 150)
-        					//{
-        					//	int b = 0;
-        					//}
+        					if(model.length() > 150)
+        					{
+        						int b = 0;
+        					}
         				}
         				
         				if(html.substring(j, j + 10).equals(">Interface"))
@@ -1168,7 +1169,7 @@ public class Search{
     {
     	//open the webpage
         //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
-        Document document = Jsoup.connect(url).timeout(50000).get();
+        Document document = Jsoup.connect(url).timeout(500000).get();
         
         String html = document.toString();
         
@@ -1287,10 +1288,10 @@ public class Search{
         						}
         					}
         					model = html.substring(startSub , endSub);
-        					//if(model.length() > 150)
-        					//{
-        					//	int b = 0;
-        					//}
+        					if(model.length() > 150)
+        					{
+        						int b = 0;
+        					}
         				}
         				
         				if(html.substring(j, j + 6).equals("Series"))
