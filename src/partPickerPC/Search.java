@@ -626,7 +626,7 @@ public class Search{
         				
         				if(html.substring(j, j + 5).equals("Model") && model.equals(""))
         				{
-        					for(int k = j; k < j + 500; k++)
+        					for(int k = j; k < j + 300; k++)
         					{
         						if(html.substring(k, k + 4).equals("<dd>"))
         						{
@@ -936,7 +936,7 @@ public class Search{
         				
         				if(html.substring(j, j + 5).equals("Model") && model.equals(""))
         				{
-        					for(int k = j; k < j + 500; k++)
+        					for(int k = j; k < j + 300; k++)
         					{
         						if(html.substring(k, k + 4).equals("<dd>"))
         						{
@@ -947,6 +947,10 @@ public class Search{
         							endSub = k - 15;
         							break;
         						}
+        					}
+        					if(startSub > endSub)
+        					{
+        						int b = 0;
         					}
         					model = html.substring(startSub , endSub);
         					if(model.length() > 150)
@@ -1048,7 +1052,7 @@ public class Search{
     	while(next == true)
     	{
     		next = false;
-	        Document document = Jsoup.connect(url).timeout(50000).get();
+	        Document document = Jsoup.connect(url).timeout(500000).get();
 	        
 	        //String html = document.toString();
 	    	
@@ -1275,7 +1279,7 @@ public class Search{
         				
         				if(html.substring(j, j + 5).equals("Model") && model.equals("") )
         				{
-        					for(int k = j; k < j + 500; k++)
+        					for(int k = j; k < j + 300; k++)
         					{
         						if(html.substring(k, k + 4).equals("<dd>"))
         						{
