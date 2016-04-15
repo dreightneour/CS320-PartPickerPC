@@ -218,16 +218,7 @@ public class DerbyDatabase implements IDatabase {
 			throw new PersistenceException("Transaction failed", e);
 		}
 	}
-	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/Ryan/workspace/db.db;create=true");
 
-		
-		// Set autocommit to false to allow multiple the execution of
-		// multiple queries/statements as part of the same transaction.
-		conn.setAutoCommit(false);
-		
-		return conn;
-	}
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();

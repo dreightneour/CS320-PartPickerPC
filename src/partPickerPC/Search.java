@@ -639,10 +639,10 @@ public class Search{
         						}
         					}
         					model = html.substring(startSub , endSub);
-        					//if(model.length() > 150)
-        					//{
-        					//	int b = 0;
-        					//}
+        					if(model.length() > 150)
+        					{
+        						int b = 0;
+        					}
         				}
         				
         				if(html.substring(j, j + 11).equals("Socket Type"))
@@ -953,10 +953,10 @@ public class Search{
         						int b = 0;
         					}
         					model = html.substring(startSub , endSub);
-        					//if(model.length() > 150)
-        					//{
-        					//	int b = 0;
-        					//}
+        					if(model.length() > 150)
+        					{
+        						int b = 0;
+        					}
         				}
         				
         				if(html.substring(j, j + 10).equals(">Interface"))
@@ -1277,7 +1277,7 @@ public class Search{
         					brand = html.substring(startSub , endSub);
         				}
         				
-        				if(html.substring(j, j + 5).equals("Model") && model.equals("") )
+        				if(html.substring(j, j + 5).equals("Model"))
         				{
         					for(int k = j; k < j + 300; k++)
         					{
@@ -1292,30 +1292,33 @@ public class Search{
         						}
         					}
         					model = html.substring(startSub , endSub);
-        					//if(model.length() > 150)
-        					//{
-        					//	int b = 0;
-        					//}
-        				}
-        				
-        				if(html.substring(j, j + 6).equals("Series"))
-        				{
-        					for(int k = j; k < j + 200; k++)
+        					if(model.length() > 150)
         					{
-        						if(html.substring(k, k + 4).equals("<dd>"))
-        						{
-        							startSub = k + 20;
-        						}
-        						if(html.substring(k, k + 5).equals("</dd>"))
-        						{
-        							endSub = k - 15;
-        							break;
-        						}
+        						int b = 0;
         					}
-        					series = html.substring(startSub , endSub);
         				}
         				
-        				if(html.substring(j, j + 8).equals("Capacity"))
+        				if(html.substring(j, j + 6).equals("Series") && series.equals(""))
+        				{
+        					if(html.substring(j-7, j).contains("<dd>"))
+        					{
+	        					for(int k = j; k < j + 200; k++)
+	        					{
+	        						if(html.substring(k, k + 4).equals("<dd>"))
+	        						{
+	        							startSub = k + 20;
+	        						}
+	        						if(html.substring(k, k + 5).equals("</dd>"))
+	        						{
+	        							endSub = k - 15;
+	        							break;
+	        						}
+	        					}
+	        					series = html.substring(startSub , endSub);
+        					}
+        				}
+        				
+        				if(html.substring(j, j + 8).equals("Capacity") && capacity.equals(""))
         				{
         					for(int k = j; k < j + 200; k++)
         					{
@@ -1332,7 +1335,7 @@ public class Search{
         					capacity = html.substring(startSub , endSub);
         				}
         				
-        				if(html.substring(j, j + 4).equals("Type"))
+        				if(html.substring(j, j + 4).equals("Type") && type.equals(""))
         				{
         					for(int k = j; k < j + 200; k++)
         					{
@@ -1364,6 +1367,10 @@ public class Search{
         						}
         					}
         					multichannelType = html.substring(startSub , endSub);
+
+        							
+        					
+        						
         				}
         				
         			}
@@ -1402,6 +1409,17 @@ public class Search{
     		saleD = Double.parseDouble(salePrice);
     	}
     	
+    	if(brand.contains("</dd>") || brand.contains("\n") || series.contains("\n") || series.contains("</dd>") || model.contains("\n") || model.contains("</dd>") || capacity.contains("\n") || capacity.contains("</dd>") 
+    			|| type.contains("\n") || type.contains("</dd>") || multichannelType.contains("</dd>") || multichannelType.contains("</dd>"))
+    	{
+    		//int b = 0;
+            brand= new String();
+            model = new String();
+            series = new String();
+            capacity = new String();
+            type = new String();
+            multichannelType = new String();
+    	}
     	
     	RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, url, priceD, saleD);
     	return ram;
