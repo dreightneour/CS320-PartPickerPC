@@ -220,6 +220,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	private Connection connect() throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/Ryan/workspace/db.db;create=true");
+
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -575,144 +576,7 @@ public class DerbyDatabase implements IDatabase {
 		});
 					
 	}
-	@Override
-	public List<PartInterface> findCertainParts(String partType, String criteriaTable, String criteria) {
-		return executeTransaction(new Transaction<List<PartInterface>>(){
-
-			@Override
-			public List<PartInterface> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				try{
-					stmt = conn.prepareStatement(
-							"select * from ? " +
-							" where ? = ?"
-							
-							);
-					stmt.setString(1,  partType);
-					stmt.setString(2, criteriaTable);
-					stmt.setString(3, criteria);
-					List<PartInterface> result = new ArrayList<PartInterface>();
-					resultSet = stmt.executeQuery();
-					boolean found = false;
-					if (partType.compareTo("cpus") == 0)
-					{
-					while(resultSet.next()){
-						found = true;
-						
-						result.add(loadCpu(resultSet,1));
-					}
-					}
-					else if (partType.compareTo("gpus") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadGpu(resultSet,1));
-						}
-					}
-					else if (partType.compareTo("motherboards") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadMotherboard(resultSet,1));
-						}
-						
-					}
-					else if (partType.compareTo("rams") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadRam(resultSet,1));
-						}
-						
-					}
-					
-					if (!found) {
-						System.out.println("Can't find anything");
-					}
-					return result;
-					
-			}
-			
-			finally{
-			DBUtil.closeQuietly(resultSet);
-			DBUtil.closeQuietly(stmt);
-		}
-	}
-		});
-	}
 	
-	public List<PartInterface> findPriceRange(String partType, String lowerend, String higherend) {
-		return executeTransaction(new Transaction<List<PartInterface>>(){
-
-			@Override
-			public List<PartInterface> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				try{
-					stmt = conn.prepareStatement(
-							"select * from ? " +
-							" where price between ? and ?"
-							
-							);
-					stmt.setString(1,  partType);
-					stmt.setString(2, lowerend);
-					stmt.setString(3, higherend);
-					List<PartInterface> result = new ArrayList<PartInterface>();
-					resultSet = stmt.executeQuery();
-					boolean found = false;
-					if (partType.compareTo("cpus") == 0)
-					{
-					while(resultSet.next()){
-						found = true;
-						
-						result.add(loadCpu(resultSet,1));
-					}
-					}
-					else if (partType.compareTo("gpus") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadGpu(resultSet,1));
-						}
-					}
-					else if (partType.compareTo("motherboards") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadMotherboard(resultSet,1));
-						}
-						
-					}
-					else if (partType.compareTo("rams") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadRam(resultSet,1));
-						}
-						
-					}
-					
-					if (!found) {
-						System.out.println("Can't find anything");
-					}
-					return result;
-					
-			}
-			
-			finally{
-			DBUtil.closeQuietly(resultSet);
-			DBUtil.closeQuietly(stmt);
-		}
-	}
-		});
-	}
 	
 	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException {
 		user.setUserId(resultSet.getInt(index++));
