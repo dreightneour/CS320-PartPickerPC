@@ -81,16 +81,16 @@
 
 <script>
 function hideCpu() {
-    document.getElementById("cpu").style.visibility = "hidden";
+    document.getElementById("cpu").style.display = "none";
 }
 function hideGpu() {
-    document.getElementById("gpu").style.visibility = "hidden";
+	document.getElementById("gpu").style.display = "none";
 }
 function hideMb() {
-    document.getElementById("mb").style.visibility = "hidden";
+	document.getElementById("mb").style.display = "none";
 }
 function hideRam() {
-    document.getElementById("ram").style.visibility = "hidden";
+	document.getElementById("ram").style.display = "none";
 }
 </script>
 	</body>

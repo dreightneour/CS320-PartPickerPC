@@ -42,9 +42,9 @@ public class AllPartsServlet extends HttpServlet {
 
 		
 		PartList parts = new PartList();
-		req.setAttribute("cpus", db.findAllCpus());
+		req.setAttribute("cpus", db.findPriceRange("cpus", "" +100, "" +200));
 		req.setAttribute("motherboards", db.findAllMobos());
-		//req.setAttribute("gpus", db.findAllGpus());
+		req.setAttribute("gpus", db.findAllGpus());
 		req.setAttribute("rams", db.findAllRam());
 
 		req.getRequestDispatcher("/_view/allparts.jsp").forward(req, resp);

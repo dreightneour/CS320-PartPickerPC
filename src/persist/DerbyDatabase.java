@@ -69,6 +69,7 @@ public class DerbyDatabase implements IDatabase {
 							"	gpu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	brand varchar(200)," +
+							"   model varchar(200)," +
 							"	slottype varchar(200)," +
 							"	gpubase varchar(200)," +
 							"	memorysize varchar(200)," +
@@ -347,7 +348,16 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				try{
 					stmt = conn.prepareStatement(
-							"select * from cpus"
+							"SELECT * FROM cpus"
+							+ "WHERE sockettype is not NULL AND TRIM(sockettype) <> '' "
+							+ "AND name NOT NULL AND TRIM(name) <> ''"
+							+ "AND brand NOT NULL AND TRIM(brand) <> ''"
+							+ "AND series NOT NULL AND TRIM(series) <> ''"
+							+ "AND frequency NOT NULL AND TRIM(frequency) <> ''"
+							+ "AND cores NOT NULL AND TRIM(cores) <> ''"
+							+ "AND url NOT NULL AND TRIM(url) <> ''"
+							+ "AND price NOT NULL AND TRIM(price) <> ''"
+							
 							
 							);
 					List<CpuPart> result = new ArrayList<CpuPart>();
@@ -657,13 +667,13 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				try{
 					stmt = conn.prepareStatement(
-							"select * from ? " +
+							"select * from cpus " +
 							" where price between ? and ?"
 							
 							);
-					stmt.setString(1,  partType);
-					stmt.setString(2, lowerend);
-					stmt.setString(3, higherend);
+					//stmt.setString(1,  partType);
+					stmt.setString(1, lowerend);
+					stmt.setString(2, higherend);
 					List<PartInterface> result = new ArrayList<PartInterface>();
 					resultSet = stmt.executeQuery();
 					boolean found = false;
