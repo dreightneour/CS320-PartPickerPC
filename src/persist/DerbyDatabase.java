@@ -218,6 +218,16 @@ public class DerbyDatabase implements IDatabase {
 			throw new PersistenceException("Transaction failed", e);
 		}
 	}
+	
+	private Connection connect() throws SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/Ryan/workspace/db.db;create=true");
+		
+		// Set autocommit to false to allow multiple the execution of
+		// multiple queries/statements as part of the same transaction.
+		conn.setAutoCommit(false);
+		
+		return conn;
+	}
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
@@ -568,6 +578,145 @@ public class DerbyDatabase implements IDatabase {
 					
 	}
 	
+	@Override
+	public List<PartInterface> findCertainParts(String partType, String criteriaTable, String criteria) {
+		return executeTransaction(new Transaction<List<PartInterface>>(){
+
+			@Override
+			public List<PartInterface> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				try{
+					stmt = conn.prepareStatement(
+							"select * from ? " +
+							" where ? = ?"
+							
+							);
+					stmt.setString(1,  partType);
+					stmt.setString(2, criteriaTable);
+					stmt.setString(3, criteria);
+					List<PartInterface> result = new ArrayList<PartInterface>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					if (partType.compareTo("cpus") == 0)
+					{
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadCpu(resultSet,1));
+					}
+					}
+					else if (partType.compareTo("gpus") == 0)
+					{
+						while(resultSet.next()){
+							found = true;
+							
+							result.add(loadGpu(resultSet,1));
+						}
+					}
+					else if (partType.compareTo("motherboards") == 0)
+					{
+						while(resultSet.next()){
+							found = true;
+							
+							result.add(loadMotherboard(resultSet,1));
+						}
+						
+					}
+					else if (partType.compareTo("rams") == 0)
+					{
+						while(resultSet.next()){
+							found = true;
+							
+							result.add(loadRam(resultSet,1));
+						}
+						
+					}
+					
+					if (!found) {
+						System.out.println("Can't find anything");
+					}
+					return result;
+					
+			}
+			
+			finally{
+			DBUtil.closeQuietly(resultSet);
+			DBUtil.closeQuietly(stmt);
+		}
+	}
+		});
+	}
+	
+	public List<PartInterface> findPriceRange(String partType, String lowerend, String higherend) {
+		return executeTransaction(new Transaction<List<PartInterface>>(){
+
+			@Override
+			public List<PartInterface> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				try{
+					stmt = conn.prepareStatement(
+							"select * from ? " +
+							" where price between ? and ?"
+							
+							);
+					stmt.setString(1,  partType);
+					stmt.setString(2, lowerend);
+					stmt.setString(3, higherend);
+					List<PartInterface> result = new ArrayList<PartInterface>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					if (partType.compareTo("cpus") == 0)
+					{
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadCpu(resultSet,1));
+					}
+					}
+					else if (partType.compareTo("gpus") == 0)
+					{
+						while(resultSet.next()){
+							found = true;
+							
+							result.add(loadGpu(resultSet,1));
+						}
+					}
+					else if (partType.compareTo("motherboards") == 0)
+					{
+						while(resultSet.next()){
+							found = true;
+							
+							result.add(loadMotherboard(resultSet,1));
+						}
+						
+					}
+					else if (partType.compareTo("rams") == 0)
+					{
+						while(resultSet.next()){
+							found = true;
+							
+							result.add(loadRam(resultSet,1));
+						}
+						
+					}
+					
+					if (!found) {
+						System.out.println("Can't find anything");
+					}
+					return result;
+					
+			}
+			
+			finally{
+			DBUtil.closeQuietly(resultSet);
+			DBUtil.closeQuietly(stmt);
+		}
+	}
+		});
+	}
+	
 	
 	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException {
 		user.setUserId(resultSet.getInt(index++));
@@ -606,7 +755,7 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					insertCpu = conn.prepareStatement("insert into cpus (sockettype, name, brand, series, frequency, cores, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
-					insertGpu = conn.prepareStatement("insert into gpus (brand, slottype, gpubase, memorysize, url, price, sale) values (?, ?, ?, ?, ? , ?, ?)");
+					insertGpu = conn.prepareStatement("insert into gpus (brand, model, slottype, gpubase, memorysize, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ?)");
 					insertMotherboard = conn.prepareStatement("insert into motherboards (brand, model, sockettype, url, price, sale) values (?, ?, ?, ?, ? , ?)");
 					insertRam = conn.prepareStatement("insert into rams (brand, series, model, capacity, type, multichanneltype, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
 					for (CpuPart cpu : cpuList) {
@@ -627,12 +776,13 @@ public class DerbyDatabase implements IDatabase {
 					for (GpuPart gpu : gpuList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertGpu.setString(1, gpu.getBrand());
-						insertGpu.setString(2,  gpu.getSlotType());
-						insertGpu.setString(3, gpu.getGpuBase());
-						insertGpu.setString(4, gpu.getMemorySize());
-						insertGpu.setString(5,  gpu.getUrl());
-						insertGpu.setDouble(6,  gpu.getPrice());
-						insertGpu.setDouble(7, 0.0);
+						insertGpu.setString(2, gpu.getModel());
+						insertGpu.setString(3,  gpu.getSlotType());
+						insertGpu.setString(4, gpu.getGpuBase());
+						insertGpu.setString(5, gpu.getMemorySize());
+						insertGpu.setString(6,  gpu.getUrl());
+						insertGpu.setDouble(7,  gpu.getPrice());
+						insertGpu.setDouble(8, 0.0);
 
 	
 						insertGpu.addBatch();
