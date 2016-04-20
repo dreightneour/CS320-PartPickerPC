@@ -666,63 +666,103 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				try{
+				if (partType.compareTo("cpu") == 0)
+				{
 					stmt = conn.prepareStatement(
 							"select * from cpus " +
 							" where price between ? and ?"
 							
 							);
-					//stmt.setString(1,  partType);
 					stmt.setString(1, lowerend);
 					stmt.setString(2, higherend);
 					List<PartInterface> result = new ArrayList<PartInterface>();
 					resultSet = stmt.executeQuery();
 					boolean found = false;
-					if (partType.compareTo("cpus") == 0)
-					{
+
 					while(resultSet.next()){
 						found = true;
 						
 						result.add(loadCpu(resultSet,1));
 					}
-					}
-					else if (partType.compareTo("gpus") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
+					return result;
+				}
+				else if (partType.compareTo("mb") == 0)
+				{
+					stmt = conn.prepareStatement(
+							"select * from motherboards " +
+							" where price between ? and ?"
 							
-							result.add(loadGpu(resultSet,1));
-						}
-					}
-					else if (partType.compareTo("motherboards") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadMotherboard(resultSet,1));
-						}
+							);
+					stmt.setString(1, lowerend);
+					stmt.setString(2, higherend);
+					List<PartInterface> result = new ArrayList<PartInterface>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+
+					while(resultSet.next()){
+						found = true;
 						
-					}
-					else if (partType.compareTo("rams") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadRam(resultSet,1));
-						}
-						
-					}
-					
-					if (!found) {
-						System.out.println("Can't find anything");
+						result.add(loadMotherboard(resultSet,1));
 					}
 					return result;
+				}
+				else if (partType.compareTo("gpu") == 0)
+				{
+					stmt = conn.prepareStatement(
+							"select * from gpus " +
+							" where price between ? and ?"
+							
+							);
+					stmt.setString(1, lowerend);
+					stmt.setString(2, higherend);
+					List<PartInterface> result = new ArrayList<PartInterface>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadGpu(resultSet,1));
+					}
+					return result;
+				}
+				else if (partType.compareTo("ram") == 0)
+				{
+					stmt = conn.prepareStatement(
+							"select * from rams " +
+							" where price between ? and ?"
+							
+							);
+					stmt.setString(1, lowerend);
+					stmt.setString(2, higherend);
+					List<PartInterface> result = new ArrayList<PartInterface>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadRam(resultSet,1));
+						return result;
+					}
+				}
+				else
+				{
+
+				}
+				
+
 					
 			}
 			
 			finally{
 			DBUtil.closeQuietly(resultSet);
 			DBUtil.closeQuietly(stmt);
+
 		}
+				List<PartInterface> result = new ArrayList<PartInterface>();
+				result = null;
+				return result;
 	}
 		});
 	}
