@@ -14,7 +14,7 @@ public class RamQuery {
 		IDatabase db = DatabaseProvider.getInstance();
 		
 		//get the RAM parts from the database depending on criteria
-		List<PartInterface> ramParts = db.findCertainParts("rams", criteriaTable, criteria);
+		List<PartInterface> ramParts = db.findCertainParts("ram", "rams", criteria);
 		
 		return ramParts;
 	}

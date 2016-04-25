@@ -14,7 +14,7 @@ public class GpuQuery {
 		IDatabase db = DatabaseProvider.getInstance();
 		
 		//get the gpu parts from the database depending on criteria
-		List<PartInterface> gpuParts = db.findCertainParts("gpus", criteriaTable, criteria);
+		List<PartInterface> gpuParts = db.findCertainParts("gpu", "gpus", criteria);
 		
 		return gpuParts;
 	}

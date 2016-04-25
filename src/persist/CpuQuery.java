@@ -14,7 +14,7 @@ public class CpuQuery {
 		IDatabase db = DatabaseProvider.getInstance();
 		
 		//get the cpu parts from the database depending on criteria
-		List<PartInterface> cpuParts = db.findCertainParts("cpus", criteriaTable, criteria);
+		List<PartInterface> cpuParts = db.findCertainParts("cpu", "cpus", criteria);
 		
 		return cpuParts;
 	}
