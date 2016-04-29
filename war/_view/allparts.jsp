@@ -63,13 +63,12 @@
 <button type="button" onclick="hideRam()">Hide Rams</button>
 <table>
 <caption> RAMs </caption>
-<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Series</td><td>Type</td><td>Capacity(GB)</td><td>Multi-Channel Type</td></tr>
+<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Type</td><td>Capacity(GB)</td><td>Multi-Channel Type</td></tr>
 <c:forEach items="${rams}" var="ram">
     <tr>
        <td><a href="${ram.url}" target="_blank">${ram.model}</a></td>
 	   <td>${ram.price}</td>
 	   <td>${ram.brand}</td>
-	   <td>${ram.series}</td>
 	   <td>${ram.type}</td>
 	   <td>${ram.capacity}</td>
 	   <td>${ram.multichannelType}</td>

@@ -16,4 +16,7 @@ public interface IDatabase {
 	public List<PartInterface> findPriceRange(final String partType, final String lowerend, final String higherend);
 	public List<CpuPart> findAllCpusCrit(String socketType, String brand, String series, String frequency,
 			String cores, String low, String high);
+	public List<MotherboardPart> findAllMbsCrit(String brand, String socketType, String low, String high);
+	public List<GpuPart> findAllGpusCrit(String brand, String series, String slotType, String memorySize, String low, String high);
+	public List<RamPart> findAllRamsCrit(String brand, String type, String capacity, String multichannel, String low, String high);
 }

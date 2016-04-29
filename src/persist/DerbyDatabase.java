@@ -741,6 +741,46 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	@Override
+	public List<MotherboardPart> findAllMbsCrit(String brand, String socketType, String low, String high) {
+		return executeTransaction(new Transaction<List<MotherboardPart>>(){
+			
+			@Override
+			public List<MotherboardPart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from motherboards " +
+							" WHERE (? IS NULL OR brand = ?) and " +
+							" (? IS NULL OR sockettype = ?) and " +
+							" price between ? and ? "
+							);
+					stmt.setString(1, brand);
+					stmt.setString(2, brand);
+					stmt.setString(3, socketType);
+					stmt.setString(4, socketType);
+					stmt.setString(5, low);
+					stmt.setString(6, high);
+					List<MotherboardPart> result = new ArrayList<MotherboardPart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadMotherboard(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 	
 	
 	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException {
@@ -853,6 +893,106 @@ public class DerbyDatabase implements IDatabase {
 				}
 			}
 		});
+	}
+
+
+
+	@Override
+	public List<GpuPart> findAllGpusCrit(String brand, String series, String slotType, String memorySize, String low,
+			String high) {
+return executeTransaction(new Transaction<List<GpuPart>>(){
+			
+			@Override
+			public List<GpuPart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from gpus " +
+							" WHERE (? IS NULL OR brand = ?) and " +
+							" (? IS NULL OR gpubase = ?) and " +
+							" (? IS NULL OR slottype = ?) and " +
+							" (? IS NULL OR memorysize = ?) and " +
+							" price between ? and ? "
+							);
+					stmt.setString(1, brand);
+					stmt.setString(2, brand);
+					stmt.setString(3, series);
+					stmt.setString(4, series);
+					stmt.setString(5, slotType);
+					stmt.setString(6, slotType);
+					stmt.setString(7, memorySize);
+					stmt.setString(8, memorySize);
+					stmt.setString(9, low);
+					stmt.setString(10, high);
+					List<GpuPart> result = new ArrayList<GpuPart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadGpu(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+
+	}
+
+
+	@Override
+	public List<RamPart> findAllRamsCrit(String brand, String type, String capacity, String multichannel, String low, String high) {
+return executeTransaction(new Transaction<List<RamPart>>(){
+			
+			@Override
+			public List<RamPart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from rams " +
+							" WHERE (? IS NULL OR brand = ?) and " +
+							" (? IS NULL OR type = ?) and " +
+							" (? IS NULL OR capacity = ?) and " +
+							" (? IS NULL OR multichanneltype = ?) and " +
+							" price between ? and ? "
+							);
+					stmt.setString(1, brand);
+					stmt.setString(2, brand);
+					stmt.setString(3, type);
+					stmt.setString(4, type);
+					stmt.setString(5, capacity);
+					stmt.setString(6, capacity);
+					stmt.setString(7, multichannel);
+					stmt.setString(8, multichannel);
+					stmt.setString(9, low);
+					stmt.setString(10, high);
+					List<RamPart> result = new ArrayList<RamPart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadRam(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+
 	}
 
 
