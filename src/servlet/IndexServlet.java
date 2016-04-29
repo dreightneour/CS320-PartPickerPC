@@ -38,7 +38,7 @@ public class IndexServlet extends HttpServlet {
 		String errorMessage = null;
 		String result = null;
 		
-			String username = req.getParameter("username");
+			String username = req.getParameter("username");//user / password login values
 			String password = req.getParameter("password");
 			String regusername = req.getParameter("registerusername");
 			String regpassword = req.getParameter("registerpassword");

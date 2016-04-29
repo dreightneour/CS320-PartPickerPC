@@ -177,7 +177,7 @@ public class Build
 		return true;
 	}
 	
-	public boolean didPartGetAdded(PartInterface part)
+	public boolean didPartGetAdded(PartInterface part) //just a check for if a part got added when the add method is called
 	{
 		if (part instanceof CpuPart)
 		{

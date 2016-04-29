@@ -54,7 +54,7 @@ public class QuickBuildServlet extends HttpServlet {
 		controller.setModel(model);
 		username = (String) req.getSession().getAttribute("theUser");
 		username = username.toUpperCase();
-		req.setAttribute("username", username);
+		req.setAttribute("username", username); // gets most expensive or cheapest from controller
 			if (req.getParameter("cheap") != null)
 			{
 			 theBuild = controller.giveCheapest();

@@ -50,7 +50,7 @@ public class CreateBuildController {
 	
 	public List<PartInterface> getPartInPriceRange(int low, int high, String part)
 	{
-		return db.findPriceRange(part, ""+low, ""+high);
+		return db.findPriceRange(part, ""+low, ""+high); // gets low / high or selected part
 	}
 	
 	
