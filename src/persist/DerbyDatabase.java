@@ -348,16 +348,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				try{
 					stmt = conn.prepareStatement(
-							"SELECT * FROM cpus"
-							+ "WHERE sockettype is not NULL AND TRIM(sockettype) <> '' "
-							+ "AND name NOT NULL AND TRIM(name) <> ''"
-							+ "AND brand NOT NULL AND TRIM(brand) <> ''"
-							+ "AND series NOT NULL AND TRIM(series) <> ''"
-							+ "AND frequency NOT NULL AND TRIM(frequency) <> ''"
-							+ "AND cores NOT NULL AND TRIM(cores) <> ''"
-							+ "AND url NOT NULL AND TRIM(url) <> ''"
-							+ "AND price NOT NULL AND TRIM(price) <> ''"
-							
+							"select * from cpus"
 							
 							);
 					List<CpuPart> result = new ArrayList<CpuPart>();
@@ -589,74 +580,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
-	public List<PartInterface> findCertainParts(String partType, String criteriaTable, String criteria) {
-		return executeTransaction(new Transaction<List<PartInterface>>(){
-
-			@Override
-			public List<PartInterface> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				try{
-					stmt = conn.prepareStatement(
-							"select * from ? " +
-							" where ? = ?"
-							
-							);
-					stmt.setString(1,  partType);
-					stmt.setString(2, criteriaTable);
-					stmt.setString(3, criteria);
-					List<PartInterface> result = new ArrayList<PartInterface>();
-					resultSet = stmt.executeQuery();
-					boolean found = false;
-					if (partType.compareTo("cpus") == 0)
-					{
-					while(resultSet.next()){
-						found = true;
-						
-						result.add(loadCpu(resultSet,1));
-					}
-					}
-					else if (partType.compareTo("gpus") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadGpu(resultSet,1));
-						}
-					}
-					else if (partType.compareTo("motherboards") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadMotherboard(resultSet,1));
-						}
-						
-					}
-					else if (partType.compareTo("rams") == 0)
-					{
-						while(resultSet.next()){
-							found = true;
-							
-							result.add(loadRam(resultSet,1));
-						}
-						
-					}
-					
-					if (!found) {
-						System.out.println("Can't find anything");
-					}
-					return result;
-					
-			}
-			
-			finally{
-			DBUtil.closeQuietly(resultSet);
-			DBUtil.closeQuietly(stmt);
-		}
-	}
-		});
-	}
+	
 	
 	public List<PartInterface> findPriceRange(String partType, String lowerend, String higherend) {
 		return executeTransaction(new Transaction<List<PartInterface>>(){
@@ -764,6 +688,57 @@ public class DerbyDatabase implements IDatabase {
 				result = null;
 				return result;
 	}
+		});
+	}
+
+	@Override
+	public List<CpuPart> findAllCpusCrit(String socketType, String brand, String series, String frequency
+			, String cores, String low, String high) {
+		return executeTransaction(new Transaction<List<CpuPart>>(){
+			
+			@Override
+			public List<CpuPart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from cpus " +
+							" WHERE (? IS NULL OR sockettype = ?) and " +
+							" (? IS NULL OR brand = ?) and " +
+							" (? IS NULL OR series = ?) and " + 
+							" (? IS NULL OR frequency = ?) and " +
+							" (? IS NULL OR cores = ?) and " +
+							" price between ? and ? "
+							);
+					stmt.setString(1, socketType);
+					stmt.setString(2, socketType);
+					stmt.setString(3, brand);
+					stmt.setString(4, brand);
+					stmt.setString(5, series);
+					stmt.setString(6, series);
+					stmt.setString(7, frequency);
+					stmt.setString(8, frequency);
+					stmt.setString(9, cores);
+					stmt.setString(10, cores);
+					stmt.setString(11, low);
+					stmt.setString(12, high);
+					List<CpuPart> result = new ArrayList<CpuPart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadCpu(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
 		});
 	}
 	

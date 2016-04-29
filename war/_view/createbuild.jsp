@@ -157,10 +157,12 @@ Current Build
 				</tr>
 				<tr>
 					<td><select name="ramBrand">
+					<option value="Any">Any</option>
   					<option value="G.SKILL">G.SKILL</option>
   					<option value="Corsair">Corsair</option>
   					<option value="HyperX">HyperX</option>
  					<option value="Crucial">Crucial</option>
+ 					<option value="Mushkin Enhanced">Mushkin Enhanced</option>
 						</select></td>
 				</tr>
 				<tr>

@@ -40,7 +40,7 @@ public class AllPartsServlet extends HttpServlet {
 		db = DatabaseProvider.getInstance();	
 
 
-		req.setAttribute("cpus", db.findPriceRange("cpus", "" +100, "" +200));
+		req.setAttribute("cpus", db.findAllCpus());
 		req.setAttribute("motherboards", db.findAllMobos());
 		req.setAttribute("gpus", db.findAllGpus());
 		req.setAttribute("rams", db.findAllRam());
