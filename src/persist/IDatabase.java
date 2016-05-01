@@ -19,4 +19,9 @@ public interface IDatabase {
 	public List<MotherboardPart> findAllMbsCrit(String brand, String socketType, String low, String high);
 	public List<GpuPart> findAllGpusCrit(String brand, String series, String slotType, String memorySize, String low, String high);
 	public List<RamPart> findAllRamsCrit(String brand, String type, String capacity, String multichannel, String low, String high);
+	public CpuPart findCpuWithID(int CPUID);
+	public GpuPart findGpuWithID(int GPUID);
+	public MotherboardPart findMBWithID(int MBID);
+	public RamPart findRAMWithID(int RAMID);
+	public StoragePart findStorageWithID(int STOID);
 }

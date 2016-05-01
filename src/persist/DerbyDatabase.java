@@ -1010,4 +1010,62 @@ return executeTransaction(new Transaction<List<RamPart>>(){
 	}
 
 
+	@Override
+	public CpuPart findCpuWithID(int CPUID) {
+		return executeTransaction(new Transaction<CpuPart>(){
+
+			@Override
+			public CpuPart execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet set = null;
+				try{
+					stmt = conn.prepareStatement(
+							"SELECT * from cpus" +
+							"WHERE cpu_id = ?");
+					stmt.setString(1, Integer.toString(CPUID));
+					set = stmt.executeQuery();
+					CpuPart result = null;
+					while(set.next()){
+						result = loadCpu(set,1);
+					}
+					return result;
+					
+				}finally{
+					DBUtil.closeQuietly(set);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
+	}
+
+
+	@Override
+	public GpuPart findGpuWithID(int GPUID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public MotherboardPart findMBWithID(int MBID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public RamPart findRAMWithID(int RAMID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public StoragePart findStorageWithID(int STOID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
