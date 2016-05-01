@@ -46,6 +46,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt5 = null;
 				PreparedStatement stmt6 = null;
 				PreparedStatement stmt7 = null;
+				PreparedStatement stmt8 = null;
 				
 				try{
 					stmt1 = conn.prepareStatement(
@@ -158,7 +159,19 @@ public class DerbyDatabase implements IDatabase {
 					*/
 					
 					
-					
+					stmt8 = conn.prepareStatement(
+							"create table builds("
+							+ "build_id interger primary key"
+							+ "		generated always as identity (start with 1, increment by 1),"
+							+ "userid(100)"
+							+ "cpu(100),"
+							+ "gpu(100),"
+							+ "motherboard(100)"
+							+ "ram(100),"
+							+ "storage(100),"
+							+ ")"
+					);
+					stmt8.executeUpdate();
 					
 					return true;
 				}finally{
@@ -170,6 +183,7 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt5);
 					DBUtil.closeQuietly(stmt6);
 					DBUtil.closeQuietly(stmt7);
+					DBUtil.closeQuietly(stmt8);
 				}
 				
 			}
