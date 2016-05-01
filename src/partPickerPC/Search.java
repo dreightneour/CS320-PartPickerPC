@@ -934,7 +934,7 @@ public class Search{
         					brand = html.substring(startSub , endSub);
         				}
         				
-        				if(html.substring(j, j + 5).equals("Model") && model.equals(""))
+        				if(html.substring(j, j + 5).equals("Model") && !brand.equals("") && model.equals(""))
         				{
         					for(int k = j; k < j + 300; k++)
         					{
