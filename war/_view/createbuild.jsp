@@ -166,6 +166,15 @@ Current Build
 						</select></td>
 				</tr>
 				<tr>
+					<td><select name="ramType">
+					<option value="Any">Any</option>
+  					<option value="288-Pin DDR4 SDRAM">DDR4</option>
+  					<option value="240-Pin DDR3 SDRAM">DDR3</option>
+  					<option value="240-Pin DDR2 SDRAM">DDR2</option>
+ 					<option value="184-Pin DDR SDRAM">DDR</option>
+						</select></td>
+				</tr>
+				<tr>
 					<td><input id="submit" type="submit" name="SearchRam" size="20" value="SearchRam"   >  </td>
 				</tr>					
 				
