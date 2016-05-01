@@ -166,7 +166,7 @@ public class DerbyDatabase implements IDatabase {
 							+ "userid varchar(100),"
 							+ "cpu varchar(100),"
 							+ "gpu varchar(100),"
-							+ "motherboard varchar(100)"
+							+ "motherboard varchar(100),"
 							+ "ram varchar(100),"
 							+ "storage varchar(100)"
 							+ ")"
@@ -235,7 +235,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/Ryan/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:H:/CS320/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
