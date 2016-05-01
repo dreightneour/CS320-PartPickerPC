@@ -1042,29 +1042,121 @@ return executeTransaction(new Transaction<List<RamPart>>(){
 
 	@Override
 	public GpuPart findGpuWithID(int GPUID) {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<GpuPart>(){
+
+			@Override
+			public GpuPart execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet set = null;
+				try{
+					stmt = conn.prepareStatement(
+							"SELECT * from gpus" +
+							"WHERE gpu_id = ?");
+					stmt.setString(1, Integer.toString(GPUID));
+					set = stmt.executeQuery();
+					GpuPart result = null;
+					while(set.next()){
+						result = loadGpu(set,1);
+					}
+					return result;
+					
+				}finally{
+					DBUtil.closeQuietly(set);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 
 	@Override
 	public MotherboardPart findMBWithID(int MBID) {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<MotherboardPart>(){
+
+			@Override
+			public MotherboardPart execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet set = null;
+				try{
+					stmt = conn.prepareStatement(
+							"SELECT * from motherboards" +
+							"WHERE motherboard_id = ?");
+					stmt.setString(1, Integer.toString(MBID));
+					set = stmt.executeQuery();
+					MotherboardPart result = null;
+					while(set.next()){
+						result = loadMotherboard(set,1);
+					}
+					return result;
+					
+				}finally{
+					DBUtil.closeQuietly(set);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 
 	@Override
 	public RamPart findRAMWithID(int RAMID) {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<RamPart>(){
+
+			@Override
+			public RamPart execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet set = null;
+				try{
+					stmt = conn.prepareStatement(
+							"SELECT * from rams" +
+							"WHERE ram_id = ?");
+					stmt.setString(1, Integer.toString(RAMID));
+					set = stmt.executeQuery();
+					RamPart result = null;
+					while(set.next()){
+						result = loadRam(set,1);
+					}
+					return result;
+					
+				}finally{
+					DBUtil.closeQuietly(set);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 
 	@Override
 	public StoragePart findStorageWithID(int STOID) {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<StoragePart>(){
+
+			@Override
+			public StoragePart execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet set = null;
+				try{
+					stmt = conn.prepareStatement(
+							"SELECT * from storages" +
+							"WHERE storage_id = ?");
+					stmt.setString(1, Integer.toString(STOID));
+					set = stmt.executeQuery();
+					StoragePart result = null;
+					while(set.next()){
+						result = loadStorage(set,1);
+					}
+					return result;
+					
+				}finally{
+					DBUtil.closeQuietly(set);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
 	}
 
 
