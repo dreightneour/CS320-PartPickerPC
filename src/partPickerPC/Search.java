@@ -491,7 +491,7 @@ public class Search{
     						}
     						endPage = priceHtml.substring(startSub , endSub);
     					}
-    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals(""))
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals("") && Integer.valueOf(page) <= 2 )
     	    	   		{
     	    	   			next = true;
     	    	   			break;
@@ -795,7 +795,7 @@ public class Search{
     						}
     						endPage = priceHtml.substring(startSub , endSub);
     					}
-    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals(""))
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals("") && Integer.valueOf(page) <= 2 )
     	    	   		{
     	    	   			next = true;
     	    	   			break;
@@ -1142,7 +1142,7 @@ public class Search{
     						}
     						endPage = priceHtml.substring(startSub , endSub);
     					}
-    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals(""))
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals("") && Integer.valueOf(page) <= 2)
     	    	   		{
     	    	   			next = true;
     	    	   			break;
