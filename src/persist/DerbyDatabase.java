@@ -163,12 +163,12 @@ public class DerbyDatabase implements IDatabase {
 							"create table builds("
 							+ "build_id interger primary key"
 							+ "		generated always as identity (start with 1, increment by 1),"
-							+ "userid(100)"
-							+ "cpu(100),"
-							+ "gpu(100),"
-							+ "motherboard(100)"
-							+ "ram(100),"
-							+ "storage(100),"
+							+ "userid varchar(100),"
+							+ "cpu varchar(100),"
+							+ "gpu varchar(100),"
+							+ "motherboard varchar(100)"
+							+ "ram varchar(100),"
+							+ "storage varchar(100)"
 							+ ")"
 					);
 					stmt8.executeUpdate();
