@@ -3,7 +3,7 @@ package CreateBuild;
 import partPickerPC.Build;
 
 public class CreateBuildModel {
-	private Build theBuild;
+	private Build theBuild = new Build();
 	private boolean compatibleStatus;
 	
 

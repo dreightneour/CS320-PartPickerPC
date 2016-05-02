@@ -24,11 +24,11 @@ public class QueryTest extends TestCase {
 		db = DatabaseProvider.getInstance();
 		
 		List<CpuPart> a;
-		a = db.findAllCpusCrit(null, null, "Core i7", null, null, "1", "9999999");
+		a = db.findAllCpusCrit(null, null, null, null, null, "50.00", "99.99");
 		
 		for (int i = 0; i < a.size(); i++)
 		{
-			//System.out.println(a.get(i).getUrl());
+			//System.out.println(a.get(i).getPrice());
 		}
 		 
 	}
@@ -40,11 +40,11 @@ public class QueryTest extends TestCase {
 		db = DatabaseProvider.getInstance();
 		
 		List<MotherboardPart> a;
-		a = db.findAllMbsCrit(null, "FM2+", "1", "9999999");
+		a = db.findAllMbsCrit("ASUS", null, "1", "9999999");
 		
 		for (int i = 0; i < a.size(); i++)
 		{
-			//System.out.println(a.get(i).getUrl());
+			System.out.println(a.get(i).getUrl());
 		}
 	}
 	
@@ -55,11 +55,11 @@ public class QueryTest extends TestCase {
 		db = DatabaseProvider.getInstance();
 		
 		List<GpuPart> a;
-		a = db.findAllGpusCrit("EVGA", "GDDR5", "PCI Express 3.0 x16", "2GB", "0", "9999");
+		a = db.findAllGpusCrit("EVGA", "GDDR5", "PCI Express 3.0 x16", "2GB", "0", "0");
 		
 		for (int i = 0; i < a.size(); i++)
 		{
-			System.out.println(a.get(i).getUrl());
+			//System.out.println(a.get(i).getUrl());
 		}
 	}
 	

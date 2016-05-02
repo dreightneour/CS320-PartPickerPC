@@ -1,7 +1,11 @@
 package CreateBuild;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import Parts.CpuPart;
+import Parts.MotherboardPart;
+import partPickerPC.Build;
 import partPickerPC.PartInterface;
 import persist.DatabaseProvider;
 import persist.DerbyDatabase;
@@ -48,9 +52,38 @@ public class CreateBuildController {
 		return "Part Successfully removed";
 	}
 	
-	public List<PartInterface> getPartInPriceRange(int low, int high, String part)
+	public ArrayList<CpuPart> compatibleCpu(ArrayList<CpuPart> cpuCrit, Build theBuild)
 	{
-		return db.findPriceRange(part, ""+low, ""+high); // gets low / high or selected part
+		if (theBuild.getMb() != null)
+		{
+		ArrayList<CpuPart> compatible = new ArrayList<CpuPart>();
+		for (int i = 0; i < cpuCrit.size(); i++)
+		{
+			if (theBuild.checkSocketType(cpuCrit.get(i), theBuild.getMb()))
+					{
+						compatible.add(cpuCrit.get(i));
+					}
+		}
+		return compatible;
+		}
+		return cpuCrit;
+	}
+	
+	public ArrayList<MotherboardPart> compatibleMb(ArrayList<MotherboardPart> mbCrit, Build theBuild)
+	{
+		if (theBuild.getMb() != null)
+		{
+		ArrayList<MotherboardPart> compatible = new ArrayList<MotherboardPart>();
+		for (int i = 0; i < mbCrit.size(); i++)
+		{
+			if (theBuild.checkSocketType(theBuild.getCpu(), mbCrit.get(i)))
+					{
+						compatible.add(mbCrit.get(i));
+					}
+		}
+		return compatible;
+		}
+		return mbCrit;
 	}
 	
 	

@@ -1,28 +1,41 @@
 package QuickBuild;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import Parts.CpuPart;
+import Parts.GpuPart;
+import Parts.MotherboardPart;
 import Parts.PartList;
+import Parts.RamPart;
 import partPickerPC.Build;
+import persist.DatabaseProvider;
+import persist.DerbyDatabase;
+import persist.IDatabase;
 
 public class QuickBuildModel {
-	private PartList parts;
 	private ArrayList<Build> compatibleBuilds;
 	private ArrayList<Build> actualCompatibleBuilds;
 	public QuickBuildModel()
 	{
-		PartList parts = new PartList();
+		IDatabase db    = null;
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
+		List<CpuPart> cpus = db.findAllCpus();
+		List<GpuPart> gpus = db.findAllGpus();
+		List<MotherboardPart> mbs = db.findAllMobos();
+		List<RamPart> rams = db.findAllRam();
 		compatibleBuilds = new ArrayList<Build>();
 		actualCompatibleBuilds = new ArrayList<Build>();
-		for (int i = 0; i < parts.getCpus().size(); i++)		// this makes every possible build
+		for (int i = 0; i < cpus.size(); i++)		// this makes every possible build
 		{
-			for (int j = 0; j < parts.getMotherboards().size(); j++)
+			for (int j = 0; j < mbs.size(); j++)
 			{
-				for (int g = 0; g < parts.getGpus().size(); g++)
+				for (int g = 0; g < gpus.size(); g++)
 				{
-					for (int f = 0; f < parts.getRams().size(); f++)
+					for (int f = 0; f < rams.size(); f++)
 					{
-						compatibleBuilds.add(new Build(parts.getCpus().get(i), parts.getMotherboards().get(j), parts.getGpus().get(g), parts.getRams().get(f)));
+						compatibleBuilds.add(new Build(cpus.get(i), mbs.get(j), gpus.get(g), rams.get(f)));
 					}
 				}
 			}

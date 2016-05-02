@@ -235,7 +235,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:H:/CS320/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/Ryan/workspace/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -723,7 +723,7 @@ public class DerbyDatabase implements IDatabase {
 							" (? IS NULL OR series = ?) and " + 
 							" (? IS NULL OR frequency = ?) and " +
 							" (? IS NULL OR cores = ?) and " +
-							" price between ? and ? "
+							" price between ?   and   ?  "
 							);
 					stmt.setString(1, socketType);
 					stmt.setString(2, socketType);
