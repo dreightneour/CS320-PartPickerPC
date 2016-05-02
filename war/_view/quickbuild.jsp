@@ -7,7 +7,7 @@
 	</head>
 
 	<body>
-<h2 style="background-color:blue; color:red: padding:30px;"> <font color = "yellow">Pick a type of Quick Build to make ${username}!</font></h2>
+<h2 style="background-color:blue; color:red: padding:30px;"> <font color = "white">Pick a type of Quick Build to make ${username}!</font></h2>
 <FORM method="post" action="${pageContext.servletContext.contextPath}/quickbuild">
 <div style="background-color:green: color:orange: padding: 20px:"> 
 <button name="cheap"  >Let's go cheap and save money!</button>
