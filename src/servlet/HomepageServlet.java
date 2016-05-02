@@ -44,6 +44,10 @@ public class HomepageServlet extends HttpServlet {
 		{
 		resp.sendRedirect("/ppc/allparts");
 		}
+		else if (req.getParameter("createbuild") != null)
+		{
+		resp.sendRedirect("/ppc/createbuild");
+		}
 		
 
 			

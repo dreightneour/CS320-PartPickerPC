@@ -21,19 +21,19 @@ public class QuickBuildModel {
 		IDatabase db    = null;
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		db = DatabaseProvider.getInstance();
-		List<CpuPart> cpus = db.findAllCpus();
-		List<GpuPart> gpus = db.findAllGpus();
-		List<MotherboardPart> mbs = db.findAllMobos();
-		List<RamPart> rams = db.findAllRam();
+		List<CpuPart> cpus = db.findAllCpusCrit(null, null, null, null, null, "1", "999999");
+		List<GpuPart> gpus = db.findAllGpusCrit(null, null, null, null, "1", "9999999");
+		List<MotherboardPart> mbs = db.findAllMbsCrit(null, null, "1", "999999");
+		List<RamPart> rams = db.findAllRamsCrit(null, null, null, null, "1", "999999");
 		compatibleBuilds = new ArrayList<Build>();
 		actualCompatibleBuilds = new ArrayList<Build>();
-		for (int i = 0; i < cpus.size(); i++)		// this makes every possible build
+		for (int i = 0; i < cpus.size() / 3; i++)		// this makes every possible build
 		{
-			for (int j = 0; j < mbs.size(); j++)
+			for (int j = 0; j < mbs.size() / 3; j++)
 			{
-				for (int g = 0; g < gpus.size(); g++)
+				for (int g = 0; g < gpus.size() / 3; g++)
 				{
-					for (int f = 0; f < rams.size(); f++)
+					for (int f = 0; f < rams.size() / 10; f++)
 					{
 						compatibleBuilds.add(new Build(cpus.get(i), mbs.get(j), gpus.get(g), rams.get(f)));
 					}

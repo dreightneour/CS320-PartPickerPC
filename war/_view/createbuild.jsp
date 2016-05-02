@@ -23,13 +23,13 @@ Current Build
 <th>Cores</th>
 </tr>
 <tr>
-<td><a href="${cpuLink}" target="_blank">${cpuModel}</a></td>
-<td>${cpuPrice}</td>
-<td>${cpuBrand}</td>
-<td>${cpuSeries}</td>
-<td>${cpuSocket}</td>
-<td>${cpuFrequency}</td>
-<td>${cpuCores}</td>
+<td><a href="${cpubuild.url}" target="_blank">${cpubuild.name}</a></td>
+<td>${cpubuild.price}</td>
+<td>${cpubuild.brand}</td>
+<td>${cpubuild.series}</td>
+<td>${cpubuild.socketType}</td>
+<td>${cpubuild.frequency}</td>
+<td>${cpubuild.cores}</td>
 </table>
 </div>
 <div id="GpuCurrent">
@@ -43,12 +43,12 @@ Current Build
 <th>Memory Size(GB)</th>
 </tr>
 <tr>
-<td><a href="${gpuLink}" target="_blank">${gpuModel}</a></td>
-<td>${gpuPrice}</td>
-<td>${gpuBrand}</td>
-<td>${gpuSeries}</td>
-<td>${gpuSlot}</td>
-<td>${gpuMemory}</td>
+<td><a href="${gpubuild.url}" target="_blank">${gpubuild.model}</a></td>
+<td>${gpubuild.price}</td>
+<td>${gpubuild.brand}</td>
+<td>${gpubuild.gpuBase}</td>
+<td>${gpubuild.slotType}</td>
+<td>${gpubuild.memorySize}</td>
 </table>
 </div>
 <div id="MbCurrent">
@@ -60,10 +60,10 @@ Current Build
 <th>Socket Type</th>
 </tr>
 <tr>
-<td><a href="${motherboardLink}" target="_blank">${motherboardModel}</a></td>
-<td>${motherboardPrice}</td>
-<td>${motherboardBrand}</td>
-<td>${motherboardSocket}</td>
+<td><a href="${mbbuild.url}" target="_blank">${mbbuild.model}</a></td>
+<td>${mbbuild.price}</td>
+<td>${mbbuild.brand}</td>
+<td>${mbbuild.socketType}</td>
 </table>
 </div>
 <div id="RamCurrent">
@@ -72,19 +72,17 @@ Current Build
 <th>Name</th>
 <th>Price $</th>
 <th>Brand</th>
-<th>Series</th>
 <th>Type</th>
 <th>Capacity(GB)</th>
 <th>Multi-Channel Type</th>
 </tr>
 <tr>
-<td><a href="${ramLink}" target="_blank">${ramModel}</a></td>
-<td>${ramPrice}</td>
-<td>${ramBrand}</td>
-<td>${ramSeries}</td>
-<td>${ramType}</td>
-<td>${ramCapacity}</td>
-<td>${ramMulti}</td>
+       <td><a href="${rambuild.url}" target="_blank">${rambuild.model}</a></td>
+	   <td>${rambuild.price}</td>
+	   <td>${rambuild.brand}</td>
+	   <td>${rambuild.type}</td>
+	   <td>${rambuild.capacity}</td>
+	   <td>${rambuild.multichannelType}</td>
 </table>
 </div>
 <FORM method="post" action="${pageContext.servletContext.contextPath}/createbuild">

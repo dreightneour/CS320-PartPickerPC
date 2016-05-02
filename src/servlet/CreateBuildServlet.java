@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import CreateBuild.CreateBuildController;
 import CreateBuild.CreateBuildModel;
 import Parts.CpuPart;
+import Parts.GpuPart;
 import Parts.MotherboardPart;
 import Parts.PartList;
+import Parts.RamPart;
 import persist.DatabaseProvider;
 import persist.DerbyDatabase;
 import persist.IDatabase;
@@ -23,6 +25,11 @@ public class CreateBuildServlet extends HttpServlet {
 	private String username;
 	private List<CpuPart> cpus;
 	private List<MotherboardPart> mbs;
+	private List<GpuPart> gpus;
+	private List<RamPart> rams;
+	CreateBuildModel model = new CreateBuildModel();
+	CreateBuildController controller = new CreateBuildController();
+	
 
 	
 	@Override
@@ -43,6 +50,23 @@ public class CreateBuildServlet extends HttpServlet {
 			req.setAttribute("username", username);
 		}
 		
+		if (req.getSession().getAttribute("cpubuild") != null)
+				{
+				req.setAttribute("cpubuild", req.getSession().getAttribute("cpubuild"));
+				}
+		if (req.getSession().getAttribute("mbbuild") != null)
+		{
+		req.setAttribute("mbbuild", req.getSession().getAttribute("mbbuild"));
+		}
+		if (req.getSession().getAttribute("gpubuild") != null)
+		{
+		req.setAttribute("gpubuild", req.getSession().getAttribute("gpubuild"));
+		}
+		if (req.getSession().getAttribute("rambuild") != null)
+		{
+		req.setAttribute("rambuild", req.getSession().getAttribute("rambuild"));
+		}
+		
 		req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
 	}
 	
@@ -55,9 +79,9 @@ public class CreateBuildServlet extends HttpServlet {
 			IDatabase db    = null;
 			DatabaseProvider.setInstance(new DerbyDatabase());
 			db = DatabaseProvider.getInstance();	
-			CreateBuildModel model = new CreateBuildModel();
-			CreateBuildController controller = new CreateBuildController();
 			controller.setModel(model);
+			
+			
 			
 			username = (String) req.getSession().getAttribute("theUser");
 			if (username == null)
@@ -116,9 +140,51 @@ public class CreateBuildServlet extends HttpServlet {
 				req.getRequestDispatcher("/_view/mbs.jsp").forward(req, resp);
 				
 			}
+			else if (req.getParameter("searchGpu") != null)
+			{
+				low = req.getParameter("glow");
+				high = req.getParameter("ghigh");
+				String memorySize = req.getParameter("gmemorysize");
+				String brand = req.getParameter("gbrand");
+				if (brand.compareTo("none") == 0)
+				{
+					brand = null;
+				}
+				if (memorySize.compareTo("none") == 0)
+				{
+					memorySize = null;
+				}
+
+				
+				 gpus = db.findAllGpusCrit(brand, null, null, memorySize, low, high);
+				req.setAttribute("glist", gpus);
+				req.getRequestDispatcher("/_view/gpus.jsp").forward(req, resp);
+			}
+			
+			else if (req.getParameter("searchRam") != null)
+			{
+				low = req.getParameter("rlow");
+				high = req.getParameter("rhigh");
+				String type = req.getParameter("rtype");
+				String brand = req.getParameter("rbrand");
+				if (brand.compareTo("none") == 0)
+				{
+					brand = null;
+				}
+				if (type.compareTo("none") == 0)
+				{
+					type = null;
+				}
+
+				
+				 rams = db.findAllRamsCrit(brand, type, null, null, low, high);
+				req.setAttribute("rlist", rams);
+				req.getRequestDispatcher("/_view/rams.jsp").forward(req, resp);
+			}
 			else if (req.getParameter("cpus") != null)
 			{
 				req.getRequestDispatcher("/_view/cpuCrit.jsp").forward(req, resp);
+				
 			}
 			else if (req.getParameter("gpus") != null)
 			{
@@ -141,11 +207,12 @@ public class CreateBuildServlet extends HttpServlet {
 				System.out.println(cpunum);
 					String message = controller.addPartToParts(cpus.get(cpunum));
 					CpuPart baseCpu = controller.getModel().getTheBuild().getCpu();
-					req.setAttribute("cpuLink", baseCpu.getUrl());
-					req.setAttribute("cpuModel", baseCpu.getName());
-					req.setAttribute("cpuPrice", baseCpu.getPrice());
-					req.setAttribute("cpuBrand", baseCpu.getBrand());
-					req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
+					req.getSession().setAttribute("cpubuild", cpus.get(cpunum));
+					//req.setAttribute("cpuLink", baseCpu.getUrl());
+					//req.setAttribute("cpuModel", baseCpu.getName());
+					//req.setAttribute("cpuPrice", baseCpu.getPrice());
+					//req.setAttribute("cpuBrand", baseCpu.getBrand());
+					//req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
 				
 			}
 			else if (req.getParameter("submitMb") != null)
@@ -154,11 +221,40 @@ public class CreateBuildServlet extends HttpServlet {
 				System.out.println(mbnum);
 					String message = controller.addPartToParts(mbs.get(mbnum));
 					MotherboardPart baseMb = controller.getModel().getTheBuild().getMb();
-					req.setAttribute("motherboardLink", baseMb.getUrl());
-					req.setAttribute("motherboardPrice", baseMb.getPrice());
-					req.setAttribute("motherboardBrand", baseMb.getBrand());
-					req.setAttribute("motherboardSocket", baseMb.getSocketType());
-					req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
+					req.getSession().setAttribute("mbbuild", mbs.get(mbnum));
+					//req.setAttribute("motherboardLink", baseMb.getUrl());
+					//req.setAttribute("motherboardPrice", baseMb.getPrice());
+					//req.setAttribute("motherboardBrand", baseMb.getBrand());
+					//req.setAttribute("motherboardSocket", baseMb.getSocketType());
+					//req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
+				
+			}
+			else if (req.getParameter("submitGpu") != null)
+			{
+				int gpunum = Integer.parseInt(req.getParameter("submitGpu"));
+				System.out.println(gpunum);
+					String message = controller.addPartToParts(gpus.get(gpunum));
+					GpuPart baseGpu = controller.getModel().getTheBuild().getGpu();
+					req.getSession().setAttribute("gpubuild", gpus.get(gpunum));
+					//req.setAttribute("cpuLink", baseCpu.getUrl());
+					//req.setAttribute("cpuModel", baseCpu.getName());
+					//req.setAttribute("cpuPrice", baseCpu.getPrice());
+					//req.setAttribute("cpuBrand", baseCpu.getBrand());
+					//req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
+				
+			}
+			else if (req.getParameter("submitRam") != null)
+			{
+				int ramnum = Integer.parseInt(req.getParameter("submitRam"));
+				System.out.println(ramnum);
+					String message = controller.addPartToParts(rams.get(ramnum));
+					RamPart baseRam = controller.getModel().getTheBuild().getRam();
+					req.getSession().setAttribute("rambuild", rams.get(ramnum));
+					//req.setAttribute("cpuLink", baseCpu.getUrl());
+					//req.setAttribute("cpuModel", baseCpu.getName());
+					//req.setAttribute("cpuPrice", baseCpu.getPrice());
+					//req.setAttribute("cpuBrand", baseCpu.getBrand());
+					//req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
 				
 			}
 		
