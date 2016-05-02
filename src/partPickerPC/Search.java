@@ -624,7 +624,7 @@ public class Search{
         					brand = html.substring(startSub , endSub);
         				}
         				
-        				if(html.substring(j, j + 5).equals("Model") && model.equals(""))
+        				if(html.substring(j, j + 5).equals("Model") && model.equals("") && !brand.equals(""))
         				{
         					for(int k = j; k < j + 300; k++)
         					{
@@ -1300,8 +1300,8 @@ public class Search{
         				
         				if(html.substring(j, j + 6).equals("Series") && series.equals(""))
         				{
-        					if(html.substring(j-7, j).contains("<dd>"))
-        					{
+        					//if(html.substring(j-7, j).contains("<dd>"))
+        					//{
 	        					for(int k = j; k < j + 200; k++)
 	        					{
 	        						if(html.substring(k, k + 4).equals("<dd>"))
@@ -1315,7 +1315,7 @@ public class Search{
 	        						}
 	        					}
 	        					series = html.substring(startSub , endSub);
-        					}
+        					//}
         				}
         				
         				if(html.substring(j, j + 8).equals("Capacity") && capacity.equals(""))
