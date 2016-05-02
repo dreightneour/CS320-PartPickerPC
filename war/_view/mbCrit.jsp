@@ -5,15 +5,15 @@
 	<form method="post" action="${pageContext.servletContext.contextPath}/createbuild">
 	<table>
 				<tr>
-					<td>from:$$</td>
+					<td><font color = "white">from:$$</font></td>
 					<td><input type="text" name="mlow" size="15" value="${mlow}" /></td>
 				</tr>
 				<tr>
-					<td>to:$$</td>
+					<td><font color = "white">to:$$</font></td>
 					<td><input type="text" name="mhigh" size="15" value="${mhigh}" /></td>
 				</tr>
 				<tr>
-					<td>Brand</td>
+					<td><font color = "white">Brand</font></td>
 					<td><select name="mbrand">
 							<option value="none"> ALL </option>
 							<option value="ASRock">ASRock</option>

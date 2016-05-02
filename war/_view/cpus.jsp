@@ -7,7 +7,8 @@
 	</head>
 
 	<body>
-<h2 style="background-color:blue; color:red: padding:30px;"> Welcome to Part Picker PC ${username}</h2>
+<font1 style =color:white>
+<h2 style="background-color:blue; color:red: padding:30px;"> <font1>Welcome to Part Picker PC ${username}</font1></h2>
 	<FORM method="post" action="${pageContext.servletContext.contextPath}/createbuild">
 	<div class="CpuWindow" style="background-color:blue; color:red: padding:30px;">
 	<table>

@@ -5,15 +5,15 @@
 	<form method="post" action="${pageContext.servletContext.contextPath}/createbuild">
 	<table>
 				<tr>
-					<td>from:$$</td>
+					<td><font color = "white">from:$$</font></td>
 					<td><input type="text" name="clow" size="15" value="${clow}" /></td>
 				</tr>
 				<tr>
-					<td>to:$$</td>
+					<td><font color = "white">to:$$</font></td>
 					<td><input type="text" name="chigh" size="15" value="${chigh}" /></td>
 				</tr>
 				<tr>
-					<td>Socket Type</td>
+					<td><font color = "white">Socket Type</font></td>
 					<td><select name="cseries">
 							<option value="none"> ALL </option>
   							<option value="Core i3">i3</option>
@@ -25,7 +25,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td>Socket Type</td>
+					<td><font color = "white">Socket Type</font></td>
 					<td><select name="csocketType">
 							<option value="none"> ALL </option>
   							<option value="LGA 1150">LGA 1150</option>
@@ -41,7 +41,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td>Socket Type</td>
+					<td><font color = "white">Socket Type</font></td>
 					<td><select name="ccores">
 							<option value="none"> ALL </option>
 							<option value="Dual-Core">Dual Core</option>
@@ -53,7 +53,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td>Brand</td>
+					<td><font color = "white">Brand</font></td>
 					<td><select name="cbrand">
 							<option value="none"> ALL </option>
 							<option value="Intel">Intel</option>

@@ -5,15 +5,15 @@
 	<form method="post" action="${pageContext.servletContext.contextPath}/createbuild">
 	<table>
 				<tr>
-					<td>from:$$</td>
+					<td><font color = "white">from:$$</font></td>
 					<td><input type="text" name="glow" size="15" value="${glow}" /></td>
 				</tr>
 				<tr>
-					<td>to:$$</td>
+					<td><font color = "white">to:$$</font></td>
 					<td><input type="text" name="ghigh" size="15" value="${ghigh}" /></td>
 				</tr>
 				<tr>
-					<td>Memory Size (GB)</td>
+					<td><font color = "white">Memory Size (GB)</font></td>
 					<td><select name="gmemorysize">
 							<option value="none"> ALL </option>
   							<option value="1GB">1</option>
@@ -25,7 +25,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td>Brand</td>
+					<td><font = color = "white">Brand</font></td>
 					<td><select name="gbrand">
 							<option value="none"> ALL </option>
 							<option value="GIGABYTE">GIGABYTE</option>
