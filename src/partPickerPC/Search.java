@@ -491,7 +491,7 @@ public class Search{
     						}
     						endPage = priceHtml.substring(startSub , endSub);
     					}
-    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals("") && Integer.valueOf(page) <= 2 )
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals("") && Integer.valueOf(page) <= 2)
     	    	   		{
     	    	   			next = true;
     	    	   			break;
@@ -624,7 +624,7 @@ public class Search{
         					brand = html.substring(startSub , endSub);
         				}
         				
-        				if(html.substring(j, j + 5).equals("Model") && model.equals("") && !brand.equals(""))
+        				if(html.substring(j, j + 5).equals("Model") && model.equals(""))
         				{
         					for(int k = j; k < j + 300; k++)
         					{
@@ -795,7 +795,7 @@ public class Search{
     						}
     						endPage = priceHtml.substring(startSub , endSub);
     					}
-    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals("") && Integer.valueOf(page) <= 2 )
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals("")&& Integer.valueOf(page) <= 2)
     	    	   		{
     	    	   			next = true;
     	    	   			break;
@@ -993,7 +993,7 @@ public class Search{
         					memorySize = html.substring(startSub , endSub);
         				}
         				
-        				if(html.substring(j, j + 11).equals("Memory Type"))
+        				if(html.substring(j, j + 4).equals(">GPU"))
         				{
         					for(int k = j; k < j + 200; k++)
         					{
@@ -1300,8 +1300,8 @@ public class Search{
         				
         				if(html.substring(j, j + 6).equals("Series") && series.equals(""))
         				{
-        					//if(html.substring(j-7, j).contains("<dd>"))
-        					//{
+        					if(html.substring(j-7, j).contains("<dd>"))
+        					{
 	        					for(int k = j; k < j + 200; k++)
 	        					{
 	        						if(html.substring(k, k + 4).equals("<dd>"))
@@ -1315,7 +1315,7 @@ public class Search{
 	        						}
 	        					}
 	        					series = html.substring(startSub , endSub);
-        					//}
+        					}
         				}
         				
         				if(html.substring(j, j + 8).equals("Capacity") && capacity.equals(""))
