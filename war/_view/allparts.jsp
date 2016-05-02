@@ -7,7 +7,7 @@
 	</head>
 
 	<body>
-<h2 style="background-color:blue; color:red: padding:30px;"> List of Parts </h2>
+<h2 style="background-color:blue; color:red: padding:30px;"> <font color = "yellow"> List of Parts</font> </h2>
 <FORM method="post" action="${pageContext.servletContext.contextPath}/allparts">
 <div id="cpu">
 <button type="button" onclick="hideCpu()">Hide CPUs</button>
