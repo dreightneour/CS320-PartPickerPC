@@ -28,6 +28,11 @@ public class Search{
 		setCpuList(getArrayCpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007671%208000%204814&IsNodeId=1&page=1&bop=And&Pagesize=90"));
 		setGpuList(getArrayGpu("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007709+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&Page=1"));
 		setMotherList(getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007625%204814&IsNodeId=1&bop=And&Pagesize=30&Page=1"));
+    	ArrayList<MotherboardPart> mother2 = getArrayMotherboard("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007627%204814%208000&IsNodeId=1&bop=And&page=1");
+    	for(int i = 0; i < mother2.size(); i++)
+    	{
+    		motherList.add(mother2.get(i));
+    	}
 		setRamList(getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1"));
 		
 	}
@@ -1423,6 +1428,58 @@ public class Search{
     	
     	RamPart ram = new RamPart(brand, series, model, capacity, type, multichannelType, url, priceD, saleD);
     	return ram;
+    }
+    
+    
+    public double getPrice(String url) throws IOException
+    {
+        Document document = Jsoup.connect(url).timeout(500000).get();
+        String html = document.toString();
+        
+        Elements scriptElements = document.getElementsByTag("script");
+        
+        String price = new String();
+        int startSub = 0;
+        int endSub = 0;
+        
+        for (Element element :scriptElements ){ 
+       		for (DataNode node : element.dataNodes()) {
+               //System.out.println(node.getWholeData());
+    	   		String priceHtml = node.getWholeData();
+    	   		for(int i = 0; i < priceHtml.length() - 100; i++)
+    	   		{
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_unit_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 50; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						price = priceHtml.substring(startSub , endSub);
+					}
+	    	   		
+    	   		}
+               //System.out.println("-------------------");            
+           	}
+        }
+        
+    	
+    	 double priceD = 0.0;
+         double saleD = 0.0;
+         //return the CPUPART
+     	if(!price.equals("MAP"))
+     	{
+     		priceD = Double.parseDouble(price);
+     	}
+     	
+    	return priceD;
     }
 	public static ArrayList<CpuPart> getCpuList() {
 		return cpuList;
