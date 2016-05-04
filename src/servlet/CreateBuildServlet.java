@@ -185,7 +185,6 @@ public class CreateBuildServlet extends HttpServlet {
 			}
 			else if (req.getParameter("cpus") != null)
 			{
-				req.getRequestDispatcher("/_view/cpuCrit.jsp").forward(req, resp);
 				List<CpuPart> cpuList = db.findAllCpus();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
@@ -200,11 +199,12 @@ public class CreateBuildServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+				req.getRequestDispatcher("/_view/cpuCrit.jsp").forward(req, resp);
+
 				
 			}
 			else if (req.getParameter("gpus") != null)
 			{
-				req.getRequestDispatcher("/_view/gpuCrit.jsp").forward(req, resp);
 				List<GpuPart> gpuList = db.findAllGpus();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
@@ -219,11 +219,12 @@ public class CreateBuildServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+				req.getRequestDispatcher("/_view/gpuCrit.jsp").forward(req, resp);
+	
 				
 			}
 			else if (req.getParameter("mbs") != null)
 			{
-				req.getRequestDispatcher("/_view/mbCrit.jsp").forward(req, resp);
 				List<MotherboardPart> motherList = db.findAllMobos();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
@@ -238,11 +239,12 @@ public class CreateBuildServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+				req.getRequestDispatcher("/_view/mbCrit.jsp").forward(req, resp);
+	
 				
 			}
 			else if (req.getParameter("rams") != null)
 			{
-				req.getRequestDispatcher("/_view/ramCrit.jsp").forward(req, resp);
 				List<RamPart> ramList = db.findAllRam();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
@@ -257,6 +259,8 @@ public class CreateBuildServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+				req.getRequestDispatcher("/_view/ramCrit.jsp").forward(req, resp);
+				
 				
 			}
 			else if (req.getParameter("submitCpu") != null)
