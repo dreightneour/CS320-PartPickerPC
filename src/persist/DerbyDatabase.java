@@ -235,7 +235,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/Ryan/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:H:CS320/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -909,6 +909,57 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
+	public void writeCpuPrice(double price, int cpuInt) throws SQLException
+	{
+		Connection conn = connect();
+		PreparedStatement insertCpu= null;
+		insertCpu = conn.prepareStatement("insert into cpus (price) values (?) where cpu_id = cpuInt");
+		insertCpu.setDouble(1, price);
+		
+		insertCpu.execute();
+		conn.commit();
+		conn.close();
+		conn = null;
+	}
+	
+	public void writeMotherPrice(double price, int motherInt) throws SQLException
+	{
+		Connection conn = connect();
+		PreparedStatement insertMothers= null;
+		insertMothers = conn.prepareStatement("insert into mothers (price) values (?) where mother_id = motherInt");
+		insertMothers.setDouble(1, price);
+		
+		insertMothers.execute();
+		conn.commit();
+		conn.close();
+		conn = null;
+	}
+	
+	public void writeRamPrice(double price, int ramInt) throws SQLException
+	{
+		Connection conn = connect();
+		PreparedStatement insertRam= null;
+		insertRam = conn.prepareStatement("insert into rams (price) values (?) where ram_id = ramInt");
+		insertRam.setDouble(1, price);
+		
+		insertRam.execute();
+		conn.commit();
+		conn.close();
+		conn = null;
+	}
+	
+	public void writeGpuPrice(double price, int gpuInt) throws SQLException
+	{
+		Connection conn = connect();
+		PreparedStatement insertGpu= null;
+		insertGpu = conn.prepareStatement("insert into gpus (price) values (?) where gpu_id = gpuInt");
+		insertGpu.setDouble(1, price);
+		
+		insertGpu.execute();
+		conn.commit();
+		conn.close();
+		conn = null;
+	}
 
 
 	@Override
