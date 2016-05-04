@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import Parts.GpuPart;
 import Parts.MotherboardPart;
 import Parts.PartList;
 import Parts.RamPart;
+import partPickerPC.Search;
 import persist.DatabaseProvider;
 import persist.DerbyDatabase;
 import persist.IDatabase;
@@ -184,21 +186,77 @@ public class CreateBuildServlet extends HttpServlet {
 			else if (req.getParameter("cpus") != null)
 			{
 				req.getRequestDispatcher("/_view/cpuCrit.jsp").forward(req, resp);
+				List<CpuPart> cpuList = db.findAllCpus();
+				Search search = new Search();
+				DerbyDatabase derby = new DerbyDatabase();
+				for(int i = 0; i < cpuList.size(); i++)
+				{
+					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+					double price = search.getPrice(cpuList.get(i).getUrl());
+					try {
+						derby.writeCpuPrice(price, i);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				
 			}
 			else if (req.getParameter("gpus") != null)
 			{
 				req.getRequestDispatcher("/_view/gpuCrit.jsp").forward(req, resp);
+				List<GpuPart> gpuList = db.findAllGpus();
+				Search search = new Search();
+				DerbyDatabase derby = new DerbyDatabase();
+				for(int i = 0; i < gpuList.size(); i++)
+				{
+					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+					double price = search.getPrice(gpuList.get(i).getUrl());
+					try {
+						derby.writeGpuPrice(price, i);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				
 			}
 			else if (req.getParameter("mbs") != null)
 			{
 				req.getRequestDispatcher("/_view/mbCrit.jsp").forward(req, resp);
+				List<MotherboardPart> motherList = db.findAllMobos();
+				Search search = new Search();
+				DerbyDatabase derby = new DerbyDatabase();
+				for(int i = 0; i < motherList.size(); i++)
+				{
+					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+					double price = search.getPrice(motherList.get(i).getUrl());
+					try {
+						derby.writeMotherPrice(price, i);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				
 			}
 			else if (req.getParameter("rams") != null)
 			{
 				req.getRequestDispatcher("/_view/ramCrit.jsp").forward(req, resp);
+				List<RamPart> ramList = db.findAllRam();
+				Search search = new Search();
+				DerbyDatabase derby = new DerbyDatabase();
+				for(int i = 0; i < ramList.size(); i++)
+				{
+					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+					double price = search.getPrice(ramList.get(i).getUrl());
+					try {
+						derby.writeCpuPrice(price, i);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				
 			}
 			else if (req.getParameter("submitCpu") != null)
