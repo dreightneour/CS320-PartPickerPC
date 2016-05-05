@@ -441,6 +441,10 @@ public class CreateBuildServlet extends HttpServlet {
 			{
 				
 			}
+			else if(req.getParameter("saveB") != null)
+			{
+				
+			}
 		
 		// Forward to view to render the result HTML document
 			req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
