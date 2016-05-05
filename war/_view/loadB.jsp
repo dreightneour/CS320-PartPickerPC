@@ -16,6 +16,7 @@
 <c:forEach items="${builds}" var="build">
     <tr>
 	   <td>${build.id}</td>
+	   <td></td>
 	   <td>${build.name}</td>
     </tr>
 </c:forEach>
