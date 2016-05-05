@@ -58,6 +58,7 @@ public class IndexServlet extends HttpServlet {
 			}
 			else
 			{
+						username.toUpperCase();
 						User loginAttempt = db.findUser(username, password);
 						if (loginAttempt == null)
 						{
@@ -120,7 +121,7 @@ public class IndexServlet extends HttpServlet {
 				}
 				else
 				{
-
+					
 					User theRegistered = db.findUserAlone(regusername);
 					if (theRegistered != null)
 					{

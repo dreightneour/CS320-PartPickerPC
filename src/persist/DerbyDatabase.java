@@ -1574,7 +1574,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET storage " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, ssdInt);
@@ -1612,7 +1612,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET cpu " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, cpuInt);
@@ -1650,7 +1650,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET gpu " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, gpuInt);
@@ -1688,7 +1688,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET ram " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, ramInt);
@@ -1726,7 +1726,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET mother " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, motherInt);
