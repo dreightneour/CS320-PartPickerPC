@@ -167,6 +167,7 @@ public class DerbyDatabase implements IDatabase {
 							+ "gpu varchar(100),"
 							+ "motherboard varchar(100),"
 							+ "ram varchar(100)"
+							+ "name varchar(50)"
 							+ ")"
 					);
 					stmt8.executeUpdate();
