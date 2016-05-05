@@ -36,7 +36,7 @@ background-color: crimson;
 <div class = "inner" id="cpu">
 <table>
 <caption> Builds </caption>
-<tr><td>Build #</td><td>Name</td><tr>
+<tr><td>Build</td><tr>
 <c:forEach items="${blist}" var="build" varStatus = "counter">
     <tr>
 	   <td>${build.name}</td>

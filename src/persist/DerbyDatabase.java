@@ -1788,7 +1788,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 	@Override
 	public void insertBuild(int user_id, String name) throws SQLException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub added a user name
 		Connection conn = connect();
 		
 		PreparedStatement insertBuild= null;
