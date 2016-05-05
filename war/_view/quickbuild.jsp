@@ -1,16 +1,91 @@
 <!DOCTYPE html>
 
 <html>
+<style>
+body{
+background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
+background-color: crimson;
+}
+.title{
+     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+     background-color:goldenrod;
+     position: absolute;
+     top: 7%;
+     left: 14%;
+     padding: 10px
+}
+.innerbuttons {
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    padding: 5px
+}
+.innerbuttons1 {
+    position: absolute;
+    top: 26%;
+    left: 10%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    padding: 5px
+}
+.innerbuttons2 {
+    position: absolute;
+    top: 28%;
+    left: 1%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    padding: 5px
+}
+.inner1 {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    style:background-color:goldenrod;
+}
+.inner2 {
+    position: absolute;
+    top: 35%;
+    left: 1%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+}
+.inner3 {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    style:background-color:goldenrod;
+}
+.inner4 {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    style:background-color:goldenrod;
+}
+</style>
 	<head>
 		<title>Quick</title>
 
 	</head>
 
 	<body>
-<h2 style="background-color:blue; color:red: padding:30px;"> <font color = "white">Pick a type of Quick Build to make ${username}!</font></h2>
+<div class = "title">
+<h2> Pick a type of Quick Build to make ${username}!</h2></div>
 <FORM method="post" action="${pageContext.servletContext.contextPath}/quickbuild">
+<div class = "innerbuttons">
 <div style="background-color:green: color:orange: padding: 20px:"> 
-<button name="cheap"  >Let's go cheap and save money!</button>
+<button name="cheap">Let's go cheap and save money!</button>
 </div>
 <div style="background-color:black: color:gold: padding: 20px:"> 
 <button name="expensive"  >I'm rich I don't care</button>
@@ -18,8 +93,9 @@
 <div style="background-color:black: color:gold: padding: 20px:"> 
 <button name="anotherbuild"  >Show me what works!</button>
 </div>
+</div>
 </FORM>
-
+<div class = inner2>
 <div style="background-color:purple: color:red: padding:40px:">
 Your Quick Build is...
 </div>
@@ -44,7 +120,7 @@ Your Quick Build is...
 <td>${cpuCores}</td>
 </table>
 </div>
-<div style="background-color:purple: color:red: padding:40px:">
+<div class = "inne"style="background-color:purple: color:red: padding:40px:">
 <table border="1">
 <tr>
 <th>Name</th>
@@ -98,6 +174,7 @@ Your Quick Build is...
 <td>${ramCapacity}</td>
 <td>${ramMulti}</td>
 </table>
+</div>
 </div>
 <div style="background-color:purple: color:red: padding:40px:">
 <h2> TOTAL PRICE = $$$ ${total} $$$</h2>
