@@ -106,6 +106,14 @@ public class CreateBuildServlet extends HttpServlet {
 			{
 				low = req.getParameter("clow");
 				high = req.getParameter("chigh");
+				if(low.equals(""))
+				{
+					low = "1";
+				}
+				if(high.equals(""))
+				{
+					high = "999999";
+				}
 				String socketType = req.getParameter("csocketType");
 				String brand = req.getParameter("cbrand");
 				String series = req.getParameter("cseries");
@@ -136,6 +144,14 @@ public class CreateBuildServlet extends HttpServlet {
 			{
 				low = req.getParameter("mlow");
 				high = req.getParameter("mhigh");
+				if(low.equals(""))
+				{
+					low = "1";
+				}
+				if(high.equals(""))
+				{
+					high = "999999";
+				}
 				String brand = req.getParameter("mbrand");
 				if (brand.compareTo("none") == 0)
 				{
@@ -152,6 +168,14 @@ public class CreateBuildServlet extends HttpServlet {
 			{
 				low = req.getParameter("glow");
 				high = req.getParameter("ghigh");
+				if(low.equals(""))
+				{
+					low = "1";
+				}
+				if(high.equals(""))
+				{
+					high = "999999";
+				}
 				String memorySize = req.getParameter("gmemorysize");
 				String brand = req.getParameter("gbrand");
 				if (brand.compareTo("none") == 0)
@@ -173,6 +197,14 @@ public class CreateBuildServlet extends HttpServlet {
 			{
 				low = req.getParameter("rlow");
 				high = req.getParameter("rhigh");
+				if(low.equals(""))
+				{
+					low = "1";
+				}
+				if(high.equals(""))
+				{
+					high = "999999";
+				}
 				String type = req.getParameter("rtype");
 				String brand = req.getParameter("rbrand");
 				if (brand.compareTo("none") == 0)
@@ -193,6 +225,14 @@ public class CreateBuildServlet extends HttpServlet {
 			{
 				low = req.getParameter("slow");
 				high = req.getParameter("shigh");
+				if(low.equals(""))
+				{
+					low = "1";
+				}
+				if(high.equals(""))
+				{
+					high = "999999";
+				}
 				String brand = req.getParameter("sbrand");
 				if (brand.compareTo("none") == 0)
 				{
@@ -209,15 +249,18 @@ public class CreateBuildServlet extends HttpServlet {
 				List<CpuPart> cpuList = db.findAllCpus();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
-				for(int i = 0; i < cpuList.size(); i++)
+				if(req.getParameter("priceUpd") != null)
 				{
-					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
-					double price = search.getPrice(cpuList.get(i).getUrl());
-					try {
-						derby.writeCpuPrice(price, i);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					for(int i = 0; i < cpuList.size(); i++)
+					{
+						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+						double price = search.getPrice(cpuList.get(i).getUrl());
+						try {
+							derby.writeCpuPrice(price, i);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				req.getRequestDispatcher("/_view/cpuCrit.jsp").forward(req, resp);
@@ -229,15 +272,18 @@ public class CreateBuildServlet extends HttpServlet {
 				List<GpuPart> gpuList = db.findAllGpus();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
-				for(int i = 0; i < gpuList.size(); i++)
+				if(req.getParameter("priceUpd") != null)
 				{
-					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
-					double price = search.getPrice(gpuList.get(i).getUrl());
-					try {
-						derby.writeGpuPrice(price, i);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					for(int i = 0; i < gpuList.size(); i++)
+					{
+						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+						double price = search.getPrice(gpuList.get(i).getUrl());
+						try {
+							derby.writeGpuPrice(price, i);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				req.getRequestDispatcher("/_view/gpuCrit.jsp").forward(req, resp);
@@ -249,15 +295,18 @@ public class CreateBuildServlet extends HttpServlet {
 				List<MotherboardPart> motherList = db.findAllMobos();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
-				for(int i = 0; i < motherList.size(); i++)
+				if(req.getParameter("priceUpd") != null)
 				{
-					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
-					double price = search.getPrice(motherList.get(i).getUrl());
-					try {
-						derby.writeMotherPrice(price, i);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					for(int i = 0; i < motherList.size(); i++)
+					{
+						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+						double price = search.getPrice(motherList.get(i).getUrl());
+						try {
+							derby.writeMotherPrice(price, i);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				req.getRequestDispatcher("/_view/mbCrit.jsp").forward(req, resp);
@@ -269,15 +318,18 @@ public class CreateBuildServlet extends HttpServlet {
 				List<RamPart> ramList = db.findAllRam();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
-				for(int i = 0; i < ramList.size(); i++)
+				if(req.getParameter("priceUpd") != null)
 				{
-					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
-					double price = search.getPrice(ramList.get(i).getUrl());
-					try {
-						derby.writeCpuPrice(price, i);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					for(int i = 0; i < ramList.size(); i++)
+					{
+						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+						double price = search.getPrice(ramList.get(i).getUrl());
+						try {
+							derby.writeCpuPrice(price, i);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				req.getRequestDispatcher("/_view/ramCrit.jsp").forward(req, resp);
@@ -289,15 +341,18 @@ public class CreateBuildServlet extends HttpServlet {
 				List<StoragePart> ssdList = db.findAllStorage();
 				Search search = new Search();
 				DerbyDatabase derby = new DerbyDatabase();
-				for(int i = 0; i < ssdList.size(); i++)
+				if(req.getParameter("priceUpd") != null)
 				{
-					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
-					double price = search.getPrice(ssdList.get(i).getUrl());
-					try {
-						derby.writeStoragePrice(price, i);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					for(int i = 0; i < ssdList.size(); i++)
+					{
+						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+						double price = search.getPrice(ssdList.get(i).getUrl());
+						try {
+							derby.writeStoragePrice(price, i);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				req.getRequestDispatcher("/_view/storageCrit.jsp").forward(req, resp);
