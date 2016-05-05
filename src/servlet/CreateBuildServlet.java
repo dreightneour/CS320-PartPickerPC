@@ -261,7 +261,7 @@ public class CreateBuildServlet extends HttpServlet {
 						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
 						double price = search.getPrice(cpuList.get(i).getUrl());
 						try {
-							derby.writeCpuPrice(price, i);
+							derby.writeCpuPrice(price, cpuList.get(i).getSeries());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -284,7 +284,7 @@ public class CreateBuildServlet extends HttpServlet {
 						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
 						double price = search.getPrice(gpuList.get(i).getUrl());
 						try {
-							derby.writeGpuPrice(price, i);
+							derby.writeGpuPrice(price, gpuList.get(i).getModel());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -307,7 +307,7 @@ public class CreateBuildServlet extends HttpServlet {
 						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
 						double price = search.getPrice(motherList.get(i).getUrl());
 						try {
-							derby.writeMotherPrice(price, i);
+							derby.writeMotherPrice(price, motherList.get(i).getModel());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -330,7 +330,7 @@ public class CreateBuildServlet extends HttpServlet {
 						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
 						double price = search.getPrice(ramList.get(i).getUrl());
 						try {
-							derby.writeCpuPrice(price, i);
+							derby.writeRamPrice(price, ramList.get(i).getModel());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -353,7 +353,7 @@ public class CreateBuildServlet extends HttpServlet {
 						//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
 						double price = search.getPrice(ssdList.get(i).getUrl());
 						try {
-							derby.writeStoragePrice(price, i);
+							derby.writeStoragePrice(price, ssdList.get(i).getModel());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

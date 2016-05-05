@@ -1057,7 +1057,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 
-	public void writeCpuPrice(double price, int cpuInt) throws SQLException
+	public void writeCpuPrice(double price, String model) throws SQLException
 	{
 		Connection conn = connect();
 		try
@@ -1070,11 +1070,11 @@ public class DerbyDatabase implements IDatabase {
             	String sql = 
 				   "UPDATE cpus " + 
 				   "  SET price = ? " + 
-				   "WHERE cpu_id = ?";
+				   "WHERE series = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setDouble(1, price);
-				pstmt.setInt(2, cpuInt);
+				pstmt.setString(2, model);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1094,7 +1094,7 @@ public class DerbyDatabase implements IDatabase {
 		
 	}
 	
-	public void writeMotherPrice(double price, int motherInt) throws SQLException
+	public void writeMotherPrice(double price, String model) throws SQLException
 	{
 		Connection conn = connect();
 		try
@@ -1107,11 +1107,11 @@ public class DerbyDatabase implements IDatabase {
             	String sql = 
 				   "UPDATE motherboards " + 
 				   "  SET price = ? " + 
-				   "WHERE motherboard_id = ?";
+				   "WHERE model = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setDouble(1, price);
-				pstmt.setInt(2, motherInt);
+				pstmt.setString(2, model);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1130,7 +1130,7 @@ public class DerbyDatabase implements IDatabase {
 		} 
 	}
 	
-	public void writeRamPrice(double price, int ramInt) throws SQLException
+	public void writeRamPrice(double price, String model) throws SQLException
 	{
 		Connection conn = connect();
 		try
@@ -1143,11 +1143,11 @@ public class DerbyDatabase implements IDatabase {
             	String sql = 
 				   "UPDATE rams " + 
 				   "  SET price = ? " + 
-				   "WHERE ram_id = ?";
+				   "WHERE model = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setDouble(1, price);
-				pstmt.setInt(2, ramInt);
+				pstmt.setString(2, model);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1166,7 +1166,7 @@ public class DerbyDatabase implements IDatabase {
 		} 
 	}
 	
-	public void writeGpuPrice(double price, int gpuInt) throws SQLException
+	public void writeGpuPrice(double price, String model) throws SQLException
 	{
 		Connection conn = connect();
 		try
@@ -1179,11 +1179,11 @@ public class DerbyDatabase implements IDatabase {
             	String sql = 
 				   "UPDATE gpus " + 
 				   "  SET price = ? " + 
-				   "WHERE gpu_id = ?";
+				   "WHERE model = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setDouble(1, price);
-				pstmt.setInt(2, gpuInt);
+				pstmt.setString(2, model);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1202,7 +1202,7 @@ public class DerbyDatabase implements IDatabase {
 		} 
 	}
 	
-	public void writeStoragePrice(double price, int ssdInt) throws SQLException
+	public void writeStoragePrice(double price, String model) throws SQLException
 	{
 		Connection conn = connect();
 		try
@@ -1215,11 +1215,11 @@ public class DerbyDatabase implements IDatabase {
             	String sql = 
 				   "UPDATE storages " + 
 				   "  SET price = ? " + 
-				   "WHERE storage_id = ?";
+				   "WHERE model = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setDouble(1, price);
-				pstmt.setInt(2, ssdInt);
+				pstmt.setString(2, model);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1802,41 +1802,6 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 			conn.commit();
 			conn.close();
 		}
-	}
-
-
-	@Override
-	public void writeStoragePrice(double price, String model) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void writeCpuPrice(double price, String model) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void writeMotherPrice(double price, String model) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void writeRamPrice(double price, String model) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void writeGpuPrice(double price, String model) throws SQLException {
-		// TODO Auto-generated method stub
-		
 	}
 
 
