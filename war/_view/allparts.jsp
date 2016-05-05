@@ -20,6 +20,14 @@ head{
    color: black
    left: 20%
 }
+.title{
+     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+     background-color:goldenrod;
+     position: absolute;
+     top: 5%;
+     left: 65%;
+     padding: 10px
+}
 </style>
 	<head>
 		<title>All Parts</title>
@@ -27,7 +35,9 @@ head{
 	</head>
 
 	<body>
-<h2 class = "head" style = "background-color: goldenrod" align="center" > List of Parts </h2>
+<div class = "title" >
+<h2 class = "head" style = "background-color: goldenrod" align="center" > List of Parts </h2></div>
+</div>
 <div class = "inner" style ="background-color:goldenrod">
 <FORM method="post" action="${pageContext.servletContext.contextPath}/allparts">
 <div id="cpu">
