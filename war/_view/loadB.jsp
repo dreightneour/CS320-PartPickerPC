@@ -36,10 +36,13 @@ background-color: crimson;
 <div class = "inner" id="cpu">
 <table>
 <caption> Builds </caption>
-<tr><td>Build</td><tr>
 <c:forEach items="${blist}" var="build" varStatus = "counter">
     <tr>
-	   <td>${build.name}</td>
+	   <td>${build.name}
+	   
+	   <button type="submit" name="selectB" value="selectB"> Choose Build </button>
+	   <button type="submit" name="deleteB" value="deleteB"> Delete Build </button>
+	   </td>
     </tr>
 </c:forEach>
 </table>

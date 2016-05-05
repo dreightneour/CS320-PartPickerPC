@@ -36,9 +36,10 @@ public interface IDatabase {
 	void writeGpuPrice(double price, int gpuInt) throws SQLException;
 	void writeStorageBuild(int ssdInt, int buildId) throws SQLException;
 	void writeCpuBuild(int cpuInt, int buildId) throws SQLException;
-	void writeGpuBuild(int gpuInt, int buildId) throws SQLException;
+	void writeGpuBuild(String model, String name) throws SQLException;
 	void writeRamBuild(int ramInt, int buildId) throws SQLException;
 	void writeMotherBuild(int motherInt, int buildId) throws SQLException;
 	List<NewBuild> findAllBuilds();
+	List<NewBuild> findBuildsByUsername(String username) throws SQLException;
 	void insertBuild(int user_id, String name) throws SQLException;
 }
