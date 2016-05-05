@@ -14,7 +14,7 @@ public class StorageTest extends TestCase {
 	double sale = 43.72;
 	
 	protected void setUp() throws Exception{
-		s = new StoragePart (capacity, storageType, dataSpeed, url, brand, model, price, sale);
+		s = new StoragePart (capacity, dataSpeed, url, brand, model, price, sale);
 	}
 	
 	public void testgetType() throws Exception{
