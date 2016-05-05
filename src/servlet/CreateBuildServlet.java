@@ -33,6 +33,7 @@ public class CreateBuildServlet extends HttpServlet {
 	private List<GpuPart> gpus;
 	private List<RamPart> rams;
 	private List<StoragePart> ssds;
+	private List<NewBuild> builds;
 	private int build_id;
 	CreateBuildModel model = new CreateBuildModel();
 	CreateBuildController controller = new CreateBuildController();
@@ -492,8 +493,11 @@ public class CreateBuildServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}else if(req.getParameter("loadB") != null){
-				
+			}
+			else if(req.getParameter("loadB") != null)
+			{
+				builds = db.findAllBuilds();
+				req.setAttribute("blist", builds);
 				req.getRequestDispatcher("/_view/loadB.jsp").forward(req, resp);
 			}
 		

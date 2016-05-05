@@ -13,10 +13,9 @@
 <table>
 <caption> Builds </caption>
 <tr><td>Build #</td><td>Name</td><tr>
-<c:forEach items="${builds}" var="build">
+<c:forEach items="${bList}" var="build" varStatus = "counter">
     <tr>
-	   <td>${build.id}</td>
-	   <td></td>
+	   <td>${build.build_id}</td>
 	   <td>${build.name}</td>
     </tr>
 </c:forEach>
