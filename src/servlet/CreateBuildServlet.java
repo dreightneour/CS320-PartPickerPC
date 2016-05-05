@@ -72,7 +72,7 @@ public class CreateBuildServlet extends HttpServlet {
 		}
 		if (req.getSession().getAttribute("ssdbuild") != null)
 		{
-		req.setAttribute("rambuild", req.getSession().getAttribute("rambuild"));
+		req.setAttribute("ssdbuild", req.getSession().getAttribute("ssdbuild"));
 		}
 		
 		req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
@@ -366,6 +366,10 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(cpus.get(cpunum));
 					CpuPart baseCpu = controller.getModel().getTheBuild().getCpu();
 					req.getSession().setAttribute("cpubuild", cpus.get(cpunum));
+					
+					//TODO: add Update for the cpu piece of build, 
+					//TODO: needs to know which build id it is working with
+					
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
 					//req.setAttribute("cpuPrice", baseCpu.getPrice());

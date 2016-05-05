@@ -99,7 +99,7 @@ Current Build
 	   <td>${ssdbuild.price}</td>
 	   <td>${ssdbuild.brand}</td>
 	   <td>${ssdbuild.capacity}</td>
-	   <td>${ssdbuild.dataspeed}</td>
+	   <td>${ssdbuild.dataSpeed}</td>
 </table>
 </div>
 <FORM method="post" action="${pageContext.servletContext.contextPath}/createbuild">
