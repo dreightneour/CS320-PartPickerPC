@@ -129,6 +129,7 @@ public class IndexServlet extends HttpServlet {
 					else
 					{
 					try {
+						regusername = regusername.toUpperCase();
 						db.insertUser(regusername, regpassword);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block

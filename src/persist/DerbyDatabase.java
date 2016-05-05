@@ -1749,7 +1749,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		
 		PreparedStatement insertBuild= null;
 		try{
-		insertBuild = conn.prepareStatement("insert into builds (userid, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ? , ?, ?)");
+		insertBuild = conn.prepareStatement("insert into builds (userid, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ?, ?, ?)");
 		
 		insertBuild.setInt(1, user_id);
 		insertBuild.setInt(2,  0);
@@ -1764,6 +1764,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		//return true;
 		} finally {
 			DBUtil.closeQuietly(insertBuild);
+			conn.close();
 		}
 
 	}
