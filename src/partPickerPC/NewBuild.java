@@ -9,14 +9,16 @@ public class NewBuild {
 	private int storage;
 	private int ram;
 	private int buildId;
+	private String name;
 	
-	public NewBuild(int user, int cpu, int mother, int gpu, int ram, int storage)
+	public NewBuild(int user, int cpu, int mother, int gpu, int ram, int storage, String name)
 	{
 		this.cpu = cpu;
 		this.gpu = gpu;
 		this.mother = mother;
 		this.ram = ram;
 		this.storage = storage;
+		this.name = name;
 	}
 	
 	public int getUser()
@@ -47,6 +49,11 @@ public class NewBuild {
 	public int getStorage()
 	{
 		return storage;
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 
 	public void setBuildId(int buildId) {

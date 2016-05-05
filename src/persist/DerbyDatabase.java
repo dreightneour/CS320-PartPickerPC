@@ -353,6 +353,22 @@ public class DerbyDatabase implements IDatabase {
 			ram.setRamId(temp);	
 			return ram;
 	}
+	
+	public NewBuild loadBuild(ResultSet r, int index) throws SQLException{
+		int temp = index++;
+		NewBuild build = new NewBuild(
+				r.getInt(index++),
+				r.getInt(index++),
+				r.getInt(index++),
+				r.getInt(index++),
+				r.getInt(index++),
+				r.getInt(index++),
+				r.getString(index++)	
+		);
+			build.setBuildId(temp);	
+			return build;
+	}
+	
 	@Override
 	public List<CpuPart> findAllCpus() {
 		return executeTransaction(new Transaction<List<CpuPart>>(){
@@ -1558,7 +1574,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET storage " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, ssdInt);
@@ -1596,7 +1612,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET cpu " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, cpuInt);
@@ -1634,7 +1650,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET gpu " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, gpuInt);
@@ -1672,7 +1688,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET ram " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, ramInt);
@@ -1710,7 +1726,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET mother " + 
-				   "WHERE buildId = ?";
+				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, motherInt);
@@ -1737,8 +1753,35 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 	@Override
 	public List<NewBuild> findAllBuilds() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<NewBuild>>(){
+
+			@Override
+			public List<NewBuild> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				try{
+					stmt = conn.prepareStatement(
+							"select * from builds"
+							
+							);
+					List<NewBuild> result = new ArrayList<NewBuild>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadBuild(resultSet,1));
+					}
+					return result;
+					
+			}
+			
+			finally{
+			DBUtil.closeQuietly(resultSet);
+			DBUtil.closeQuietly(stmt);
+		}
+	}
+		});
 	}
 
 
