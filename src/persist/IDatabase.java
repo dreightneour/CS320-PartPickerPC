@@ -29,4 +29,16 @@ public interface IDatabase {
 	StoragePart findStorageWithID(int STOID);
 	List<StoragePart> findAllStorageCrit(String brand, String capacity, String low, String high);
 	List<StoragePart> findAllStorageCrit(String brand, String low, String high);
+	void writeStoragePrice(double price, int ssdInt) throws SQLException;
+	void writeCpuPrice(double price, int cpuInt) throws SQLException;
+	void writeMotherPrice(double price, int motherInt) throws SQLException;
+	void writeRamPrice(double price, int ramInt) throws SQLException;
+	void writeGpuPrice(double price, int gpuInt) throws SQLException;
+	void writeStorageBuild(int ssdInt, int buildId) throws SQLException;
+	void writeCpuBuild(int cpuInt, int buildId) throws SQLException;
+	void writeGpuBuild(int gpuInt, int buildId) throws SQLException;
+	void writeRamBuild(int ramInt, int buildId) throws SQLException;
+	void writeMotherBuild(int motherInt, int buildId) throws SQLException;
+	List<NewBuild> findAllBuilds();
+	void insertBuild(int user_id) throws SQLException;
 }
