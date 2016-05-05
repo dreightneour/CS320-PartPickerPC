@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import partPickerPC.User;
+import persist.DatabaseProvider;
+import persist.DerbyDatabase;
+import persist.IDatabase;
 
 //import edu.ycp.cs320.lab03.controller.AddNumbersController;
 
@@ -37,6 +43,9 @@ public class IndexServlet extends HttpServlet {
 		boolean userVerify = false;
 		String errorMessage = null;
 		String result = null;
+		IDatabase db    = null;
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
 		
 			String username = req.getParameter("username");//user / password login values
 			String password = req.getParameter("password");
@@ -47,24 +56,24 @@ public class IndexServlet extends HttpServlet {
 			if (username == null || password == null || username == "" || password == "") {
 				loginvalue = 0;
 			}
-			else if (userpassword.containsKey(username))
-				{
-					if (userpassword.get(username).compareTo(password) == 0)
-					{
-						loginvalue = 1;
-						req.getSession().setAttribute("theUser", username);
-					}
-					else
-					{
-						loginvalue = 2;
-					}
-					
-				}
 			else
 			{
-				loginvalue = 2;
+						User loginAttempt = db.findUser(username, password);
+						if (loginAttempt == null)
+						{
+							loginvalue = 2;
+						}
+						else
+						{
+							loginvalue = 1;
+							req.getSession().setAttribute("theUser", loginAttempt.getName());
+							
+						}
 			}
-				
+			
+			
+						
+
 		
 			
 		 
@@ -74,7 +83,7 @@ public class IndexServlet extends HttpServlet {
 		//req.setAttribute("password", "password");
 		
 		// Add result objects as request attributes
-		req.setAttribute("errorMessage", errorMessage);
+		//req.setAttribute("errorMessage", errorMessage);
 		//req.setAttribute("result", result);
 		if (loginvalue == 1)
 		{
@@ -111,8 +120,23 @@ public class IndexServlet extends HttpServlet {
 				}
 				else
 				{
+
+					User theRegistered = db.findUserAlone(regusername);
+					if (theRegistered != null)
+					{
+						req.setAttribute("userVerify", "This username is taken");
+					}
+					else
+					{
+					try {
+						db.insertUser(regusername, regpassword);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					req.getSession().setAttribute("theUser", regusername);
 					resp.sendRedirect("/ppc/homepage");
+					}
 				}
 			}
 			

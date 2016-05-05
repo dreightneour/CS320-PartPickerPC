@@ -146,7 +146,7 @@ public class DerbyDatabase implements IDatabase {
 							"	sale varchar(40)" +
 							")"
 					);
-					stmt6.executeUpdate();
+					stmt6.executeUpdate();*/
 					stmt7 = conn.prepareStatement(
 							"create table users (" +
 							"	user_id integer primary key " +
@@ -156,7 +156,7 @@ public class DerbyDatabase implements IDatabase {
 							")"
 					);
 					stmt7.executeUpdate();
-					*/
+					
 					
 					
 					stmt8 = conn.prepareStatement(
@@ -167,8 +167,7 @@ public class DerbyDatabase implements IDatabase {
 							+ "cpu varchar(100),"
 							+ "gpu varchar(100),"
 							+ "motherboard varchar(100),"
-							+ "ram varchar(100),"
-							+ "storage varchar(100)"
+							+ "ram varchar(100)"
 							+ ")"
 					);
 					stmt8.executeUpdate();
@@ -235,7 +234,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:H:CS320/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/users/ryan/workspace/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -580,7 +579,48 @@ public class DerbyDatabase implements IDatabase {
 					}
 					
 					if (!found) {
-						System.out.println("No authors were found in the database");
+						return null;
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+					
+	}
+	@Override
+	public User findUserAlone(final String regusername)  {
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select * from users " +
+							" where username = ?" );
+					stmt.setString(1, regusername);
+					
+					User result = null;
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						User user = new User();
+						loadUser(user, resultSet, 1);
+						result = user;
+						
+						
+					}
+					
+					if (!found) {
+						return null;
 					}
 					
 					return result;
@@ -908,6 +948,74 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	@Override
+	public void insertUser(String user, String password) throws SQLException 
+	{
+		Connection conn = connect();
+		ResultSet resultSet1 = null;
+		PreparedStatement stmt1 = null;
+		stmt1 = conn.prepareStatement(
+				"select user_id from users " +
+				"  where username = ? "
+		);
+		stmt1.setString(1, user);
+		
+		// execute the query, get the result
+		resultSet1 = stmt1.executeQuery();
+		
+		if (!resultSet1.next())
+		{
+			PreparedStatement stmt2 = null;
+			stmt2 = conn.prepareStatement(
+					"insert into users (username, password) " +
+					"  values(?, ?) "
+			);
+			stmt2.setString(1, user);
+			stmt2.setString(2, password);
+			stmt2.executeUpdate();
+			
+			DBUtil.closeQuietly(stmt2);
+			
+		}
+		conn.commit();
+		conn.close();
+		DBUtil.closeQuietly(stmt1);
+		DBUtil.closeQuietly(resultSet1);
+	}
+	
+	public void insertBuild(String user, String password) throws SQLException 
+	{
+		Connection conn = connect();
+		ResultSet resultSet1 = null;
+		PreparedStatement stmt1 = null;
+		stmt1 = conn.prepareStatement(
+				"select user_id from authors " +
+				"  where username = ? "
+		);
+		stmt1.setString(1, user);
+		
+		// execute the query, get the result
+		resultSet1 = stmt1.executeQuery();
+		
+		if (!resultSet1.next())
+		{
+			PreparedStatement stmt2 = null;
+			stmt2 = conn.prepareStatement(
+					"insert into users (username, password) " +
+					"  values(?, ?) "
+			);
+			stmt2.setString(1, user);
+			stmt2.setString(2, password);
+			stmt2.executeUpdate();
+			
+			DBUtil.closeQuietly(stmt2);
+			
+		}
+		conn.commit();
+		conn.close();
+		DBUtil.closeQuietly(stmt1);
+		DBUtil.closeQuietly(resultSet1);
+	}
 
 	public void writeCpuPrice(double price, int cpuInt) throws SQLException
 	{
@@ -1181,34 +1289,7 @@ return executeTransaction(new Transaction<List<RamPart>>(){
 	}
 
 
-	@Override
-	public StoragePart findStorageWithID(int STOID) {
-		return executeTransaction(new Transaction<StoragePart>(){
 
-			@Override
-			public StoragePart execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet set = null;
-				try{
-					stmt = conn.prepareStatement(
-							"SELECT * from storages" +
-							"WHERE storage_id = ?");
-					stmt.setString(1, Integer.toString(STOID));
-					set = stmt.executeQuery();
-					StoragePart result = null;
-					while(set.next()){
-						result = loadStorage(set,1);
-					}
-					return result;
-					
-				}finally{
-					DBUtil.closeQuietly(set);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-			
-		});
-	}
 
 
 }

@@ -1,5 +1,6 @@
 package persist;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import Parts.*;
@@ -23,5 +24,6 @@ public interface IDatabase {
 	public GpuPart findGpuWithID(int GPUID);
 	public MotherboardPart findMBWithID(int MBID);
 	public RamPart findRAMWithID(int RAMID);
-	public StoragePart findStorageWithID(int STOID);
+	public void insertUser(final String user, final String password) throws SQLException;
+	public User findUserAlone(final String regusername);
 }
