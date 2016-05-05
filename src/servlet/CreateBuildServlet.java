@@ -30,6 +30,7 @@ public class CreateBuildServlet extends HttpServlet {
 	private String username;
 	private List<CpuPart> cpus;
 	private List<MotherboardPart> mbs;
+	private String buildName;
 	private List<GpuPart> gpus;
 	private List<RamPart> rams;
 	private List<StoragePart> ssds;
@@ -372,7 +373,7 @@ public class CreateBuildServlet extends HttpServlet {
 					req.getSession().setAttribute("cpubuild", cpus.get(cpunum));
 					
 					try {
-						db.writeCpuBuild(cpunum, build_id);
+						db.writeCpuBuild(cpus.get(cpunum).getSeries(), buildName);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -394,9 +395,9 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(mbs.get(mbnum));
 					MotherboardPart baseMb = controller.getModel().getTheBuild().getMb();
 					req.getSession().setAttribute("mbbuild", mbs.get(mbnum));
-					
+					String model = mbs.get(mbnum).getModel();
 					try {
-						db.writeMotherBuild(mbnum, build_id);
+						db.writeMotherBuild(model, req.getParameter("buildName"));
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -438,7 +439,7 @@ public class CreateBuildServlet extends HttpServlet {
 					req.getSession().setAttribute("rambuild", rams.get(ramnum));
 					
 					try {
-						db.writeRamBuild(ramnum, build_id);
+						db.writeRamBuild(rams.get(ramnum).getModel(), buildName);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -457,9 +458,9 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(ssds.get(ssdnum));
 					RamPart baseRam = controller.getModel().getTheBuild().getRam();
 					req.getSession().setAttribute("ssdbuild", ssds.get(ssdnum));
-					
+					String model = ssds.get(ssdnum).getModel();
 					try {
-						db.writeStorageBuild(ssdnum, build_id);
+						db.writeStorageBuild(model, buildName);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -482,13 +483,14 @@ public class CreateBuildServlet extends HttpServlet {
 			else if(req.getParameter("saveB") != null)
 			{
 				if(req.getParameter("buildName") != null){
+					
 					User u = db.findUserAlone(username);
 					
 					
 					String buildName = req.getParameter("buildName");
-					System.err.println(buildName);
+					this.buildName = buildName;
 					try {
-						db.insertBuild(u.getUserId(), buildName);
+						db.insertBuild(u.getName(), buildName);
 						List<NewBuild> build = db.findAllBuilds();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block

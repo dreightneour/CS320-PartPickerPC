@@ -1056,39 +1056,6 @@ public class DerbyDatabase implements IDatabase {
 		DBUtil.closeQuietly(resultSet1);
 	}
 	
-	public void insertBuild(String user, String password) throws SQLException 
-	{
-		Connection conn = connect();
-		ResultSet resultSet1 = null;
-		PreparedStatement stmt1 = null;
-		stmt1 = conn.prepareStatement(
-				"select user_id from authors " +
-				"  where username = ? "
-		);
-		stmt1.setString(1, user);
-		
-		// execute the query, get the result
-		resultSet1 = stmt1.executeQuery();
-		
-		if (!resultSet1.next())
-		{
-			PreparedStatement stmt2 = null;
-			stmt2 = conn.prepareStatement(
-					"insert into users (username, password) " +
-					"  values(?, ?) "
-			);
-			stmt2.setString(1, user);
-			stmt2.setString(2, password);
-			stmt2.executeUpdate();
-			
-			DBUtil.closeQuietly(stmt2);
-			
-		}
-		conn.commit();
-		conn.close();
-		DBUtil.closeQuietly(stmt1);
-		DBUtil.closeQuietly(resultSet1);
-	}
 
 	public void writeCpuPrice(double price, int cpuInt) throws SQLException
 	{
@@ -1414,7 +1381,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public CpuPart findCpuWithID(int CPUID) {
+	public CpuPart findCpuWithModel(String model) {
 		return executeTransaction(new Transaction<CpuPart>(){
 
 			@Override
@@ -1424,8 +1391,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				try{
 					stmt = conn.prepareStatement(
 							"SELECT * from cpus" +
-							"WHERE cpu_id = ?");
-					stmt.setString(1, Integer.toString(CPUID));
+							"WHERE series = ?");
+					stmt.setString(1, model);
 					set = stmt.executeQuery();
 					CpuPart result = null;
 					while(set.next()){
@@ -1444,7 +1411,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public GpuPart findGpuWithID(int GPUID) {
+	public GpuPart findGpuWithModel(String model) {
 		return executeTransaction(new Transaction<GpuPart>(){
 
 			@Override
@@ -1454,8 +1421,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				try{
 					stmt = conn.prepareStatement(
 							"SELECT * from gpus" +
-							"WHERE gpu_id = ?");
-					stmt.setString(1, Integer.toString(GPUID));
+							"WHERE model = ?");
+					stmt.setString(1, model);
 					set = stmt.executeQuery();
 					GpuPart result = null;
 					while(set.next()){
@@ -1474,7 +1441,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public MotherboardPart findMBWithID(int MBID) {
+	public MotherboardPart findMBWithModel(String model) {
 		return executeTransaction(new Transaction<MotherboardPart>(){
 
 			@Override
@@ -1484,8 +1451,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				try{
 					stmt = conn.prepareStatement(
 							"SELECT * from motherboards" +
-							"WHERE motherboard_id = ?");
-					stmt.setString(1, Integer.toString(MBID));
+							"WHERE model = ?");
+					stmt.setString(1, model);
 					set = stmt.executeQuery();
 					MotherboardPart result = null;
 					while(set.next()){
@@ -1504,7 +1471,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public RamPart findRAMWithID(int RAMID) {
+	public RamPart findRAMWithModel(String model) {
 		return executeTransaction(new Transaction<RamPart>(){
 
 			@Override
@@ -1514,8 +1481,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				try{
 					stmt = conn.prepareStatement(
 							"SELECT * from rams" +
-							"WHERE ram_id = ?");
-					stmt.setString(1, Integer.toString(RAMID));
+							"WHERE model = ?");
+					stmt.setString(1, model);
 					set = stmt.executeQuery();
 					RamPart result = null;
 					while(set.next()){
@@ -1533,7 +1500,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 	}
 
 	@Override
-	public StoragePart findStorageWithID(int STOID) {
+	public StoragePart findStorageWithModel(String model) {
 		return executeTransaction(new Transaction<StoragePart>(){
 
 			@Override
@@ -1542,9 +1509,9 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				ResultSet set = null;
 				try{
 					stmt = conn.prepareStatement(
-							"SELECT * from rams" +
-							"WHERE ram_id = ?");
-					stmt.setString(1, Integer.toString(STOID));
+							"SELECT * from storages" +
+							"WHERE model = ?");
+					stmt.setString(1, model);
 					set = stmt.executeQuery();
 					StoragePart result = null;
 					while(set.next()){
@@ -1563,7 +1530,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public void writeStorageBuild(int ssdInt, int buildId) throws SQLException {
+	public void writeStorageBuild(String model, String name) throws SQLException {
 		Connection conn = connect();
 		try
 		{
@@ -1578,8 +1545,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, ssdInt);
-				pstmt.setInt(2, buildId);
+				pstmt.setString(1, model);
+				pstmt.setString(2, name);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1601,7 +1568,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public void writeCpuBuild(int cpuInt, int buildId) throws SQLException {
+	public void writeCpuBuild(String model, String name) throws SQLException {
 		Connection conn = connect();
 		try
 		{
@@ -1616,8 +1583,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, cpuInt);
-				pstmt.setInt(2, buildId);
+				pstmt.setString(1, model);
+				pstmt.setString(2, name);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1677,7 +1644,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public void writeRamBuild(int ramInt, int buildId) throws SQLException {
+	public void writeRamBuild(String model, String name) throws SQLException {
 		Connection conn = connect();
 		try
 		{
@@ -1692,8 +1659,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, ramInt);
-				pstmt.setInt(2, buildId);
+				pstmt.setString(1, model);
+				pstmt.setString(2, name);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1715,7 +1682,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public void writeMotherBuild(int motherInt, int buildId) throws SQLException {
+	public void writeMotherBuild(String model, String name) throws SQLException {
 		Connection conn = connect();
 		try
 		{
@@ -1730,8 +1697,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				   "WHERE build_id = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, motherInt);
-				pstmt.setInt(2, buildId);
+				pstmt.setString(1, model);
+				pstmt.setString(2, name);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1787,15 +1754,15 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public void insertBuild(int user_id, String name) throws SQLException {
+	public void insertBuild(String username, String name) throws SQLException {
 		// TODO Auto-generated method stub added a user name
 		Connection conn = connect();
 		
 		PreparedStatement insertBuild= null;
 		try{
-		insertBuild = conn.prepareStatement("insert into builds (userid, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ?, ?, ?)");
+		insertBuild = conn.prepareStatement("insert into builds (username, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ?, ?, ?)");
 		
-		insertBuild.setInt(1, user_id);
+		insertBuild.setString(1, username);
 		insertBuild.setInt(2,  0);
 		insertBuild.setInt(3, 0);
 		insertBuild.setInt(4, 0);
@@ -1835,6 +1802,41 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 			conn.commit();
 			conn.close();
 		}
+	}
+
+
+	@Override
+	public void writeStoragePrice(double price, String model) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void writeCpuPrice(double price, String model) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void writeMotherPrice(double price, String model) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void writeRamPrice(double price, String model) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void writeGpuPrice(double price, String model) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 
 
