@@ -17,6 +17,7 @@ import Parts.GpuPart;
 import Parts.MotherboardPart;
 import Parts.PartList;
 import Parts.RamPart;
+import Parts.StoragePart;
 import partPickerPC.Search;
 import persist.DatabaseProvider;
 import persist.DerbyDatabase;
@@ -29,6 +30,7 @@ public class CreateBuildServlet extends HttpServlet {
 	private List<MotherboardPart> mbs;
 	private List<GpuPart> gpus;
 	private List<RamPart> rams;
+	private List<StoragePart> ssds;
 	CreateBuildModel model = new CreateBuildModel();
 	CreateBuildController controller = new CreateBuildController();
 	
@@ -65,6 +67,10 @@ public class CreateBuildServlet extends HttpServlet {
 		req.setAttribute("gpubuild", req.getSession().getAttribute("gpubuild"));
 		}
 		if (req.getSession().getAttribute("rambuild") != null)
+		{
+		req.setAttribute("rambuild", req.getSession().getAttribute("rambuild"));
+		}
+		if (req.getSession().getAttribute("ssdbuild") != null)
 		{
 		req.setAttribute("rambuild", req.getSession().getAttribute("rambuild"));
 		}
@@ -183,6 +189,21 @@ public class CreateBuildServlet extends HttpServlet {
 				req.setAttribute("rlist", rams);
 				req.getRequestDispatcher("/_view/rams.jsp").forward(req, resp);
 			}
+			else if (req.getParameter("searchStorage") != null)
+			{
+				low = req.getParameter("slow");
+				high = req.getParameter("shigh");
+				String brand = req.getParameter("sbrand");
+				if (brand.compareTo("none") == 0)
+				{
+					brand = null;
+				}
+
+				
+				 ssds = db.findAllStorageCrit(brand, null, low, high);
+				req.setAttribute("slist", rams);
+				req.getRequestDispatcher("/_view/storages.jsp").forward(req, resp);
+			}
 			else if (req.getParameter("cpus") != null)
 			{
 				List<CpuPart> cpuList = db.findAllCpus();
@@ -260,6 +281,26 @@ public class CreateBuildServlet extends HttpServlet {
 					}
 				}
 				req.getRequestDispatcher("/_view/ramCrit.jsp").forward(req, resp);
+				
+				
+			}
+			else if (req.getParameter("storages") != null)
+			{
+				List<StoragePart> ssdList = db.findAllStorage();
+				Search search = new Search();
+				DerbyDatabase derby = new DerbyDatabase();
+				for(int i = 0; i < ssdList.size(); i++)
+				{
+					//cpuList.get(i).setPrice(Search.getPrice(cpuList.get(i).getUrl()));
+					double price = search.getPrice(ssdList.get(i).getUrl());
+					try {
+						derby.writeStoragePrice(price, i);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				req.getRequestDispatcher("/_view/storageCrit.jsp").forward(req, resp);
 				
 				
 			}

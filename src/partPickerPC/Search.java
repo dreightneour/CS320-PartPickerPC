@@ -15,6 +15,7 @@ import Parts.CpuPart;
 import Parts.GpuPart;
 import Parts.MotherboardPart;
 import Parts.RamPart;
+import Parts.StoragePart;
 
 public class Search{
 
@@ -22,6 +23,7 @@ public class Search{
 	private static ArrayList<MotherboardPart> motherList = new ArrayList<MotherboardPart>();
 	private static ArrayList<GpuPart> gpuList = new ArrayList<GpuPart>();
 	private static ArrayList<RamPart> ramList = new ArrayList<RamPart>();
+	private static ArrayList<StoragePart> ssdList = new ArrayList<StoragePart>();
 	
 	public static void getThisTestThing() throws Exception
 	{
@@ -34,7 +36,7 @@ public class Search{
     		motherList.add(mother2.get(i));
     	}
 		setRamList(getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1"));
-		
+		setStorageList(getArrayStorage("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100011693+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&PageSize=30&Page=1"));
 	}
 
     public static void main(String[] args) throws Exception {
@@ -1430,6 +1432,363 @@ public class Search{
     	return ram;
     }
     
+    public static ArrayList<StoragePart> getArrayStorage(String url) throws IOException
+    {
+     	boolean next = true;
+    	ArrayList<StoragePart> ssdList = new ArrayList<StoragePart>();
+    	while(next == true)
+    	{
+    		next = false;
+	        Document document = Jsoup.connect(url).timeout(500000).get();
+	        
+	        //String html = document.toString();
+	    	
+	        int startSub = 0;
+	        int endSub = 0;      
+	        
+	        Elements scriptElements = document.getElementsByTag("a");
+	        
+	        String urlList = new String();
+	        
+	       //Element element = scriptElements.get(98);
+	        for (Element element :scriptElements )
+	        { 
+	       		//for (DataNode node : element.dataNodes()) {
+	               //System.out.println(node.getWholeData());
+		   		String priceHtml = element.outerHtml();
+		   		//boolean found = false;
+		   		for(int i = 0; i < priceHtml.length() - 100; i++)
+		   		{
+		   			startSub = 0;
+	    	   		if(priceHtml.substring(i, i + 9).equals("itemImage"))// && found == false)
+	    	   		{
+	    	   			for(int k = i; k < i + 500; k++)
+						{
+							if(priceHtml.substring(k, k + 5).equals("href=") && startSub == 0)
+							{
+								startSub = k + 6;
+							}
+							if(priceHtml.substring(k, k + 1).equals(">"))
+							{
+								endSub = k - 1;
+								break;
+							}
+						}
+						urlList = priceHtml.substring(startSub , endSub);
+						ssdList.add(getStorage(urlList));
+						//found = true;
+					}
+					
+	               //System.out.println("-------------------");            
+	           	}
+	    	   	
+	        }
+	        
+	        scriptElements = document.getElementsByTag("script");
+	        
+	        urlList = new String();
+	        String page = new String();
+	        String endPage = new String();
+        	for (Element element :scriptElements ){ 
+           		for (DataNode node : element.dataNodes()) {
+                   //System.out.println(node.getWholeData());
+        	   		String priceHtml = node.getWholeData();
+        	   		for(int i = 0; i < priceHtml.length() - 20; i++)
+        	   		{
+    	    	   		if(priceHtml.substring(i, i + 8).equals("pageIdex"))
+    	    	   		{
+    	    	   			for(int k = i; k < i + 50; k++)
+    						{
+    							if(priceHtml.substring(k, k + 1).equals(":"))
+    							{
+    								startSub = k + 1;
+    							}
+    							if(priceHtml.substring(k, k + 1).equals(","))
+    							{
+    								endSub = k;
+    								break;
+    							}
+    						}
+    						page = priceHtml.substring(startSub , endSub);
+    					}
+    	    	   		
+    	    	   		if(priceHtml.substring(i, i + 9).equals("pageCount") && endPage.equals(""))
+    	    	   		{
+    	    	   			for(int k = i; k < priceHtml.length() - 2; k++)
+    						{
+    	    	   				endSub = priceHtml.length();
+    							if(priceHtml.substring(k, k + 1).equals(":"))
+    							{
+    								startSub = k + 1;
+    							}
+    							if(priceHtml.substring(k, k + 1).equals(","))
+    							{
+    								endSub = k;
+    								break;
+    							}
+    						}
+    						endPage = priceHtml.substring(startSub , endSub);
+    					}
+    	    	   		if(!endPage.equals(page) && !endPage.equals("") && !page.equals("") && Integer.valueOf(page) <= 2)
+    	    	   		{
+    	    	   			next = true;
+    	    	   			break;
+    	    	   		}
+    	    	   		
+        	   		}
+                   //System.out.println("-------------------");            
+               	}
+		   		if(next == true)
+		   		{
+		   			int pageNum = Integer.parseInt(url.substring(url.length() - 1, url.length()));
+		   			pageNum++;
+		   			String pageNumS = Integer.toString(pageNum);
+		   			url = url.substring(0, url.length() - 1) + pageNumS;
+		   			break;
+		   		}
+	    	   	
+	        }
+	        
+	        
+    	}
+    	//cpuList = cpuList;
+    	return ssdList;
+    }
+   
+    
+    public static StoragePart getStorage(String url) throws IOException
+    {
+    	//open the webpage
+        //String url = "http://www.newegg.com/Product/Product.aspx?Item=N82E16819117369";
+        Document document = Jsoup.connect(url).timeout(500000).get();
+        
+        String html = document.toString();
+        
+        String brand= new String();
+        String model = new String();
+        String series = new String();
+        String capacity = new String();
+        String speed = new String();
+        
+        int startSub = 0;
+        int endSub = 0;
+        
+        Elements scriptElements = document.getElementsByTag("script");
+        
+        String price = new String();
+        String salePrice = new String();
+        
+       //Element element = scriptElements.get(98);
+        for (Element element :scriptElements ){ 
+       		for (DataNode node : element.dataNodes()) {
+               //System.out.println(node.getWholeData());
+    	   		String priceHtml = node.getWholeData();
+    	   		for(int i = 0; i < priceHtml.length() - 100; i++)
+    	   		{
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_unit_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 50; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						price = priceHtml.substring(startSub , endSub);
+					}
+	    	   		
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_sale_price"))
+	    	   		{
+	    	   			for(int k = i; k < i + 200; k++)
+						{
+							if(priceHtml.substring(k, k + 2).equals("['"))
+							{
+								startSub = k + 2;
+							}
+							if(priceHtml.substring(k, k + 2).equals("']"))
+							{
+								endSub = k;
+								break;
+							}
+						}
+						salePrice = priceHtml.substring(startSub , endSub);
+					}
+    	   		}
+               //System.out.println("-------------------");            
+           	}
+        }
+        
+        //Find where the specs are and retrieve
+        for(int i = 0; i < html.length() - 6; i++)
+        {
+        	if(i == 10000)
+        	{
+        		html = html.substring(i, html.length());
+        		i = 0;             
+            } 
+        	if(html.substring(i, i+5).equals("Specs"))
+        	{
+        		String id;
+        		if(i > 4)
+        		{
+        			id = html.substring(i - 4, i-2);
+        		}
+        		else
+        		{
+        			id = "id";
+        		}
+        		if(id.equals("id"))
+        		{
+        			for(int j = i; j < i + 5000; j++)
+        			{
+        				if(html.substring(j, j + 5).equals("Brand") && brand.equals(""))
+        				{
+        					for(int k = j; k < j + 200; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					brand = html.substring(startSub , endSub);
+        				}
+        				
+        				if(html.substring(j, j + 5).equals("Model"))
+        				{
+        					for(int k = j; k < j + 300; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					model = html.substring(startSub , endSub);
+        					if(model.length() > 150)
+        					{
+        						int b = 0;
+        					}
+        				}
+        				
+        				if(html.substring(j, j + 6).equals("Series") && series.equals(""))
+        				{
+        					if(html.substring(j-7, j).contains("<dd>"))
+        					{
+	        					for(int k = j; k < j + 200; k++)
+	        					{
+	        						if(html.substring(k, k + 4).equals("<dd>"))
+	        						{
+	        							startSub = k + 20;
+	        						}
+	        						if(html.substring(k, k + 5).equals("</dd>"))
+	        						{
+	        							endSub = k - 15;
+	        							break;
+	        						}
+	        					}
+	        					series = html.substring(startSub , endSub);
+        					}
+        				}
+        				
+        				if(html.substring(j, j + 8).equals("Capacity") && capacity.equals(""))
+        				{
+        					for(int k = j; k < j + 200; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					capacity = html.substring(startSub , endSub);
+        				}
+        				
+        				if(html.substring(j, j + 19).equals("Max Sequential Read") && speed.equals(""))
+        				{
+        					for(int k = j; k < j + 200; k++)
+        					{
+        						if(html.substring(k, k + 4).equals("<dd>"))
+        						{
+        							startSub = k + 20;
+        						}
+        						if(html.substring(k, k + 5).equals("</dd>"))
+        						{
+        							endSub = k - 15;
+        							break;
+        						}
+        					}
+        					speed = html.substring(startSub , endSub);
+        				}
+        				
+        			}
+        			break;
+        		}
+        	}
+        	
+        }
+
+        //return the CPUPART
+    	
+    	
+    	//double priceD = Double.parseDouble(price);
+    	//double saleD = Double.parseDouble(salePrice);
+    	//double priceD = Double.parseDouble(price);
+    	/*
+    	if(saleD != priceD)
+    	{
+    		ram.setSale(true);
+    		ram.setSalePercentage((priceD - saleD) / priceD);
+    	}
+    	else
+    	{
+    		ram.setSale(false);
+    		ram.setSalePercentage(0.0);
+    	}
+
+    	ram.setPrice(priceD);
+    	*/
+        double priceD = 0.0;
+        double saleD = 0.0;
+        //return the CPUPART
+    	if(!price.equals("MAP"))
+    	{
+    		priceD = Double.parseDouble(price);
+    		saleD = Double.parseDouble(salePrice);
+    	}
+    	
+    	if(brand.contains("</dd>") || brand.contains("\n") || series.contains("\n") || series.contains("</dd>") || model.contains("\n") || model.contains("</dd>") || capacity.contains("\n") || capacity.contains("</dd>") 
+    			|| speed.contains("\n"))
+    	{
+    		//int b = 0;
+            brand= new String();
+            model = new String();
+            series = new String();
+            capacity = new String();
+            speed = new String();
+
+    	}
+    	
+    	StoragePart ssd = new StoragePart(capacity, speed, url, brand, model, priceD, saleD);
+    	return ssd;
+    }
     
     public double getPrice(String url) throws IOException
     {
@@ -1504,6 +1863,13 @@ public class Search{
 	}
 	public static void setRamList(ArrayList<RamPart> ramList) {
 		Search.ramList = ramList;
+	}
+	
+	public static ArrayList<StoragePart> getStorageList() {
+		return ssdList;
+	}
+	public static void setStorageList(ArrayList<StoragePart> ssdList) {
+		Search.ssdList = ssdList;
 	}
 
 }

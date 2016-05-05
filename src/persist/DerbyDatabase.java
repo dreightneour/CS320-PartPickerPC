@@ -132,12 +132,11 @@ public class DerbyDatabase implements IDatabase {
 					stmt5.executeUpdate();
 					
 					
-					/*stmt6 = conn.prepareStatement(
+					stmt6 = conn.prepareStatement(
 							"create table storages (" +
 							"	storage_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	capacity varchar(40)," +
-							"	storagetype varchar(40)," +
 							"	dataspeed varchar(40)," +
 							"	url varchar(100)," +
 							"	brand varchar(40)," +
@@ -146,7 +145,7 @@ public class DerbyDatabase implements IDatabase {
 							"	sale varchar(40)" +
 							")"
 					);
-					stmt6.executeUpdate();*/
+					stmt6.executeUpdate();
 					stmt7 = conn.prepareStatement(
 							"create table users (" +
 							"	user_id integer primary key " +
@@ -234,7 +233,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/users/ryan/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:H:CS320/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -323,7 +322,6 @@ public class DerbyDatabase implements IDatabase {
 	public StoragePart loadStorage(ResultSet r, int index) throws SQLException{
 		int temp = index++;
 		StoragePart s = new StoragePart(
-				r.getString(index++),
 				r.getString(index++),
 				r.getString(index++),
 				r.getString(index++),
@@ -851,6 +849,7 @@ public class DerbyDatabase implements IDatabase {
 				ArrayList<GpuPart> gpuList;
 				ArrayList<MotherboardPart> motherboardList;
 				ArrayList<RamPart> ramList;
+				ArrayList<StoragePart> ssdList;
 				try {
 					System.out.print("OK!!!");
 					Search.getThisTestThing();
@@ -864,6 +863,7 @@ public class DerbyDatabase implements IDatabase {
 				System.out.println("okokok");
 				motherboardList = Search.getMotherList();
 				ramList = Search.getRamList();
+				ssdList = Search.getStorageList();
 				
 				
 
@@ -871,12 +871,14 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertGpu= null;
 				PreparedStatement insertMotherboard= null;
 				PreparedStatement insertRam= null;
+				PreparedStatement insertStorage= null;
 
 				try {
 					insertCpu = conn.prepareStatement("insert into cpus (sockettype, name, brand, series, frequency, cores, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
 					insertGpu = conn.prepareStatement("insert into gpus (brand, model, slottype, gpubase, memorysize, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ?)");
 					insertMotherboard = conn.prepareStatement("insert into motherboards (brand, model, sockettype, url, price, sale) values (?, ?, ?, ?, ? , ?)");
 					insertRam = conn.prepareStatement("insert into rams (brand, series, model, capacity, type, multichanneltype, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
+					insertStorage = conn.prepareStatement("insert into storages (capacity, dataspeed, url, brand, model, price, sale) values (?, ?, ?, ?, ? , ?, ?)");
 					for (CpuPart cpu : cpuList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertCpu.setString(1, cpu.getSocketType());
@@ -933,17 +935,31 @@ public class DerbyDatabase implements IDatabase {
 	
 						insertRam.addBatch();
 					}
+					for (StoragePart ssd : ssdList) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertStorage.setString(1, ssd.getCapacity());
+						insertStorage.setString(2,  ssd.getdataSpeed());
+						insertStorage.setString(3, ssd.getUrl());
+						insertStorage.setString(4, ssd.getBrand());
+						insertStorage.setString(5,  ssd.getModel());
+						insertStorage.setDouble(6,  ssd.getPrice());
+						insertStorage.setDouble(7, 0.0);
+	
+						insertStorage.addBatch();
+					}
+					
 					insertCpu.executeBatch();
 					insertGpu.executeBatch();
 					insertMotherboard.executeBatch();
 					insertRam.executeBatch();
-					
+					insertStorage.executeBatch();
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertCpu);
 					DBUtil.closeQuietly(insertGpu);
 					DBUtil.closeQuietly(insertMotherboard);
 					DBUtil.closeQuietly(insertRam);
+					DBUtil.closeQuietly(insertStorage);
 				}
 			}
 		});
@@ -1020,53 +1036,182 @@ public class DerbyDatabase implements IDatabase {
 	public void writeCpuPrice(double price, int cpuInt) throws SQLException
 	{
 		Connection conn = connect();
-		PreparedStatement insertCpu= null;
-		insertCpu = conn.prepareStatement("insert into cpus (price) values (?) where cpu_id = cpuInt");
-		insertCpu.setDouble(1, price);
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
 		
-		insertCpu.execute();
-		conn.commit();
-		conn.close();
-		conn = null;
+            	String sql = 
+				   "UPDATE cpus " + 
+				   "  SET price = ? " + 
+				   "WHERE cpu_id = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setDouble(1, price);
+				pstmt.setInt(2, cpuInt);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		}  
+		
 	}
 	
 	public void writeMotherPrice(double price, int motherInt) throws SQLException
 	{
 		Connection conn = connect();
-		PreparedStatement insertMothers= null;
-		insertMothers = conn.prepareStatement("insert into mothers (price) values (?) where mother_id = motherInt");
-		insertMothers.setDouble(1, price);
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
 		
-		insertMothers.execute();
-		conn.commit();
-		conn.close();
-		conn = null;
+            	String sql = 
+				   "UPDATE motherboards " + 
+				   "  SET price = ? " + 
+				   "WHERE motherboard_id = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setDouble(1, price);
+				pstmt.setInt(2, motherInt);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		} 
 	}
 	
 	public void writeRamPrice(double price, int ramInt) throws SQLException
 	{
 		Connection conn = connect();
-		PreparedStatement insertRam= null;
-		insertRam = conn.prepareStatement("insert into rams (price) values (?) where ram_id = ramInt");
-		insertRam.setDouble(1, price);
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
 		
-		insertRam.execute();
-		conn.commit();
-		conn.close();
-		conn = null;
+            	String sql = 
+				   "UPDATE rams " + 
+				   "  SET price = ? " + 
+				   "WHERE ram_id = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setDouble(1, price);
+				pstmt.setInt(2, ramInt);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		} 
 	}
 	
 	public void writeGpuPrice(double price, int gpuInt) throws SQLException
 	{
 		Connection conn = connect();
-		PreparedStatement insertGpu= null;
-		insertGpu = conn.prepareStatement("insert into gpus (price) values (?) where gpu_id = gpuInt");
-		insertGpu.setDouble(1, price);
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
 		
-		insertGpu.execute();
-		conn.commit();
-		conn.close();
-		conn = null;
+            	String sql = 
+				   "UPDATE gpus " + 
+				   "  SET price = ? " + 
+				   "WHERE gpu_id = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setDouble(1, price);
+				pstmt.setInt(2, gpuInt);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		} 
+	}
+	
+	public void writeStoragePrice(double price, int ssdInt) throws SQLException
+	{
+		Connection conn = connect();
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
+		
+            	String sql = 
+				   "UPDATE storages " + 
+				   "  SET price = ? " + 
+				   "WHERE storage_id = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setDouble(1, price);
+				pstmt.setInt(2, ssdInt);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		} 
 	}
 
 
@@ -1155,6 +1300,48 @@ return executeTransaction(new Transaction<List<RamPart>>(){
 						found = true;
 						
 						result.add(loadRam(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+
+	}
+	
+	@Override
+	public List<StoragePart> findAllStorageCrit(String brand, String capacity, String low, String high) {
+return executeTransaction(new Transaction<List<StoragePart>>(){
+			
+			@Override
+			public List<StoragePart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from storages " +
+							" WHERE (? IS NULL OR brand = ?) and " +
+							" (? IS NULL OR capacity = ?) and " +
+							" price between ? and ? "
+							);
+					stmt.setString(1, brand);
+					stmt.setString(2, brand);
+					stmt.setString(3, capacity);
+					stmt.setString(4, capacity);
+					stmt.setString(5, low);
+					stmt.setString(6, high);
+					List<StoragePart> result = new ArrayList<StoragePart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadStorage(resultSet,1));
 					}
 					return result;
 				}
@@ -1288,6 +1475,34 @@ return executeTransaction(new Transaction<List<RamPart>>(){
 		});
 	}
 
+	@Override
+	public StoragePart findStorageWithID(int STOID) {
+		return executeTransaction(new Transaction<StoragePart>(){
+
+			@Override
+			public StoragePart execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet set = null;
+				try{
+					stmt = conn.prepareStatement(
+							"SELECT * from rams" +
+							"WHERE ram_id = ?");
+					stmt.setString(1, Integer.toString(STOID));
+					set = stmt.executeQuery();
+					StoragePart result = null;
+					while(set.next()){
+						result = loadStorage(set,1);
+					}
+					return result;
+					
+				}finally{
+					DBUtil.closeQuietly(set);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+			
+		});
+	}
 
 
 

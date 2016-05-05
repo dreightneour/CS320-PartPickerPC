@@ -85,6 +85,23 @@ Current Build
 	   <td>${rambuild.multichannelType}</td>
 </table>
 </div>
+<div id="StorageCurrent">
+<table border="1">
+<tr>
+<th>Name</th>
+<th>Price $</th>
+<th>Brand</th>
+<th>Capacity(GB)</th>
+<th>Speed</th>
+</tr>
+<tr>
+       <td><a href="${ssdbuild.url}" target="_blank">${ssdbuild.model}</a></td>
+	   <td>${ssdbuild.price}</td>
+	   <td>${ssdbuild.brand}</td>
+	   <td>${ssdbuild.capacity}</td>
+	   <td>${ssdbuild.dataspeed}</td>
+</table>
+</div>
 <FORM method="post" action="${pageContext.servletContext.contextPath}/createbuild">
 <div>
 
@@ -92,6 +109,7 @@ Current Build
 <button type="submit" name="gpus" value="gpus"> Find a GPU </button>
 <button type="submit" name="mbs" value="mbs"> Find a MOTHERBOARD </button>
 <button type="submit" name="rams" value="rams"> Find a RAM </button>
+<button type="submit" name="storages" value="storages"> Find a STORAGE </button>
 </div>
 </FORM>
 

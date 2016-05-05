@@ -26,4 +26,6 @@ public interface IDatabase {
 	public RamPart findRAMWithID(int RAMID);
 	public void insertUser(final String user, final String password) throws SQLException;
 	public User findUserAlone(final String regusername);
+	StoragePart findStorageWithID(int STOID);
+	List<StoragePart> findAllStorageCrit(String brand, String capacity, String low, String high);
 }
