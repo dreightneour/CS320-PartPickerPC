@@ -15,6 +15,7 @@ import Parts.MotherboardPart;
 import Parts.PowerSupplyPart;
 import Parts.RamPart;
 import Parts.StoragePart;
+import partPickerPC.NewBuild;
 import partPickerPC.PartInterface;
 import partPickerPC.Search;
 import partPickerPC.User;
@@ -163,11 +164,12 @@ public class DerbyDatabase implements IDatabase {
 							"create table builds("
 							+ "build_id integer primary key"
 							+ "		generated always as identity (start with 1, increment by 1),"
-							+ "userid varchar(100),"
-							+ "cpu varchar(100),"
-							+ "gpu varchar(100),"
-							+ "motherboard varchar(100),"
-							+ "ram varchar(100)"
+							+ "userid varchar(5),"
+							+ "cpu varchar(5),"
+							+ "gpu varchar(5),"
+							+ "motherboard varchar(5),"
+							+ "ram varchar(5),"
+							+ "storage varchar(5),"
 							+ "name varchar(50)"
 							+ ")"
 					);
@@ -1540,6 +1542,210 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 			}
 			
 		});
+	}
+
+
+	@Override
+	public void writeStorageBuild(int ssdInt, int buildId) throws SQLException {
+		Connection conn = connect();
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
+		
+            	String sql = 
+				   "UPDATE builds " + 
+				   "  SET storage " + 
+				   "WHERE buildId = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, ssdInt);
+				pstmt.setInt(2, buildId);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		}  
+		
+	}
+
+
+	@Override
+	public void writeCpuBuild(int cpuInt, int buildId) throws SQLException {
+		Connection conn = connect();
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
+		
+            	String sql = 
+				   "UPDATE builds " + 
+				   "  SET cpu " + 
+				   "WHERE buildId = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, cpuInt);
+				pstmt.setInt(2, buildId);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		}  
+		
+	}
+
+
+	@Override
+	public void writeGpuBuild(int gpuInt, int buildId) throws SQLException {
+		Connection conn = connect();
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
+		
+            	String sql = 
+				   "UPDATE builds " + 
+				   "  SET gpu " + 
+				   "WHERE buildId = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, gpuInt);
+				pstmt.setInt(2, buildId);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		}  
+		
+	}
+
+
+	@Override
+	public void writeRamBuild(int ramInt, int buildId) throws SQLException {
+		Connection conn = connect();
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
+		
+            	String sql = 
+				   "UPDATE builds " + 
+				   "  SET ram " + 
+				   "WHERE buildId = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, ramInt);
+				pstmt.setInt(2, buildId);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		}  
+		
+	}
+
+
+	@Override
+	public void writeMotherBuild(int motherInt, int buildId) throws SQLException {
+		Connection conn = connect();
+		try
+		{
+        conn.setAutoCommit(false);
+        boolean committed = false;
+            try
+            {
+		
+            	String sql = 
+				   "UPDATE builds " + 
+				   "  SET mother " + 
+				   "WHERE buildId = ?";
+
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, motherInt);
+				pstmt.setInt(2, buildId);
+				pstmt.executeUpdate();
+
+				conn.commit();
+				conn.close();
+                committed = true;
+            } 
+            finally 
+            {
+                if (!committed) conn.rollback();
+            }
+		}
+         	
+		finally 
+		{               	
+			conn.close();
+		}  
+		
+	}
+
+
+	@Override
+	public List<NewBuild> findAllBuilds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void insertBuild(int user_id) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 
 
