@@ -18,7 +18,9 @@ import Parts.MotherboardPart;
 import Parts.PartList;
 import Parts.RamPart;
 import Parts.StoragePart;
+import partPickerPC.NewBuild;
 import partPickerPC.Search;
+import partPickerPC.User;
 import persist.DatabaseProvider;
 import persist.DerbyDatabase;
 import persist.IDatabase;
@@ -31,6 +33,7 @@ public class CreateBuildServlet extends HttpServlet {
 	private List<GpuPart> gpus;
 	private List<RamPart> rams;
 	private List<StoragePart> ssds;
+	private int build_id;
 	CreateBuildModel model = new CreateBuildModel();
 	CreateBuildController controller = new CreateBuildController();
 	
@@ -367,6 +370,12 @@ public class CreateBuildServlet extends HttpServlet {
 					CpuPart baseCpu = controller.getModel().getTheBuild().getCpu();
 					req.getSession().setAttribute("cpubuild", cpus.get(cpunum));
 					
+					try {
+						db.writeCpuBuild(cpunum, build_id);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					//TODO: add Update for the cpu piece of build, 
 					//TODO: needs to know which build id it is working with
 					
@@ -384,6 +393,13 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(mbs.get(mbnum));
 					MotherboardPart baseMb = controller.getModel().getTheBuild().getMb();
 					req.getSession().setAttribute("mbbuild", mbs.get(mbnum));
+					
+					try {
+						db.writeMotherBuild(mbnum, build_id);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					//req.setAttribute("motherboardLink", baseMb.getUrl());
 					//req.setAttribute("motherboardPrice", baseMb.getPrice());
 					//req.setAttribute("motherboardBrand", baseMb.getBrand());
@@ -398,6 +414,13 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(gpus.get(gpunum));
 					GpuPart baseGpu = controller.getModel().getTheBuild().getGpu();
 					req.getSession().setAttribute("gpubuild", gpus.get(gpunum));
+					
+					try {
+						db.writeGpuBuild(gpunum, build_id);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
 					//req.setAttribute("cpuPrice", baseCpu.getPrice());
@@ -412,6 +435,13 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(rams.get(ramnum));
 					RamPart baseRam = controller.getModel().getTheBuild().getRam();
 					req.getSession().setAttribute("rambuild", rams.get(ramnum));
+					
+					try {
+						db.writeRamBuild(ramnum, build_id);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
 					//req.setAttribute("cpuPrice", baseCpu.getPrice());
@@ -426,6 +456,13 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(ssds.get(ssdnum));
 					RamPart baseRam = controller.getModel().getTheBuild().getRam();
 					req.getSession().setAttribute("ssdbuild", ssds.get(ssdnum));
+					
+					try {
+						db.writeStorageBuild(ssdnum, build_id);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
 					//req.setAttribute("cpuPrice", baseCpu.getPrice());
@@ -443,7 +480,18 @@ public class CreateBuildServlet extends HttpServlet {
 			}
 			else if(req.getParameter("saveB") != null)
 			{
+				User u = db.findUserAlone(username);
 				
+				
+				
+				try {
+					db.insertBuild(u.getUserId());
+					List<NewBuild> build = db.findAllBuilds();
+					build_id = build.size();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		
 		// Forward to view to render the result HTML document

@@ -1745,7 +1745,19 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 	@Override
 	public void insertBuild(int user_id) throws SQLException {
 		// TODO Auto-generated method stub
+		Connection conn = connect();
 		
+		PreparedStatement insertBuild= null;
+
+		insertBuild = conn.prepareStatement("insert into builds (userid, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ? , ?, ?)");
+		
+		insertBuild.setInt(1, user_id);
+		insertBuild.setInt(2,  0);
+		insertBuild.setInt(3, 0);
+		insertBuild.setInt(4, 0);
+		insertBuild.setInt(5,  0);
+		insertBuild.setInt(6, 0);
+		insertBuild.setString(7, null);
 	}
 
 
