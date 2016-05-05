@@ -120,7 +120,9 @@ Current Build
 <button type="submit" name ="loadB" value = "loadB"> Load Build</button>
 </div>
 <div>
-<input type="checkbox" name="priceUpd" value="priceUpd"> Update Price of Item<br>    
+<input type="checkbox" name="priceUpd" value="priceUpd"> Update Price of Item<br>  
+<td>Build Name:</td>
+<td><input type="text" name="buildName" size="15" value="${buildName}" /></td>  
 </div>
 </FORM>
 

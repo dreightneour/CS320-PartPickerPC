@@ -8,7 +8,7 @@ public class NewBuild {
 	private int mother;
 	private int storage;
 	private int ram;
-	private int buildId;
+	private int build_id;
 	private String name;
 	
 	public NewBuild(int user, int cpu, int mother, int gpu, int ram, int storage, String name)
@@ -58,11 +58,11 @@ public class NewBuild {
 
 	public void setBuildId(int buildId) {
 		// TODO Auto-generated method stub
-		this.buildId = buildId;
+		this.build_id = buildId;
 	}
 	
 	public int getId()
 	{
-		return buildId;
+		return build_id;
 	}
 }

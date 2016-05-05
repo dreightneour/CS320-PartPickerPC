@@ -484,9 +484,10 @@ public class CreateBuildServlet extends HttpServlet {
 				User u = db.findUserAlone(username);
 				
 				
-				
+				String buildName = req.getParameter("buildName");
+				System.err.println(buildName);
 				try {
-					db.insertBuild(u.getUserId());
+					db.insertBuild(u.getUserId(), buildName);
 					List<NewBuild> build = db.findAllBuilds();
 					build_id = build.size();
 				} catch (SQLException e) {
