@@ -1,5 +1,25 @@
 <!DOCTYPE html>
+<style>
+body{
+background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
+background-color: crimson;
+}
 
+.inner {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    style:background-color:goldenrod;
+}
+.button1:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
 <html>
 	<head>
 		<title>Index view</title>
@@ -8,14 +28,14 @@
 
 	<body>
 	<form   method="post" action="${pageContext.servletContext.contextPath}/index"  >
-		<div style="background-color:black; color:white; padding:20px;">
+		<div class = "inner" align = "center"style="background-color:goldenrod; color:black; padding:70px;">
 
-<h2 ">Login</h2>
+<h2 >Login</h2>
 <p > Welcome, please sign in or create an account</p>
 
 
 
-<div class="loginwindow" style="background-color:blue; color:red: padding:30px;">
+<div class="loginwindow" style="background-color:crimson; background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0));">
 	<table>
 				<tr>
 					<td>Username:</td>
@@ -26,13 +46,13 @@
 					<td><input type="password" name="password" size="15" value="${password}" /></td>
 				</tr>
 				<tr>
-					<td><input id="submit" type="submit" name="login" size="20" value="Login"   >  </td>
+					<td><input class ="button1" id="submit" type="submit" name="login" size="20" value="Login"   >  </td>
 				</tr>					
 				
 	</table>
 </div>
 ${userVerify}
-<button class="loginwindow" type='button' onclick="showRegister()">Register</button>
+<button class="button2" type='button' onclick="showRegister()">Register</button>
 <div id="registerFields" style="display: none;" > 
 
 
@@ -62,7 +82,8 @@ ${userVerify}
 </div>
 </form>
 
-
+<div>
+</div>
 
 	</body>
 	<script>
