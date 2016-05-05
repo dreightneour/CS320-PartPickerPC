@@ -36,7 +36,7 @@ public class Search{
     		motherList.add(mother2.get(i));
     	}
 		setRamList(getArrayRam("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100007611%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&Pagesize=90&Page=1"));
-		setStorageList(getArrayStorage("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100011693+8000+4814&IsNodeId=1&bop=And&ActiveSearchResult=True&PageSize=30&Page=1"));
+		setStorageList(getArrayStorage("http://www.newegg.com/Product/ProductList.aspx?Submit=ENE&N=100011693%208000%204814&IsNodeId=1&bop=And&ActiveSearchResult=True&PageSize=15&Page=1"));
 	}
 
     public static void main(String[] args) throws Exception {

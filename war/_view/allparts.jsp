@@ -76,6 +76,23 @@
 </c:forEach>
 </table>
 </div>
+<div id = "ssd">
+<button type="button" onclick="hideStorage()">Hide Storage</button>
+<table>
+<caption> Storages </caption>
+<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Capacity(GB)</td><td>Speed</td></tr>
+<c:forEach items="${storages}" var="ssd">
+    <tr>
+       <td><a href="${ssd.url}" target="_blank">${ssd.model}</a></td>
+	   <td>${ssd.price}</td>
+	   <td>${ssd.brand}</td>
+	   <td>${ssd.capacity}</td>
+	   <td>${ssd.dataSpeed}</td>
+    </tr>
+</c:forEach>
+</table>
+</div>
+
 </FORM>
 
 <script>
