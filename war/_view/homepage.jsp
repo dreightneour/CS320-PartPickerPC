@@ -13,7 +13,9 @@
 <button name="quickbuild" > Let's make a Quick Build!!!</button>
 <button name="allparts" > Show me all the parts</button>
 <button name="createbuild" > Let's make a Custom Build</button>
+
 </div>
+
 </FORM>
 	</body>
 </html>

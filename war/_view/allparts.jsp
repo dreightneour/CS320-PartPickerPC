@@ -93,6 +93,12 @@
 </table>
 </div>
 
+<div>
+
+<button type = "submit" name="UpdatePrices" value = "UpdatePrices"> Update all prices</button>
+
+</div>
+
 </FORM>
 
 <script>
