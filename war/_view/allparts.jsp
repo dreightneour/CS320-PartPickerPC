@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
+<style>
+body{
+background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
+background-color: crimson;
+}
+.inner {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    style:background-color:goldenrod;
+}
+head{
+   background-color: goldenrod
+   padding: 5px
+   color: black
+   left: 20%
+}
+</style>
 	<head>
 		<title>All Parts</title>
 
 	</head>
 
 	<body>
-<h2 style="background-color:blue; color:red: padding:30px;"> <font color = "white"> List of Parts</font> </h2>
+<h2 class = "head" style = "background-color: goldenrod" align="center" > List of Parts </h2>
+<div class = "inner" style ="background-color:goldenrod">
 <FORM method="post" action="${pageContext.servletContext.contextPath}/allparts">
 <div id="cpu">
 <button type="button" onclick="hideCpu()">Hide CPUs</button>
@@ -15,7 +36,7 @@
 <caption> CPUs </caption>
 <tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Series</td><td>Socket Type</td><td> Frequency</td><td>Cores</td></tr>
 <c:forEach items="${cpus}" var="cpu">
-    <tr>
+    <tr style = "overflow:scroll">
        <td><a href="${cpu.url}" target="_blank">${cpu.name}</a></td>
 	   <td>${cpu.price}</td>
 	   <td>${cpu.brand}</td>
@@ -98,7 +119,7 @@
 <button type = "submit" name="UpdatePrices" value = "UpdatePrices"> Update all prices</button>
 
 </div>
-
+</div>
 </FORM>
 
 <script>
