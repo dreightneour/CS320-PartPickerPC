@@ -162,8 +162,8 @@ public class DerbyDatabase implements IDatabase {
 					stmt8 = conn.prepareStatement(
 							
 							"create table builds("
-							+ "build_id integer primary key"
-							+ "		generated always as identity (start with 1, increment by 1),"
+							+ "build_id integer primary key "
+							+ "		generated always as identity (start with 1, increment by 1), "
 							+ "userid varchar(5),"
 							+ "cpu varchar(5),"
 							+ "gpu varchar(5),"
@@ -237,7 +237,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:H:CS320/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/hwilling/workspace/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -365,8 +365,9 @@ public class DerbyDatabase implements IDatabase {
 				r.getInt(index++),
 				r.getString(index++)	
 		);
-			build.setBuildId(temp);	
+			build.setBuildId(temp);
 			return build;
+			
 	}
 	
 	@Override
@@ -1786,8 +1787,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public void insertBuild(int user_id) throws SQLException {
-		// TODO Auto-generated method stub
+	public void insertBuild(int user_id, String name) throws SQLException {
+		// TODO Auto-generated method stub added a user name
 		Connection conn = connect();
 		
 		PreparedStatement insertBuild= null;
@@ -1800,7 +1801,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		insertBuild.setInt(4, 0);
 		insertBuild.setInt(5,  0);
 		insertBuild.setInt(6, 0);
-		insertBuild.setString(7, null);
+		insertBuild.setString(7, name);
 		
 		insertBuild.addBatch();
 		insertBuild.executeBatch();

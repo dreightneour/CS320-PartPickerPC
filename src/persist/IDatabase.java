@@ -40,5 +40,5 @@ public interface IDatabase {
 	void writeRamBuild(int ramInt, int buildId) throws SQLException;
 	void writeMotherBuild(int motherInt, int buildId) throws SQLException;
 	List<NewBuild> findAllBuilds();
-	void insertBuild(int user_id) throws SQLException;
+	void insertBuild(int user_id, String name) throws SQLException;
 }
