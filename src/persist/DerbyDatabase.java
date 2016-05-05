@@ -1764,6 +1764,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		//return true;
 		} finally {
 			DBUtil.closeQuietly(insertBuild);
+			conn.commit();
 			conn.close();
 		}
 
