@@ -159,6 +159,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					stmt8 = conn.prepareStatement(
+							
 							"create table builds("
 							+ "build_id integer primary key"
 							+ "		generated always as identity (start with 1, increment by 1),"
@@ -167,6 +168,7 @@ public class DerbyDatabase implements IDatabase {
 							+ "gpu varchar(100),"
 							+ "motherboard varchar(100),"
 							+ "ram varchar(100)"
+							+ "name varchar(50)"
 							+ ")"
 					);
 					stmt8.executeUpdate();
