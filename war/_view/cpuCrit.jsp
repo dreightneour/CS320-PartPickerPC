@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-	<div class="CpuWindow" style="background-color:blue; color:red: padding:30px;">
+<style>
+body{
+background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
+background-color: crimson;
+}
+
+.inner {
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+}
+.button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+	<div class="inner">
 	<form method="post" action="${pageContext.servletContext.contextPath}/createbuild">
 	<table>
 				<tr>
-					<td><font color = "white">from:$$</font></td>
+					<td>from:$$</td>
 					<td><input type="text" name="clow" size="15" value="${clow}" /></td>
 				</tr>
 				<tr>
-					<td><font color = "white">to:$$</font></td>
+					<td>to:$$</td>
 					<td><input type="text" name="chigh" size="15" value="${chigh}" /></td>
 				</tr>
 				<tr>
-					<td><font color = "white">Socket Type</font></td>
+					<td>Socket Type</td>
 					<td><select name="cseries">
 							<option value="none"> ALL </option>
   							<option value="Core i3">i3</option>
@@ -25,7 +43,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td><font color = "white">Socket Type</font></td>
+					<td>Socket Type</td>
 					<td><select name="csocketType">
 							<option value="none"> ALL </option>
   							<option value="LGA 1150">LGA 1150</option>
@@ -41,7 +59,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td><font color = "white">Socket Type</font></td>
+					<td>Socket Type</td>
 					<td><select name="ccores">
 							<option value="none"> ALL </option>
 							<option value="Dual-Core">Dual Core</option>
@@ -53,7 +71,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td><font color = "white">Brand</font></td>
+					<td>Brand</td>
 					<td><select name="cbrand">
 							<option value="none"> ALL </option>
 							<option value="Intel">Intel</option>
@@ -63,7 +81,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td><input id="searchCpu" type="submit" name="searchCpu" size="20" value="searchCpu"   >  </td>
+					<td><input class ="button" id="searchCpu" type="submit" name="searchCpu" size="20" value="searchCpu"   >  </td>
 				</tr>					
 				
 	</table>
