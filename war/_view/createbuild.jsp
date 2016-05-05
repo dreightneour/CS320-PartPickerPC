@@ -110,6 +110,16 @@ Current Build
 <button type="submit" name="mbs" value="mbs"> Find a MOTHERBOARD </button>
 <button type="submit" name="rams" value="rams"> Find a RAM </button>
 <button type="submit" name="storages" value="storages"> Find a STORAGE </button>
+
+
+</div>
+<div>
+<button type="submit" name="update" value="update"> Update the prices of current build </button>
+</div>
+<div>
+<input type="checkbox" name="priceUpd" value="priceUpd"> Update Price of Item<br>
+
+     
 </div>
 </FORM>
 
