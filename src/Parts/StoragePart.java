@@ -13,15 +13,16 @@ public class StoragePart implements PartInterface {
 	private double sale;
 	public int hddId;
 	
-	public StoragePart(String capacity, String storageType, String dataSpeed, String url, String brand, String model, double price, double sale){
+	public StoragePart(String capacity, String dataSpeed, String url, String brand, String model, double price, double sale){
 		this.capacity = capacity;
-		this.storageType = storageType;
+		//this.storageType = storageType;
 		this.dataSpeed = dataSpeed;
 		this.url = url;
 		this.brand = brand;
 		this.model = model;
 		this.price = price;
 		this.sale = sale;
+		int b = 0;
 	}
 	
 	public int getHddId() {

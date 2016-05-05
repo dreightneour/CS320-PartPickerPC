@@ -115,6 +115,7 @@ Current Build
 </div>
 <div>
 <button type="submit" name="update" value="update"> Update the prices of current build </button>
+<button type="submit" name="newB" value="newB"> Start New Build </button>
 </div>
 <div>
 <input type="checkbox" name="priceUpd" value="priceUpd"> Update Price of Item<br>    
