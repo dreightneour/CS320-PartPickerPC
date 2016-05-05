@@ -1774,7 +1774,7 @@ public class Search{
     		saleD = Double.parseDouble(salePrice);
     	}
     	
-    	if(brand.contains("</dd>") || brand.contains("\n") || series.contains("\n") || series.contains("</dd>") || model.contains("\n") || model.contains("</dd>") || capacity.contains("\n") || capacity.contains("</dd>") 
+    	/*if(brand.contains("</dd>") || brand.contains("\n") || series.contains("\n") || series.contains("</dd>") || model.contains("\n") || model.contains("</dd>") || capacity.contains("\n") || capacity.contains("</dd>") 
     			|| speed.contains("\n"))
     	{
     		//int b = 0;
@@ -1784,8 +1784,11 @@ public class Search{
             capacity = new String();
             speed = new String();
 
+    	}*/
+    	if(speed.contains("\n"))
+    	{
+    		speed = speed.substring(0, 20);
     	}
-    	
     	StoragePart ssd = new StoragePart(capacity, speed, url, brand, model, priceD, saleD);
     	return ssd;
     }
