@@ -200,8 +200,8 @@ public class CreateBuildServlet extends HttpServlet {
 				}
 
 				
-				 ssds = db.findAllStorageCrit(brand, null, low, high);
-				req.setAttribute("slist", rams);
+				ssds = db.findAllStorageCrit(brand, null, low, high);
+				req.setAttribute("slist", ssds);
 				req.getRequestDispatcher("/_view/storages.jsp").forward(req, resp);
 			}
 			else if (req.getParameter("cpus") != null)
@@ -353,6 +353,20 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(rams.get(ramnum));
 					RamPart baseRam = controller.getModel().getTheBuild().getRam();
 					req.getSession().setAttribute("rambuild", rams.get(ramnum));
+					//req.setAttribute("cpuLink", baseCpu.getUrl());
+					//req.setAttribute("cpuModel", baseCpu.getName());
+					//req.setAttribute("cpuPrice", baseCpu.getPrice());
+					//req.setAttribute("cpuBrand", baseCpu.getBrand());
+					//req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
+				
+			}
+			else if (req.getParameter("submitStorage") != null)
+			{
+				int ssdnum = Integer.parseInt(req.getParameter("submitStorage"));
+				System.out.println(ssdnum);
+					String message = controller.addPartToParts(ssds.get(ssdnum));
+					RamPart baseRam = controller.getModel().getTheBuild().getRam();
+					req.getSession().setAttribute("ssdbuild", ssds.get(ssdnum));
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
 					//req.setAttribute("cpuPrice", baseCpu.getPrice());

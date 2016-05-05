@@ -833,7 +833,43 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-	
+	@Override
+	public List<StoragePart> findAllStorageCrit(String brand, String low, String high) {
+		return executeTransaction(new Transaction<List<StoragePart>>(){
+			
+			@Override
+			public List<StoragePart> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try{
+					stmt = conn.prepareStatement(
+							"select * from motherboards " +
+							" WHERE (? IS NULL OR brand = ?) and " +
+							" price between ? and ? "
+							);
+					stmt.setString(1, brand);
+					stmt.setString(2, brand);
+					stmt.setString(5, low);
+					stmt.setString(6, high);
+					List<StoragePart> result = new ArrayList<StoragePart>();
+					resultSet = stmt.executeQuery();
+					boolean found = false;
+					while(resultSet.next()){
+						found = true;
+						
+						result.add(loadStorage(resultSet,1));
+					}
+					return result;
+				}
+				
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 	
 	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException {
 		user.setUserId(resultSet.getInt(index++));
@@ -878,7 +914,7 @@ public class DerbyDatabase implements IDatabase {
 					insertGpu = conn.prepareStatement("insert into gpus (brand, model, slottype, gpubase, memorysize, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ?)");
 					insertMotherboard = conn.prepareStatement("insert into motherboards (brand, model, sockettype, url, price, sale) values (?, ?, ?, ?, ? , ?)");
 					insertRam = conn.prepareStatement("insert into rams (brand, series, model, capacity, type, multichanneltype, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
-					insertStorage = conn.prepareStatement("insert into storages (capacity, dataspeed, url, brand, model, price, sale) values (?, ?, ?, ?, ? , ?, ?)");
+					insertStorage = conn.prepareStatement("insert into storages (capacity, dataSpeed, url, brand, model, price, sale) values (?, ?, ?, ?, ? , ?, ?)");
 					for (CpuPart cpu : cpuList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertCpu.setString(1, cpu.getSocketType());

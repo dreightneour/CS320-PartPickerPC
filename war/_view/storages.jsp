@@ -12,13 +12,14 @@
 	<div class="CpuWindow" style="background-color:blue; color:red: padding:30px;">
 	<table>
 	<caption> Storages </caption>
-<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Capacity(GB)</td></tr>
+<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Capacity(GB)</td><td>Speed</td></tr>
 	<c:forEach items="${slist}" var="storage" varStatus="counter">>
     <tr>
-	    <td><a href="${storage.url}" target="_blank">${ram.model}</a></td>
+	    <td><a href="${storage.url}" target="_blank">${storage.model}</a></td>
 	   <td>${storage.price}</td>
 	   <td>${storage.brand}</td>
 	   <td>${storage.capacity}</td>
+	   <td>${storage.dataSpeed}</td>
 	   <td><button id="submitStorage" type="submit" name="submitStorage" value="${counter.index}" > ADD</button></td>
     </tr>
 </c:forEach>

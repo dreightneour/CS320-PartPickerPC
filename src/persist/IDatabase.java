@@ -28,4 +28,5 @@ public interface IDatabase {
 	public User findUserAlone(final String regusername);
 	StoragePart findStorageWithID(int STOID);
 	List<StoragePart> findAllStorageCrit(String brand, String capacity, String low, String high);
+	List<StoragePart> findAllStorageCrit(String brand, String low, String high);
 }
