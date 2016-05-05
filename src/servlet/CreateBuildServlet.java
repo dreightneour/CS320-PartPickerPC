@@ -415,9 +415,9 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(gpus.get(gpunum));
 					GpuPart baseGpu = controller.getModel().getTheBuild().getGpu();
 					req.getSession().setAttribute("gpubuild", gpus.get(gpunum));
-					
+					String model = gpus.get(gpunum).getModel();
 					try {
-						db.writeGpuBuild(gpunum, build_id);
+						db.writeGpuBuild(model, req.getParameter("buildName"));
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -481,19 +481,23 @@ public class CreateBuildServlet extends HttpServlet {
 			}
 			else if(req.getParameter("saveB") != null)
 			{
-				User u = db.findUserAlone(username);
-				
-				
-				String buildName = req.getParameter("buildName");
-				System.err.println(buildName);
-				try {
-					db.insertBuild(u.getUserId(), buildName);
-					List<NewBuild> build = db.findAllBuilds();
-					build_id = build.size();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(req.getParameter("buildName") != null){
+					User u = db.findUserAlone(username);
+					
+					
+					String buildName = req.getParameter("buildName");
+					System.err.println(buildName);
+					try {
+						db.insertBuild(u.getUserId(), buildName);
+						List<NewBuild> build = db.findAllBuilds();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else{
+					req.setAttribute("userVerify", "Please enter a name for your Build.");
 				}
+				
 			}
 			else if(req.getParameter("loadB") != null)
 			{

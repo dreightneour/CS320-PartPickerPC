@@ -121,8 +121,10 @@ Current Build
 </div>
 <div>
 <input type="checkbox" name="priceUpd" value="priceUpd"> Update Price of Item<br>  
+${userVerify}
 <td>Name Your Build:</td>
-<td><input type="text" name="buildName" size="15" value="${buildName}" /></td>  
+<td><input type="text" name="buildName" size="15" value="${buildName}" /> </td>  
+
 </div>
 </FORM>
 

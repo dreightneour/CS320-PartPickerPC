@@ -164,13 +164,13 @@ public class DerbyDatabase implements IDatabase {
 							"create table builds("
 							+ "build_id integer primary key "
 							+ "		generated always as identity (start with 1, increment by 1), "
-							+ "userid varchar(5),"
-							+ "cpu varchar(5),"
-							+ "gpu varchar(5),"
-							+ "motherboard varchar(5),"
-							+ "ram varchar(5),"
-							+ "storage varchar(5),"
-							+ "name varchar(50)"
+							+ "username varchar(50),"
+							+ "cpu varchar(100),"
+							+ "gpu varchar(100),"
+							+ "motherboard varchar(100),"
+							+ "ram varchar(100),"
+							+ "storage varchar(100),"
+							+ "name varchar(100)"
 							+ ")"
 					);
 					stmt8.executeUpdate();
@@ -237,7 +237,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/hwilling/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/RobertJones/workspace/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -1639,7 +1639,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
-	public void writeGpuBuild(int gpuInt, int buildId) throws SQLException {
+	public void writeGpuBuild(String model, String name) throws SQLException {
 		Connection conn = connect();
 		try
 		{
@@ -1651,11 +1651,11 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET gpu " + 
-				   "WHERE build_id = ?";
+				   "WHERE name = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, gpuInt);
-				pstmt.setInt(2, buildId);
+				pstmt.setString(1, model);
+				pstmt.setString(2, name);
 				pstmt.executeUpdate();
 
 				conn.commit();
@@ -1812,6 +1812,29 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 			conn.close();
 		}
 
+	}
+
+
+	@Override
+	public List<NewBuild> findBuildsByUsername(String username) throws SQLException {
+		Connection conn = connect();
+		PreparedStatement statement = null;
+		try{
+			statement = conn.prepareStatement("SELECT * from builds" + 
+											  "where username = ? ");
+			statement.setString(1, username);
+			
+			List<NewBuild> result = new ArrayList<NewBuild>();
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				result.add(loadBuild(resultSet,1));
+			}
+			return result;
+		}finally{
+			DBUtil.closeQuietly(statement);
+			conn.commit();
+			conn.close();
+		}
 	}
 
 
