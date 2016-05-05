@@ -449,7 +449,7 @@ public class CreateBuildServlet extends HttpServlet {
 					//req.setAttribute("cpuPrice", baseCpu.getPrice());
 					//req.setAttribute("cpuBrand", baseCpu.getBrand());
 					//req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
-				
+					//
 			}
 			else if (req.getParameter("submitStorage") != null)
 			{

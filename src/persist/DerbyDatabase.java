@@ -1243,7 +1243,7 @@ public class DerbyDatabase implements IDatabase {
 	public List<GpuPart> findAllGpusCrit(String brand, String series, String slotType, String memorySize, String low,
 			String high) {
 return executeTransaction(new Transaction<List<GpuPart>>(){
-			
+			//
 			@Override
 			public List<GpuPart> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;

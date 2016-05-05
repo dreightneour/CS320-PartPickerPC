@@ -26,7 +26,7 @@ public interface IDatabase {
 	public RamPart findRAMWithModel(String model);
 	public void insertUser(final String user, final String password) throws SQLException;
 	public User findUserAlone(final String regusername);
-	StoragePart findStorageWithModel(String model);
+	StoragePart findStorageWithModel(String model); //
 	List<StoragePart> findAllStorageCrit(String brand, String capacity, String low, String high);
 	List<StoragePart> findAllStorageCrit(String brand, String low, String high);
 	void writeStoragePrice(double price, String model) throws SQLException;
