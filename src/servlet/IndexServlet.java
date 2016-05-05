@@ -58,7 +58,7 @@ public class IndexServlet extends HttpServlet {
 			}
 			else
 			{
-						username.toUpperCase();
+						username = username.toUpperCase();
 						User loginAttempt = db.findUser(username, password);
 						if (loginAttempt == null)
 						{
