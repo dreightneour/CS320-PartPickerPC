@@ -492,6 +492,9 @@ public class CreateBuildServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}else if(req.getParameter("loadB") != null){
+				
+				req.getRequestDispatcher("/_view/loadB.jsp").forward(req, resp);
 			}
 		
 		// Forward to view to render the result HTML document
