@@ -1070,7 +1070,7 @@ public class DerbyDatabase implements IDatabase {
             	String sql = 
 				   "UPDATE cpus " + 
 				   "  SET price = ? " + 
-				   "WHERE series = ?";
+				   "WHERE model = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setDouble(1, price);
@@ -1391,7 +1391,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				try{
 					stmt = conn.prepareStatement(
 							"SELECT * from cpus" +
-							"WHERE series = ?");
+							"WHERE model = ?");
 					stmt.setString(1, model);
 					set = stmt.executeQuery();
 					CpuPart result = null;
@@ -1828,6 +1828,26 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 			conn.commit();
 			conn.close();
 		}
+	}
+	public CpuPart loadCPUfromModel(String model){
+		CpuPart c = null;
+		return c;
+	}
+	public GpuPart loadGPUfromModel(String model){
+		GpuPart g = null;
+		return g;
+	}
+	public RamPart loadRAMfromModel(String model){
+		RamPart r = null;
+		return r;
+	}
+	public MotherboardPart loadMOBOfromModel(String model){
+		MotherboardPart m = null;
+		return m;
+	}
+	public StoragePart loadSTORAGEfromModel(String model){
+		StoragePart s = null;
+		return s;
 	}
 
 
