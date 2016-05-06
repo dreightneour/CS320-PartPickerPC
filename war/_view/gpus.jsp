@@ -1,15 +1,47 @@
 <!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
+<style>
+body{
+background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
+background-color: crimson;
+}
+.inner {
+    position: absolute;
+    top: 20%;
+    left: 12%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    
+}
+.head{
+   background-color: goldenrod
+   padding: 5px
+   color: black
+   left: 20%
+}
+.title{
+     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+     background-color:goldenrod;
+     position: absolute;
+     top: 5%;
+     left: 25%;
+     padding: 10px
+}
+.button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
 	<head>
 		<title>Gpus Picker</title>
 
 	</head>
 
 	<body>
-<h2 style="background-color:blue; color:red: padding:30px;"> Welcome to Part Picker PC ${username}</h2>
+<h2 class = "title"> Welcome to Part Picker PC ${username}</h2>
 	<FORM method="post" action="${pageContext.servletContext.contextPath}/createbuild">
-	<div class="CpuWindow" style="background-color:blue; color:red: padding:30px;">
+	<div class="inner">
 	<table>
 	<caption> GPUs </caption>
 <tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Series</td><td>Slot Type</td><td>Memory Size(GB)</td></tr>
@@ -21,7 +53,7 @@
 	   <td>${gpu.gpuBase}</td>
 	   <td>${gpu.slotType}</td>
 	   <td>${gpu.memorySize}</td>
-	   <td><button id="submitGpu" type="submit" name="submitGpu" value="${counter.index}" > ADD</button></td>
+	   <td><button class ="button" id="submitGpu" type="submit" name="submitGpu" value="${counter.index}" > ADD</button></td>
     </tr>
 </c:forEach>
 </table>
