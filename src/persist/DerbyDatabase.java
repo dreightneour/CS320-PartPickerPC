@@ -237,7 +237,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:H:CS320/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/RobertJones/workspace/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -1763,7 +1763,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		insertBuild = conn.prepareStatement("insert into builds (username, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ?, ?, ?)");
 		
 		insertBuild.setString(1, username);
-		insertBuild.setString(2,  "cpu");
+		insertBuild.setString(2,  null);
 		insertBuild.setString(3, null);
 		insertBuild.setString(4, null);
 		insertBuild.setString(5,  null);
