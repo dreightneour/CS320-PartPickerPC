@@ -237,7 +237,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/RobertJones/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:H:CS320/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -1542,7 +1542,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET storage = ? " + 
-				   "WHERE build_id = ?";
+				   "WHERE name = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, model);
@@ -1656,7 +1656,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET ram = ?" + 
-				   "WHERE build_id = ?";
+				   "WHERE name = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, model);
@@ -1694,7 +1694,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
             	String sql = 
 				   "UPDATE builds " + 
 				   "  SET mother = ?" + 
-				   "WHERE build_id = ?";
+				   "WHERE name = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, model);

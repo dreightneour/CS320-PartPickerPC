@@ -489,14 +489,15 @@ public class CreateBuildServlet extends HttpServlet {
 					
 					String buildName = req.getParameter("buildName");
 					this.buildName = buildName;
+					List<NewBuild> build = new ArrayList<NewBuild>();
 					try {
 						db.insertBuild(u.getName(), buildName);
-						List<NewBuild> build = db.findBuildsByUsername(username);
+						 build = db.findAllBuilds();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+					build = new ArrayList<NewBuild>();
 				}else{
 					req.setAttribute("userVerify", "Please enter a name for your Build.");
 				}
@@ -504,13 +505,17 @@ public class CreateBuildServlet extends HttpServlet {
 			}
 			else if(req.getParameter("loadB") != null)
 			{
+				List<NewBuild> builder = new ArrayList<NewBuild>();
 				try {
 					builds = db.findBuildsByUsername(username);
+					
+					builder = db.findAllBuilds();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				req.setAttribute("blist", builds);
+				builder = builds;
 				req.getRequestDispatcher("/_view/loadB.jsp").forward(req, resp);
 			}
 			else if(req.getParameter("selectB") != null){
