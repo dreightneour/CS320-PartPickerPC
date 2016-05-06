@@ -491,7 +491,7 @@ public class CreateBuildServlet extends HttpServlet {
 					this.buildName = buildName;
 					try {
 						db.insertBuild(u.getName(), buildName);
-						List<NewBuild> build = db.findAllBuilds();
+						List<NewBuild> build = db.findBuildsByUsername(username);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -503,9 +503,17 @@ public class CreateBuildServlet extends HttpServlet {
 			}
 			else if(req.getParameter("loadB") != null)
 			{
-				builds = db.findAllBuilds();
+				try {
+					builds = db.findBuildsByUsername(username);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				req.setAttribute("blist", builds);
 				req.getRequestDispatcher("/_view/loadB.jsp").forward(req, resp);
+			}
+			else if(req.getParameter("selectB") != null){
+				buildName = builds.get(Integer.parseInt(req.getParameter("selectB"))).getName();
 			}
 		
 		// Forward to view to render the result HTML document

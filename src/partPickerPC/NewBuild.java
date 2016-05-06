@@ -2,7 +2,7 @@ package partPickerPC;
 
 public class NewBuild {
 
-	private int user;
+	private String username;
 	private int cpu;
 	private int gpu;
 	private int mother;
@@ -11,7 +11,7 @@ public class NewBuild {
 	private int build_id;
 	private String name;
 	
-	public NewBuild(int user, int cpu, int mother, int gpu, int ram, int storage, String name)
+	public NewBuild(String username, int cpu, int mother, int gpu, int ram, int storage, String name)
 	{
 		this.cpu = cpu;
 		this.gpu = gpu;
@@ -21,9 +21,9 @@ public class NewBuild {
 		this.name = name;
 	}
 	
-	public int getUser()
+	public String getUser()
 	{
-		return user;
+		return username;
 	}
 	
 	public int getCpu()

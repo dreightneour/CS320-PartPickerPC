@@ -357,7 +357,7 @@ public class DerbyDatabase implements IDatabase {
 	public NewBuild loadBuild(ResultSet r, int index) throws SQLException{
 		int temp = index++;
 		NewBuild build = new NewBuild(
-				r.getInt(index++),
+				r.getString(index++),
 				r.getInt(index++),
 				r.getInt(index++),
 				r.getInt(index++),
