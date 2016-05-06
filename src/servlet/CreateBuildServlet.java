@@ -44,6 +44,9 @@ public class CreateBuildServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if(req.getSession().getAttribute("buildName") == null){
+			req.setAttribute("buildName", "no title");
+		}
 		// pulls username from session or if no user, puts guest as username in session
 		if (req.getSession().getAttribute("theUser") != null)
 				{
@@ -484,7 +487,7 @@ public class CreateBuildServlet extends HttpServlet {
 			else if(req.getParameter("saveB") != null)
 			{
 				if(req.getParameter("buildName") != null){
-					
+					req.setAttribute("buildName", buildName);
 					User u = db.findUserAlone(username);
 					
 					
