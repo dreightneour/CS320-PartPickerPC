@@ -24,6 +24,7 @@ public class NewBuild {
 		this.ram = ram;
 		this.storage = storage;
 		this.name = name;
+		this.username =username;
 	}
 	
 	public String getUser()
