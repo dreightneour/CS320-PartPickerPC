@@ -9,11 +9,20 @@ background-color: crimson;
 .inner {
     position: absolute;
     top: 20%;
-    left: 12%;
-    align: center;
+    left: 27%;
+  	text-align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
+    width: 800px;
+	height: 800px;
+	overflow: scroll;
     
+}
+.scroll{
+	background-color:goldenrod;
+	width: 100px;
+	height: 100px;
+	overflow: scroll;
 }
 .head{
    background-color: goldenrod
@@ -26,8 +35,9 @@ background-color: crimson;
      background-color:goldenrod;
      position: absolute;
      top: 5%;
-     left: 25%;
-     padding: 10px
+     left: 35%;
+     padding: 10px;
+     
 }
 .button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
@@ -46,7 +56,7 @@ background-color: crimson;
 	<table>
 	<caption> CPUs </caption>
 	<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Series</td><td>Socket Type</td><td> Frequency</td><td>Cores</td></tr>
-	<c:forEach items="${clist}" var="cpu" varStatus="counter">>
+	<c:forEach items="${clist}" var="cpu" varStatus="counter">
     <tr>
        <td><a href="${cpu.url}" target="_blank">${cpu.model}</a></td>
 	   <td>${cpu.price}</td>
