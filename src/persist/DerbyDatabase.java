@@ -1940,6 +1940,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		StoragePart s = null;
 		Connection conn = connect();
 		PreparedStatement statement = null;
+		//
 		try{
 			statement = conn.prepareStatement("SELECT * from storages " + 
 											  " WHERE model = ? ");

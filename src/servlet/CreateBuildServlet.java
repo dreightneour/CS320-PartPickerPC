@@ -534,7 +534,7 @@ public class CreateBuildServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-			}
+			}//
 		
 		// Forward to view to render the result HTML document
 			req.getRequestDispatcher("/_view/createbuild.jsp").forward(req, resp);
