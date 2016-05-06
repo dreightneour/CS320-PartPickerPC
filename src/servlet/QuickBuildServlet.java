@@ -80,7 +80,7 @@ public class QuickBuildServlet extends HttpServlet {
 			RamPart ram = theBuild.getRam();
 			// set cpu stuff
 			req.setAttribute("cpuLink", cpu.getUrl());
-			req.setAttribute("cpuModel", cpu.getName());
+			req.setAttribute("cpuModel", cpu.getModel());
 			req.setAttribute("cpuPrice", cpu.getPrice());
 			req.setAttribute("cpuBrand", cpu.getBrand());
 			req.setAttribute("cpuSeries", cpu.getSeries());
