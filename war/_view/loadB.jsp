@@ -42,7 +42,7 @@ background-color: crimson;
 			   <td>${build.name}
 			   
 			   <button type="submit" name="selectB" value="${counter.index}"> Choose Build </button>
-			   <button type="submit" name="deleteB" value="deleteB"> Delete Build </button>
+			   <button type="submit" name="deleteB" value="${counter.index}"> Delete Build </button>
 			   </td>
 		    </tr>
 		</c:forEach>
