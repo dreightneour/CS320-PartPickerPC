@@ -541,9 +541,17 @@ public class CreateBuildServlet extends HttpServlet {
 				}
 				
 			}else if(req.getParameter("deleteB") != null){
+				int number = Integer.parseInt(req.getParameter("deleteB"));
+				String buildN = builds.get(number).getName();
 				
-				
-				
+				try {
+					builds = db.findBuildsByUsername(username);
+					db.deleteBuild(buildN, username);
+					builds = db.findBuildsByUsername(username);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				
 				//

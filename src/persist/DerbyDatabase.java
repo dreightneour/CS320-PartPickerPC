@@ -237,7 +237,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/RobertJones/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:H:CS320/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -1972,12 +1972,12 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		try{
 			statement = conn.prepareStatement("DELETE FROM builds " + 
 											  " WHERE name = ? " +
-											  " AND WHERE username = ? ");
+											  " and username = ? ");
 			statement.setString(1, buildName);
 			statement.setString(2,  userName);
 			statement.executeQuery();
 		}catch(SQLException e){
-			
+			e.printStackTrace();
 		}finally{
 			DBUtil.closeQuietly(statement);
 			conn.commit();
