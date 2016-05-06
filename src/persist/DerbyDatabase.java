@@ -358,11 +358,11 @@ public class DerbyDatabase implements IDatabase {
 		int temp = index++;
 		NewBuild build = new NewBuild(
 				r.getString(index++),
-				r.getInt(index++),
-				r.getInt(index++),
-				r.getInt(index++),
-				r.getInt(index++),
-				r.getInt(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
+				r.getString(index++),
 				r.getString(index++)	
 		);
 			build.setBuildId(temp);

@@ -3,11 +3,11 @@ package partPickerPC;
 public class NewBuild {
 
 	private String username;
-	private int cpu;
-	private int gpu;
-	private int mother;
-	private int storage;
-	private int ram;
+	private String cpu;
+	private String gpu;
+	private String mother;
+	private String storage;
+	private String ram;
 	private int build_id;
 	private String name;
 	
@@ -15,7 +15,8 @@ public class NewBuild {
 	{
 		
 	}
-	public NewBuild(String username, int cpu, int mother, int gpu, int ram, int storage, String name)
+	
+	public NewBuild(String username, String cpu, String mother, String gpu, String ram, String storage, String name)
 	{
 		this.cpu = cpu;
 		this.gpu = gpu;
@@ -30,27 +31,27 @@ public class NewBuild {
 		return username;
 	}
 	
-	public int getCpu()
+	public String getCpu()
 	{
 		return cpu;
 	}
 	
-	public int getGpu()
+	public String getGpu()
 	{
 		return gpu;
 	}
 	
-	public int getMotherboard()
+	public String getMotherboard()
 	{
 		return mother;
 	}
 	
-	public int getRam()
+	public String getRam()
 	{
 		return ram;
 	}
 	
-	public int getStorage()
+	public String getStorage()
 	{
 		return storage;
 	}
