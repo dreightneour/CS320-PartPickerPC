@@ -48,7 +48,7 @@ background-color: crimson;
 	<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Series</td><td>Socket Type</td><td> Frequency</td><td>Cores</td></tr>
 	<c:forEach items="${clist}" var="cpu" varStatus="counter">>
     <tr>
-       <td><a href="${cpu.url}" target="_blank">${cpu.name}</a></td>
+       <td><a href="${cpu.url}" target="_blank">${cpu.model}</a></td>
 	   <td>${cpu.price}</td>
 	   <td>${cpu.brand}</td>
 	   <td>${cpu.series}</td>
