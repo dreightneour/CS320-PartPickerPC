@@ -505,17 +505,17 @@ public class CreateBuildServlet extends HttpServlet {
 			}
 			else if(req.getParameter("loadB") != null)
 			{
-				List<NewBuild> builder = new ArrayList<NewBuild>();
+				//List<NewBuild> builder = new ArrayList<NewBuild>();
 				try {
 					builds = db.findBuildsByUsername(username);
 					
-					builder = db.findAllBuilds();
+					//builder = db.findAllBuilds();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				req.setAttribute("blist", builds);
-				builder = builds;
+				//builder = builds;
 				req.getRequestDispatcher("/_view/loadB.jsp").forward(req, resp);
 			}
 			else if(req.getParameter("selectB") != null){
