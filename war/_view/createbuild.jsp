@@ -9,7 +9,7 @@ background-color: crimson;
 .inner {
     position: absolute;
     top: 20%;
-    left: 2%;
+    left: 34%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
@@ -27,7 +27,7 @@ background-color: crimson;
 .inner1 {
     position: absolute;
     top: 28%;
-    left: 8%;
+    left: 35%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
@@ -36,7 +36,7 @@ background-color: crimson;
 .inner2 {
     position: absolute;
     top: 36%;
-    left: 22.7%;
+    left: 38.9%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
@@ -45,7 +45,7 @@ background-color: crimson;
 .inner3 {
     position: absolute;
     top: 44%;
-    left: 6%;
+    left: 34%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
@@ -54,7 +54,7 @@ background-color: crimson;
 .inner4 {
     position: absolute;
     top: 52%;
-    left: 16%;
+    left: 37.5%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
@@ -63,7 +63,7 @@ background-color: crimson;
 .inner5 {
     position: absolute;
     top: 60%;
-    left: 22%;
+    left: 32%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
@@ -81,7 +81,7 @@ background-color: crimson;
      background-color:goldenrod;
      position: absolute;
      top: 5%;
-     left: 25%;
+     left: 35%;
      padding: 10px
 }
 .button:hover {
@@ -94,9 +94,11 @@ background-color: crimson;
 	</head>
 
 	<body>
-<h2 class = "title"> Welcome to Part Picker PC ${username}</h2>
+<h2 class = "title"> Welcome to Part Picker PC ${username}
+<div style = "text-align: center">This is your Current Build</div>
+</h2>
 <div class = "innerh">
-<h>Current Build
+
 </div>
 
 <div class = "inner" id="cpuCurrent">
