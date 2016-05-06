@@ -16,7 +16,7 @@ public class NewBuild {
 		
 	}
 	
-	public NewBuild(String username, String cpu, String mother, String gpu, String ram, String storage, String name)
+	public NewBuild(String username, String cpu, String gpu, String mother, String ram, String storage, String name)
 	{
 		this.cpu = cpu;
 		this.gpu = gpu;

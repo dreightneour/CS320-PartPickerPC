@@ -397,7 +397,7 @@ public class CreateBuildServlet extends HttpServlet {
 					req.getSession().setAttribute("mbbuild", mbs.get(mbnum));
 					String model = mbs.get(mbnum).getModel();
 					try {
-						db.writeMotherBuild(model, req.getParameter("buildName"));
+						db.writeMotherBuild(mbs.get(mbnum).getModel(), buildName);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -417,8 +417,9 @@ public class CreateBuildServlet extends HttpServlet {
 					GpuPart baseGpu = controller.getModel().getTheBuild().getGpu();
 					req.getSession().setAttribute("gpubuild", gpus.get(gpunum));
 					String model = gpus.get(gpunum).getModel();
+					NewBuild build = new NewBuild();
 					try {
-						db.writeGpuBuild(model, req.getParameter("buildName"));
+						db.writeGpuBuild(gpus.get(gpunum).getModel(), buildName);	
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
