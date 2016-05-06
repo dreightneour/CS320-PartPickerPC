@@ -55,7 +55,7 @@ public class DerbyDatabase implements IDatabase {
 							"	cpu_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +									
 							"	sockettype varchar(200)," +
-							"	name varchar(200)," +
+							"	model varchar(200)," +
 							"	brand varchar(200)," +
 							"	series varchar(200)," +
 							"	frequency varchar(200)," +
@@ -931,7 +931,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertStorage= null;
 
 				try {
-					insertCpu = conn.prepareStatement("insert into cpus (sockettype, name, brand, series, frequency, cores, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
+					insertCpu = conn.prepareStatement("insert into cpus (sockettype, model, brand, series, frequency, cores, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
 					insertGpu = conn.prepareStatement("insert into gpus (brand, model, slottype, gpubase, memorysize, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ?)");
 					insertMotherboard = conn.prepareStatement("insert into motherboards (brand, model, sockettype, url, price, sale) values (?, ?, ?, ?, ? , ?)");
 					insertRam = conn.prepareStatement("insert into rams (brand, series, model, capacity, type, multichanneltype, url, price, sale) values (?, ?, ?, ?, ? , ?, ?, ? , ?)");
@@ -939,7 +939,7 @@ public class DerbyDatabase implements IDatabase {
 					for (CpuPart cpu : cpuList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertCpu.setString(1, cpu.getSocketType());
-						insertCpu.setString(2,  cpu.getName());
+						insertCpu.setString(2,  cpu.getModel());
 						insertCpu.setString(3, cpu.getBrand());
 						insertCpu.setString(4, cpu.getSeries());
 						insertCpu.setString(5,  cpu.getFrequency());

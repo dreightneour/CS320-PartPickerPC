@@ -4,16 +4,16 @@ import partPickerPC.PartInterface;
 
 public class CpuPart implements PartInterface {
 	
-	private String socketType, name, brand, series
+	private String socketType, model, brand, series
 	, frequency, cores, url;
 	public int cpuId;
 	double price;
 	
-	public CpuPart(String socketType, String name, String brand, String series,					// all the important cpu information
+	public CpuPart(String socketType, String model, String brand, String series,					// all the important cpu information
 				   String frequency, String cores, String url, double price, double sale)
 	{
 		this.socketType = socketType;
-		this.name = name;
+		this.model = model;
 		this.brand = brand;
 		this.series = series;
 		this.frequency = frequency;
@@ -35,8 +35,8 @@ public class CpuPart implements PartInterface {
 		return socketType;
 	}
 
-	public String getName() {
-		return name;
+	public String getModel() {
+		return model;
 	}
 
 	public String getBrand() {

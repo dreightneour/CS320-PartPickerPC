@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 public class CpuPartTest extends TestCase {
 	CpuPart c;
 	String socketType = "socket";
-	String name = "i7";
+	String model = "i7";
 	String brand = "myBrand";
 	String series = "world";
 	String frequency = "50,000 leagues";
@@ -15,15 +15,15 @@ public class CpuPartTest extends TestCase {
 	double price = 666.66;
 	double sale = 12.10;
 	protected void setUp() throws Exception{
-		c = new CpuPart(socketType, name, brand, series, frequency, cores, url, price, sale);
+		c = new CpuPart(socketType, model, brand, series, frequency, cores, url, price, sale);
 	}
 	
 	public void testGetSocketType() throws Exception{
 		assertEquals(socketType, c.getSocketType());
 	}
 	
-	public void testGetName() throws Exception{
-		assertEquals(name, c.getName());
+	public void testGetModel() throws Exception{
+		assertEquals(model, c.getModel());
 	}
 	
 	public void testGetBrand() throws Exception{
