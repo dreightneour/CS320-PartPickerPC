@@ -48,4 +48,5 @@ public interface IDatabase {
 	public RamPart loadRAMfromModel(String model) throws SQLException;
 	public CpuPart loadCPUfromModel(String model) throws SQLException;//
 	public MotherboardPart loadMOBOfromModel(String model) throws SQLException;
+	public void deleteBuild(String buildName, String userName) throws SQLException;
 }

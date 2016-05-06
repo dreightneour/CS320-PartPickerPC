@@ -1693,7 +1693,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		
             	String sql = 
 				   "UPDATE builds " + 
-				   "  SET mother = ?" + 
+				   "  SET motherboard = ?" + 
 				   "WHERE name = ?";
 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -1964,4 +1964,26 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 	}
 
 
+	@Override
+	public void deleteBuild(String buildName, String userName) throws SQLException {
+		Connection conn = connect();
+		PreparedStatement statement = null;
+		//
+		try{
+			statement = conn.prepareStatement("DELETE FROM builds " + 
+											  " WHERE name = ? " +
+											  " AND WHERE username = ? ");
+			statement.setString(1, buildName);
+			statement.setString(2,  userName);
+			statement.executeQuery();
+		}catch(SQLException e){
+			
+		}finally{
+			DBUtil.closeQuietly(statement);
+			conn.commit();
+			conn.close();
+		}
+
+
+}
 }
