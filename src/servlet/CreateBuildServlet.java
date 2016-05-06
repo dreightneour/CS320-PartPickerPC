@@ -373,7 +373,7 @@ public class CreateBuildServlet extends HttpServlet {
 					req.getSession().setAttribute("cpubuild", cpus.get(cpunum));
 					
 					try {
-						db.writeCpuBuild(cpus.get(cpunum).getSeries(), buildName);
+						db.writeCpuBuild(cpus.get(cpunum).getModel(), buildName);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -522,6 +522,7 @@ public class CreateBuildServlet extends HttpServlet {
 				int number = Integer.parseInt(req.getParameter("selectB"));
 				buildName = builds.get(number).getName();
 				NewBuild build = new NewBuild();
+				
 				try {
 					build = db.findBuildByBuildName(buildName, username);
 					req.setAttribute("cpubuild", db.loadCPUfromModel(build.getCpu()));
@@ -529,6 +530,10 @@ public class CreateBuildServlet extends HttpServlet {
 					req.setAttribute("gpubuild", db.loadGPUfromModel(build.getGpu()));
 					req.setAttribute("rambuild", db.loadRAMfromModel(build.getRam()));
 					req.setAttribute("ssdbuild", db.loadSTORAGEfromModel(build.getStorage()));
+					if(req.getAttribute("cpubuild") == null)
+					{
+						req.setAttribute("cpubuild", null);
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
