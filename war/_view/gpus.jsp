@@ -9,11 +9,13 @@ background-color: crimson;
 .inner {
     position: absolute;
     top: 20%;
-    left: 12%;
+    left: 27%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
-    
+    width: 800px;
+	height: 800px;
+	overflow: scroll;
 }
 .head{
    background-color: goldenrod
@@ -26,7 +28,7 @@ background-color: crimson;
      background-color:goldenrod;
      position: absolute;
      top: 5%;
-     left: 25%;
+     left: 37%;
      padding: 10px
 }
 .button:hover {
@@ -45,7 +47,7 @@ background-color: crimson;
 	<table>
 	<caption> GPUs </caption>
 <tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Series</td><td>Slot Type</td><td>Memory Size(GB)</td></tr>
-	<c:forEach items="${glist}" var="gpu" varStatus="counter">>
+	<c:forEach items="${glist}" var="gpu" varStatus="counter">
     <tr>
        <td><a href="${gpu.url}" target="_blank">${gpu.model}</a></td>
 		<td>${gpu.price}</td>
