@@ -18,12 +18,7 @@ background-color: crimson;
 	overflow: scroll;
     
 }
-.scroll{
-	background-color:goldenrod;
-	width: 100px;
-	height: 100px;
-	overflow: scroll;
-}
+
 .head{
    background-color: goldenrod
    padding: 5px
