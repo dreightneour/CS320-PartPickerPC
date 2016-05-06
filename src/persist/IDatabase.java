@@ -42,4 +42,5 @@ public interface IDatabase {
 	List<NewBuild> findAllBuilds();
 	List<NewBuild> findBuildsByUsername(String username) throws SQLException;
 	void insertBuild(String username, String name) throws SQLException;
+	NewBuild findBuildByBuildName(String name, String username) throws SQLException;
 }

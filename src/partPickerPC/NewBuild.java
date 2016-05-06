@@ -11,6 +11,10 @@ public class NewBuild {
 	private int build_id;
 	private String name;
 	
+	public NewBuild()
+	{
+		
+	}
 	public NewBuild(String username, int cpu, int mother, int gpu, int ram, int storage, String name)
 	{
 		this.cpu = cpu;

@@ -515,7 +515,14 @@ public class CreateBuildServlet extends HttpServlet {
 			else if(req.getParameter("selectB") != null){
 				int number = Integer.parseInt(req.getParameter("selectB"));
 				buildName = builds.get(number).getName();
-				//NewBuild build = //db.findBuildsByUsername(buildName);
+				NewBuild build = new NewBuild();
+				try {
+					build = db.findBuildByBuildName(buildName, username);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		
 		// Forward to view to render the result HTML document

@@ -1803,6 +1803,31 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 			conn.close();
 		}
 	}
+	
+	@Override
+	public NewBuild findBuildByBuildName(String name, String username) throws SQLException {
+		Connection conn = connect();
+		PreparedStatement statement = null;
+		try{
+			statement = conn.prepareStatement("SELECT * from builds " + 
+											  " WHERE username = ? " +
+											  " and name = ?");
+			statement.setString(1, username);
+			statement.setString(2, name);
+			
+			NewBuild result = new NewBuild();
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				result = loadBuild(resultSet,1);
+			}
+			
+			return result;
+		}finally{
+			DBUtil.closeQuietly(statement);
+			conn.commit();
+			conn.close();
+		}
+	}
 
 
 }
