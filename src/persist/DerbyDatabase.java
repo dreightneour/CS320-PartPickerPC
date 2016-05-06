@@ -1829,24 +1829,136 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 			conn.close();
 		}
 	}
-	public CpuPart loadCPUfromModel(String model){
+	public CpuPart loadCPUfromModel(String model) throws SQLException{
 		CpuPart c = null;
+		
+		Connection conn = connect();
+		PreparedStatement statement = null;
+		try{
+			statement = conn.prepareStatement("SELECT * from cpus " + 
+											  " WHERE model = ? ");
+			statement.setString(1, model);
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				c = loadCpu(resultSet,1);
+			}
+			
+			//String user = result.getUser();
+			return c;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtil.closeQuietly(statement);
+			conn.commit();
+			conn.close();
+		}
+		
+		
+		
+		
+		
+		
 		return c;
 	}
-	public GpuPart loadGPUfromModel(String model){
+	public GpuPart loadGPUfromModel(String model) throws SQLException{
 		GpuPart g = null;
+		Connection conn = connect();
+		PreparedStatement statement = null;
+		try{
+			statement = conn.prepareStatement("SELECT * from gpus " + 
+											  " WHERE model = ? ");
+			statement.setString(1, model);
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				g = loadGpu(resultSet,1);
+			}
+			
+			//String user = result.getUser();
+			return g;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtil.closeQuietly(statement);
+			conn.commit();
+			conn.close();
+		}
 		return g;
 	}
-	public RamPart loadRAMfromModel(String model){
+	public RamPart loadRAMfromModel(String model) throws SQLException{
 		RamPart r = null;
+		Connection conn = connect();
+		PreparedStatement statement = null;
+		try{
+			statement = conn.prepareStatement("SELECT * from rams " + 
+											  " WHERE model = ? ");
+			statement.setString(1, model);
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				r = loadRam(resultSet,1);
+			}
+			
+			//String user = result.getUser();
+			return r;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtil.closeQuietly(statement);
+			conn.commit();
+			conn.close();
+		}
 		return r;
 	}
-	public MotherboardPart loadMOBOfromModel(String model){
+	public MotherboardPart loadMOBOfromModel(String model) throws SQLException{
 		MotherboardPart m = null;
+		Connection conn = connect();
+		PreparedStatement statement = null;
+		try{
+			statement = conn.prepareStatement("SELECT * from motherboards " + 
+											  " WHERE model = ? ");
+			statement.setString(1, model);
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				m = loadMotherboard(resultSet,1);
+			}
+			
+			//String user = result.getUser();
+			return m;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtil.closeQuietly(statement);
+			conn.commit();
+			conn.close();
+		}
 		return m;
 	}
-	public StoragePart loadSTORAGEfromModel(String model){
+	public StoragePart loadSTORAGEfromModel(String model) throws SQLException{
 		StoragePart s = null;
+		Connection conn = connect();
+		PreparedStatement statement = null;
+		try{
+			statement = conn.prepareStatement("SELECT * from storages " + 
+											  " WHERE model = ? ");
+			statement.setString(1, model);
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				s = loadStorage(resultSet,1);
+			}
+			
+			//String user = result.getUser();
+			return s;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtil.closeQuietly(statement);
+			conn.commit();
+			conn.close();
+		}
 		return s;
 	}
 
