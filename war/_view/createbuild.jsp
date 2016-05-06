@@ -113,7 +113,7 @@ background-color: crimson;
 <th>Cores</th>
 </tr>
 <tr>
-<td><a href="${cpubuild.url}" target="_blank">${cpubuild.name}</a></td>
+<td><a href="${cpubuild.url}" target="_blank">${cpubuild.model}</a></td>
 <td>${cpubuild.price}</td>
 <td>${cpubuild.brand}</td>
 <td>${cpubuild.series}</td>

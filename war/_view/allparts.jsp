@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -47,7 +48,7 @@ head{
 <tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Series</td><td>Socket Type</td><td> Frequency</td><td>Cores</td></tr>
 <c:forEach items="${cpus}" var="cpu">
     <tr style = "overflow:scroll">
-       <td><a href="${cpu.url}" target="_blank">${cpu.name}</a></td>
+       <td><a href="${cpu.url}" target="_blank">${cpu.model}</a></td>
 	   <td>${cpu.price}</td>
 	   <td>${cpu.brand}</td>
 	   <td>${cpu.series}</td>
