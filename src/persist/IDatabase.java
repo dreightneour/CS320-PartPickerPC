@@ -43,4 +43,9 @@ public interface IDatabase {
 	List<NewBuild> findBuildsByUsername(String username) throws SQLException;
 	void insertBuild(String username, String name) throws SQLException;
 	NewBuild findBuildByBuildName(String name, String username) throws SQLException;
+	public StoragePart loadSTORAGEfromModel(String model) throws SQLException;
+	public GpuPart loadGPUfromModel(String model) throws SQLException;
+	public RamPart loadRAMfromModel(String model) throws SQLException;
+	public CpuPart loadCPUfromModel(String model) throws SQLException;
+	public MotherboardPart loadMOBOfromModel(String model) throws SQLException;
 }

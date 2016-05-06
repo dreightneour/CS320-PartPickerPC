@@ -524,6 +524,11 @@ public class CreateBuildServlet extends HttpServlet {
 				NewBuild build = new NewBuild();
 				try {
 					build = db.findBuildByBuildName(buildName, username);
+					req.setAttribute("cpubuild", db.loadCPUfromModel(build.getCpu()));
+					req.setAttribute("mbbuild", db.loadMOBOfromModel(build.getMotherboard()));
+					req.setAttribute("gpubuild", db.loadGPUfromModel(build.getGpu()));
+					req.setAttribute("rambuild", db.loadRAMfromModel(build.getRam()));
+					req.setAttribute("ssdbuild", db.loadSTORAGEfromModel(build.getStorage()));
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
