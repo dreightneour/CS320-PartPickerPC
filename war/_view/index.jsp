@@ -8,7 +8,7 @@ background-color: crimson;
 .inner {
     position: absolute;
     top: 20%;
-    left: 20%;
+    left: 35%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     style:background-color:goldenrod;
