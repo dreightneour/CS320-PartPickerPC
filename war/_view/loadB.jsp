@@ -32,20 +32,22 @@ background-color: crimson;
 	<body>
 <div class = "title">
 <h2>  List of Parts </h2></div>
-<FORM method="post" action="${pageContext.servletContext.contextPath}/loadb">
-<div class = "inner" id="cpu">
-<table>
-<caption> Builds </caption>
-<c:forEach items="${blist}" var="build" varStatus = "counter">
-    <tr>
-	   <td>${build.name}
-	   
-	   <button type="submit" name="selectB" value="selectB"> Choose Build </button>
-	   <button type="submit" name="deleteB" value="deleteB"> Delete Build </button>
-	   </td>
-    </tr>
-</c:forEach>
-</table>
-</div>
-
-</FORM>
+	<div class = "inner" id="cpu">
+		<FORM method="post" action="${pageContext.servletContext.contextPath}/createbuild">
+		
+		<table>
+		<caption> Builds </caption>
+		<c:forEach items="${blist}" var="build" varStatus = "counter">
+		    <tr>
+			   <td>${build.name}
+			   
+			   <button type="submit" name="selectB" value="${counter.index}"> Choose Build </button>
+			   <button type="submit" name="deleteB" value="deleteB"> Delete Build </button>
+			   </td>
+		    </tr>
+		</c:forEach>
+		</table>
+		
+		
+		</FORM>
+	</div>

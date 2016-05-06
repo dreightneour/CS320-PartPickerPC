@@ -237,7 +237,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/RobertJones/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:H:CS320/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -1787,8 +1787,8 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		Connection conn = connect();
 		PreparedStatement statement = null;
 		try{
-			statement = conn.prepareStatement("SELECT * from builds" + 
-											  "where username = ? ");
+			statement = conn.prepareStatement("SELECT * from builds " + 
+											  " WHERE username = ? ");
 			statement.setString(1, username);
 			
 			List<NewBuild> result = new ArrayList<NewBuild>();

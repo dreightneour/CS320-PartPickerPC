@@ -513,7 +513,9 @@ public class CreateBuildServlet extends HttpServlet {
 				req.getRequestDispatcher("/_view/loadB.jsp").forward(req, resp);
 			}
 			else if(req.getParameter("selectB") != null){
-				buildName = builds.get(Integer.parseInt(req.getParameter("selectB"))).getName();
+				int number = Integer.parseInt(req.getParameter("selectB"));
+				buildName = builds.get(number).getName();
+				//NewBuild build = //db.findBuildsByUsername(buildName);
 			}
 		
 		// Forward to view to render the result HTML document
