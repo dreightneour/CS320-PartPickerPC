@@ -1,17 +1,105 @@
 <!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
+<style>
+body{
+background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
+background-color: crimson;
+}
+.inner {
+    position: absolute;
+    top: 20%;
+    left: 2%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    
+}
+.innerh {
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    
+}
+.inner1 {
+    position: absolute;
+    top: 28%;
+    left: 8%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    
+}
+.inner2 {
+    position: absolute;
+    top: 36%;
+    left: 22.7%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    
+}
+.inner3 {
+    position: absolute;
+    top: 44%;
+    left: 6%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    
+}
+.inner4 {
+    position: absolute;
+    top: 52%;
+    left: 16%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    
+}
+.inner5 {
+    position: absolute;
+    top: 60%;
+    left: 22%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    padding: 5px
+    
+}
+.head{
+   background-color: goldenrod
+   padding: 5px
+   color: black
+   left: 20%
+}
+.title{
+     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+     background-color:goldenrod;
+     position: absolute;
+     top: 5%;
+     left: 25%;
+     padding: 10px
+}
+.button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
 	<head>
 		<title>Build a custom PC</title>
 
 	</head>
 
 	<body>
-<h2 style="background-color:blue; color:red: padding:30px;"> Welcome to Part Picker PC ${username}</h2>
-<div>
-Current Build
+<h2 class = "title"> Welcome to Part Picker PC ${username}</h2>
+<div class = "innerh">
+<h>Current Build
 </div>
-<div id="cpuCurrent">
+
+<div class = "inner" id="cpuCurrent">
 <table border="1">
 <tr>
 <th>Name</th>
@@ -32,7 +120,7 @@ Current Build
 <td>${cpubuild.cores}</td>
 </table>
 </div>
-<div id="GpuCurrent">
+<div class = "inner1" id="GpuCurrent">
 <table border="1">
 <tr>
 <th>Name</th>
@@ -51,7 +139,7 @@ Current Build
 <td>${gpubuild.memorySize}</td>
 </table>
 </div>
-<div id="MbCurrent">
+<div class = "inner2" id="MbCurrent">
 <table border="1">
 <tr>
 <th>Name</th>
@@ -66,7 +154,7 @@ Current Build
 <td>${mbbuild.socketType}</td>
 </table>
 </div>
-<div id="RamCurrent">
+<div class = "inner3" id="RamCurrent">
 <table border="1">
 <tr>
 <th>Name</th>
@@ -85,7 +173,7 @@ Current Build
 	   <td>${rambuild.multichannelType}</td>
 </table>
 </div>
-<div id="StorageCurrent">
+<div class = "inner4" id="StorageCurrent">
 <table border="1">
 <tr>
 <th>Name</th>
@@ -102,22 +190,23 @@ Current Build
 	   <td>${ssdbuild.dataSpeed}</td>
 </table>
 </div>
+<div class = "inner5">
 <FORM method="post" action="${pageContext.servletContext.contextPath}/createbuild">
-<div>
+<div style = "padding:5px">
 
-<button type="submit" name="cpus" value="cpus"> Find a CPU </button>
-<button type="submit" name="gpus" value="gpus"> Find a GPU </button>
-<button type="submit" name="mbs" value="mbs"> Find a MOTHERBOARD </button>
-<button type="submit" name="rams" value="rams"> Find a RAM </button>
-<button type="submit" name="storages" value="storages"> Find a STORAGE </button>
+<button class = "button" type="submit" name="cpus" value="cpus"> Find a CPU </button>
+<button class = "button" type="submit" name="gpus" value="gpus"> Find a GPU </button>
+<button class = "button" type="submit" name="mbs" value="mbs"> Find a MOTHERBOARD </button>
+<button class = "button" type="submit" name="rams" value="rams"> Find a RAM </button>
+<button class = "button" type="submit" name="storages" value="storages"> Find a STORAGE </button>
 
 
 </div>
-<div>
-<button type="submit" name="update" value="update"> Update the prices of current build </button>
-<button type="submit" name="newB" value="newB"> Start New Build </button>
-<button type="submit" name="saveB" value="saveB"> Save Build </button>
-<button type="submit" name ="loadB" value = "loadB"> Load Build</button>
+<div style = "padding: 5px;">
+<button class = "button" type="submit" name="update" value="update"> Update the prices of current build </button>
+<button class = "button" type="submit" name="newB" value="newB"> Start New Build </button>
+<button class = "button" type="submit" name="saveB" value="saveB"> Save Build </button>
+<button class = "button" type="submit" name ="loadB" value = "loadB"> Load Build</button>
 </div>
 <div>
 <input type="checkbox" name="priceUpd" value="priceUpd"> Update Price of Item<br>  
@@ -127,6 +216,8 @@ ${userVerify}
 
 </div>
 </FORM>
+</div>
+
 
 	</body>
 </html>
