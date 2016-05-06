@@ -496,6 +496,7 @@ public class CreateBuildServlet extends HttpServlet {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
 				}else{
 					req.setAttribute("userVerify", "Please enter a name for your Build.");
 				}

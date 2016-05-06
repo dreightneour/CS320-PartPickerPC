@@ -1763,15 +1763,15 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		insertBuild = conn.prepareStatement("insert into builds (username, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ?, ?, ?)");
 		
 		insertBuild.setString(1, username);
-		insertBuild.setInt(2,  0);
-		insertBuild.setInt(3, 0);
-		insertBuild.setInt(4, 0);
-		insertBuild.setInt(5,  0);
-		insertBuild.setInt(6, 0);
+		insertBuild.setString(2,  "cpu");
+		insertBuild.setString(3, null);
+		insertBuild.setString(4, null);
+		insertBuild.setString(5,  null);
+		insertBuild.setString(6, null);
 		insertBuild.setString(7, name);
 		
-		insertBuild.addBatch();
-		insertBuild.executeBatch();
+		//insertBuild.addBatch();
+		insertBuild.executeUpdate();
 		//return true;
 		} finally {
 			DBUtil.closeQuietly(insertBuild);
@@ -1821,6 +1821,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 				result = loadBuild(resultSet,1);
 			}
 			
+			//String user = result.getUser();
 			return result;
 		}finally{
 			DBUtil.closeQuietly(statement);
