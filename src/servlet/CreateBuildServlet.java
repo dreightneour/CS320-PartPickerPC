@@ -482,6 +482,60 @@ public class CreateBuildServlet extends HttpServlet {
 			}
 			else if(req.getParameter("update") != null)
 			{
+				Search search = new Search();
+				NewBuild build = new NewBuild();
+				try {
+					build = db.findBuildByBuildName(buildName, username);
+					Double priceCPU;
+					Double priceMB;
+					Double priceGPU;
+					Double priceRAM;
+					Double priceSSD;
+					
+					//CpuPart cpu = );
+					if(build.getCpu()!=null)
+					{
+						priceCPU = search.getPrice(db.loadCPUfromModel(build.getCpu()).getUrl());
+						db.writeCpuPrice(priceCPU, build.getCpu());
+						req.setAttribute("cpubuild", db.loadCPUfromModel(build.getCpu()));
+					}
+					
+					if(build.getMotherboard() != null)
+					{
+						priceMB = search.getPrice(db.loadMOBOfromModel(build.getMotherboard()).getUrl());
+						db.writeCpuPrice(priceMB, build.getMotherboard());req.setAttribute("mbbuild", db.loadMOBOfromModel(build.getMotherboard()));
+					}
+					
+					if(build.getGpu() != null)
+					{
+						priceGPU = search.getPrice(db.loadGPUfromModel(build.getGpu()).getUrl());
+						db.writeCpuPrice(priceGPU, build.getGpu());
+						req.setAttribute("gpubuild", db.loadGPUfromModel(build.getGpu()));
+					}
+					
+					if(build.getRam() != null)
+					{
+						priceRAM = search.getPrice(db.loadRAMfromModel(build.getRam()).getUrl());
+						db.writeCpuPrice(priceRAM, build.getRam());
+						req.setAttribute("rambuild", db.loadRAMfromModel(build.getRam()));
+					}
+					
+					if(build.getStorage() != null)
+					{
+						priceSSD = search.getPrice(db.loadSTORAGEfromModel(build.getStorage()).getUrl());
+						db.writeCpuPrice(priceSSD, build.getStorage());
+						req.setAttribute("ssdbuild", db.loadSTORAGEfromModel(build.getStorage()));
+					}
+					
+					
+					
+					
+					
+					
+					req.setAttribute("buildName", buildName);
+				} catch (SQLException e) {
+					//e.printStackTrace();
+				}
 				
 			}
 			else if(req.getParameter("saveB") != null)
