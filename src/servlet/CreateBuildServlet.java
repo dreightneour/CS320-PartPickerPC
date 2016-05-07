@@ -483,12 +483,13 @@ public class CreateBuildServlet extends HttpServlet {
 			else if(req.getParameter("saveB") != null)
 			{
 				if(req.getParameter("buildName") != null){
-					req.setAttribute("buildName", buildName);
+					
 					User u = db.findUserAlone(username);
 					
 					
 					String buildName = req.getParameter("buildName");
 					this.buildName = buildName;
+					req.setAttribute("buildName", buildName);
 					//List<NewBuild> build = new ArrayList<NewBuild>();
 					//Object p = req.getSession().getAttribute("cpubuild");
 					//String doen = p.getClass().getName();	
