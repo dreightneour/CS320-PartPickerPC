@@ -1810,7 +1810,7 @@ public class Search{
     	   		String priceHtml = node.getWholeData();
     	   		for(int i = 0; i < priceHtml.length() - 100; i++)
     	   		{
-	    	   		if(priceHtml.substring(i, i + 18).equals("product_unit_price"))
+	    	   		if(priceHtml.substring(i, i + 18).equals("product_sale_price"))
 	    	   		{
 	    	   			for(int k = i; k < i + 50; k++)
 						{
