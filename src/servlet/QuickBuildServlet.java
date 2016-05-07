@@ -63,16 +63,7 @@ public class QuickBuildServlet extends HttpServlet {
 			{
 			 theBuild = controller.giveExpensive();
 			}
-			else if  (req.getParameter("anotherbuild") != null)
-			{
-			try {
-			 theBuild = controller.giveCompatibleBuild(counter);
-			 counter++;
-			} catch (NullPointerException exception)
-			{
-				counter = 0;
-			}
-			}
+
 			price = theBuild.getPrice();
 			CpuPart cpu =  theBuild.getCpu();
 			MotherboardPart motherboard = theBuild.getMb();
@@ -110,6 +101,7 @@ public class QuickBuildServlet extends HttpServlet {
 			req.setAttribute("ramType", ram.getType());
 			req.setAttribute("ramCapacity", ram.getCapacity());
 			req.setAttribute("ramMulti", ram.getMultichannelType());
+			
 			
 			// set total price
 			req.setAttribute("total", theBuild.getPrice());

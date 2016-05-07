@@ -237,7 +237,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/RobertJones/workspace/db.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/ryan/workspace/db.db;create=true");
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -871,8 +871,8 @@ public class DerbyDatabase implements IDatabase {
 							);
 					stmt.setString(1, brand);
 					stmt.setString(2, brand);
-					stmt.setString(5, low);
-					stmt.setString(6, high);
+					stmt.setString(3, low);
+					stmt.setString(4, high);
 					List<StoragePart> result = new ArrayList<StoragePart>();
 					resultSet = stmt.executeQuery();
 					boolean found = false;

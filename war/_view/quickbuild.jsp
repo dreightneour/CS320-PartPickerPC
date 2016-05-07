@@ -94,9 +94,6 @@ background-color: crimson;
 <div style="background-color:black: color:gold: padding: 20px:"> 
 <button name="expensive"  >I'm rich I don't care</button>
 </div>
-<div style="background-color:black: color:gold: padding: 20px:"> 
-<button name="anotherbuild"  >Show me what works!</button>
-</div>
 </div>
 </FORM>
 <div class = inner2>
