@@ -1784,23 +1784,25 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 			insertBuild.setString(2,  null);
 		}
 		
-		if(motherPart != null)
+		if(gpuPart != null)
 		{
-			insertBuild.setString(3, motherPart.getModel());
+			insertBuild.setString(3, gpuPart.getModel());
 		}
 		else
 		{
 			insertBuild.setString(3,  null);
 		}
 		
-		if(gpuPart != null)
+		if(motherPart != null)
 		{
-			insertBuild.setString(4, gpuPart.getModel());
+			insertBuild.setString(4, motherPart.getModel());
 		}
 		else
 		{
 			insertBuild.setString(4,  null);
 		}
+		
+
 		
 		if(ramPart != null)
 		{
