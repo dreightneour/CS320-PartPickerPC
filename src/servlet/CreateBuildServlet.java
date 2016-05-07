@@ -464,7 +464,6 @@ public class CreateBuildServlet extends HttpServlet {
 				int ssdnum = Integer.parseInt(req.getParameter("submitStorage"));
 				System.out.println(ssdnum);
 					String message = controller.addPartToParts(ssds.get(ssdnum));
-					StoragePart baseStorage = controller.getModel().getTheBuild().getStorage();
 					req.getSession().setAttribute("ssdbuild", ssds.get(ssdnum));
 					String model = ssds.get(ssdnum).getModel();
 					try {
