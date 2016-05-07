@@ -466,6 +466,7 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(ssds.get(ssdnum));
 					req.getSession().setAttribute("ssdbuild", ssds.get(ssdnum));
 					String model = ssds.get(ssdnum).getModel();
+					req.setAttribute("buildName", buildName);
 					try {
 						db.writeStorageBuild(model, buildName);
 					} catch (SQLException e) {
