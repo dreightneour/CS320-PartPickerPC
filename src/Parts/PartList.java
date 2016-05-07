@@ -8,6 +8,7 @@ public class PartList {
 	private ArrayList<MotherboardPart> motherboards;
 	private ArrayList<GpuPart> gpus;
 	private ArrayList<RamPart> rams;
+	private ArrayList<RamPart> storage;
 	
 	public PartList() {												
 		cpus = new ArrayList<CpuPart>();       						// requires socketType, name, brand, series, frequency, cores

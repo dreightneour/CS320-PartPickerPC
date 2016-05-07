@@ -25,7 +25,7 @@ public class BuildTest extends TestCase {
 	public void testBuildAdd2() throws Exception
 	{
 		
-		Build build = new Build(null, null, null, thing.getRams().get(0));
+		Build build = new Build(null, null, null, thing.getRams().get(0), null);
 		assertEquals(thing.getRams().get(0), build.getRam());
 		assertEquals(null, build.getCpu());
 		
@@ -33,7 +33,7 @@ public class BuildTest extends TestCase {
 	
 	public void testBuildAdd3() throws Exception
 	{
-		Build build = new Build(new CpuPart("socket", null, null, null, null, null, null, 0, 0), null, thing.getGpus().get(0), thing.getRams().get(0));
+		Build build = new Build(new CpuPart("socket", null, null, null, null, null, null, 0, 0), null, thing.getGpus().get(0), thing.getRams().get(0), null);
 		assertFalse(build.isThisCompatible());
 		MotherboardPart mb = new MotherboardPart(null, null, "socket", null, 0, 0);
 		build.addPart(mb);
@@ -59,7 +59,7 @@ public class BuildTest extends TestCase {
 	
 	public void testRemovePart() throws Exception
 	{
-		Build build = new Build(thing.getCpus().get(0), null, thing.getGpus().get(0), thing.getRams().get(0));
+		Build build = new Build(thing.getCpus().get(0), null, thing.getGpus().get(0), thing.getRams().get(0), null);
 		build.removePart("cpu");
 		assertEquals(null, build.getCpu());
 		assertEquals(thing.getGpus().get(0), build.getGpu());
@@ -70,7 +70,7 @@ public class BuildTest extends TestCase {
 	public void testIsThisCompatible() throws Exception
 	{
 		Build build = new Build();
-		Build buildfull = new Build(new CpuPart("socket", null, null, null, null, null, null, 0, 0), new MotherboardPart(null, null, "socket", null, 0, 0), thing.getGpus().get(0), thing.getRams().get(0));
+		Build buildfull = new Build(new CpuPart("socket", null, null, null, null, null, null, 0, 0), new MotherboardPart(null, null, "socket", null, 0, 0), thing.getGpus().get(0), thing.getRams().get(0), null);
 		assertTrue(buildfull.isThisCompatible());
 		assertFalse(build.isThisCompatible());
 	}

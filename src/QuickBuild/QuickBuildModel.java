@@ -35,7 +35,7 @@ public class QuickBuildModel {
 				{
 					for (int f = 0; f < rams.size() / 10; f++)
 					{
-						compatibleBuilds.add(new Build(cpus.get(i), mbs.get(j), gpus.get(g), rams.get(f)));
+						compatibleBuilds.add(new Build(cpus.get(i), mbs.get(j), gpus.get(g), rams.get(f), null));
 					}
 				}
 			}

@@ -25,7 +25,7 @@ public class Build
 		price = 0;
 	}
 	
-	public Build(CpuPart cpu, MotherboardPart motherboard, GpuPart gpu, RamPart ram) // used to make a build
+	public Build(CpuPart cpu, MotherboardPart motherboard, GpuPart gpu, RamPart ram, StoragePart storage) // used to make a build
 	{
 		price = 0;
 
@@ -33,6 +33,7 @@ public class Build
 		addPart(motherboard);
 		addPart(gpu);
 		addPart(ram);
+		addPart(storage);
 	}
 	
 	
@@ -50,6 +51,10 @@ public class Build
 
 	public RamPart getRam() {
 		return ram;
+	}
+	
+	public StoragePart getStorage() {
+		return storage;
 	}
 
 	public boolean checkCompatible(PartInterface added)				// for minimal this just checks if there's more than
@@ -71,7 +76,7 @@ public class Build
 		{
 			if (addedPart instanceof MotherboardPart)   //f
 			{
-				if (cpu != null)  // if there's a cpu, check the socket types
+				/*if (cpu != null)  // if there's a cpu, check the socket types
 				{
 					if (checkSocketType(cpu, (MotherboardPart)addedPart))
 					{
@@ -84,15 +89,15 @@ public class Build
 					}
 				}
 				else
-				{
+				{*/
 					mb = (MotherboardPart) addedPart;
 					price += addedPart.getPrice();
-				}
+				//}
 				
 			}
 			else if (addedPart instanceof CpuPart)
 			{
-				if (mb != null)  // if there's a motherboard, check the socket types
+				/*if (mb != null)  // if there's a motherboard, check the socket types
 				{
 					if (checkSocketType((CpuPart) addedPart, mb))
 					{
@@ -105,10 +110,10 @@ public class Build
 					}
 				}
 				else
-				{
+				{*/
 					cpu = (CpuPart) addedPart;
 					price += addedPart.getPrice();
-				}
+				//}
 			}
 			else if (addedPart instanceof GpuPart)
 			{
@@ -118,6 +123,11 @@ public class Build
 			else if (addedPart instanceof RamPart)
 			{
 				ram = (RamPart) addedPart;
+				price+= addedPart.getPrice();
+			}
+			else if (addedPart instanceof StoragePart)
+			{
+				storage = (StoragePart) addedPart;
 				price+= addedPart.getPrice();
 			}
 			
@@ -141,6 +151,10 @@ public class Build
 		else if (part.compareTo("ram") == 0)
 		{
 			ram = null;
+		}
+		else if (part.compareTo("ssd") == 0)
+		{
+			storage = null;
 		}
 	}
 	
@@ -207,6 +221,14 @@ public class Build
 				return false;
 			}
 		}
+		else if (part instanceof StoragePart)
+		{
+			if (storage == null)
+			{
+				return false;
+			}
+		}
+		
 		return true;
 	}
 	

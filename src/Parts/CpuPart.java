@@ -71,15 +71,6 @@ public class CpuPart implements PartInterface {
 		return url;
 	}
 
-
-
-
-
-
-	
-	
-	
-	
 	
 	
 }
