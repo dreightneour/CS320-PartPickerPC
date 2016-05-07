@@ -17,10 +17,11 @@ background-color: crimson;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     style:background-color:goldenrod;
 }
-.button1:hover {
+.button1 {
+	background-color: #5c5c8a;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
-.button2:hover {
+.button2 {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 </style>
@@ -56,7 +57,7 @@ background-color: crimson;
 	</table>
 </div>
 ${userVerify}
-<button class="button2" type='button' onclick="showRegister()">Register</button>
+<button class="button1" type='button' onclick="showRegister()">Register</button>
 <div id="registerFields" style="display: none;" > 
 
 
@@ -78,7 +79,7 @@ ${userVerify}
 					<td><input type="password" name="registerpassword" size="15" value="${regpassword}" /></td>
 				</tr>
 				<tr>
-					<td><input id="submit" type="submit" name="registerlogin" size="20" value="Create Account!"   >  </td>
+					<td><input class="button1" id="submit" type="submit" name="registerlogin" size="20" value="Create Account!"   >  </td>
 				</tr>				
 				
 	</table>
