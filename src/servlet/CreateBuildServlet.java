@@ -266,8 +266,8 @@ public class CreateBuildServlet extends HttpServlet {
 						try {
 							derby.writeCpuPrice(price, cpuList.get(i).getSeries());
 						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//  Auto-generated catch block
+							//e.printStackTrace();
 						}
 					}
 				}
@@ -289,8 +289,8 @@ public class CreateBuildServlet extends HttpServlet {
 						try {
 							derby.writeGpuPrice(price, gpuList.get(i).getModel());
 						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//  Auto-generated catch block
+							//e.printStackTrace();
 						}
 					}
 				}
@@ -312,8 +312,8 @@ public class CreateBuildServlet extends HttpServlet {
 						try {
 							derby.writeMotherPrice(price, motherList.get(i).getModel());
 						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//  Auto-generated catch block
+							//e.printStackTrace();
 						}
 					}
 				}
@@ -335,8 +335,8 @@ public class CreateBuildServlet extends HttpServlet {
 						try {
 							derby.writeRamPrice(price, ramList.get(i).getModel());
 						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//  Auto-generated catch block
+							//e.printStackTrace();
 						}
 					}
 				}
@@ -358,8 +358,8 @@ public class CreateBuildServlet extends HttpServlet {
 						try {
 							derby.writeStoragePrice(price, ssdList.get(i).getModel());
 						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//  Auto-generated catch block
+							//e.printStackTrace();
 						}
 					}
 				}
@@ -378,11 +378,11 @@ public class CreateBuildServlet extends HttpServlet {
 					try {
 						db.writeCpuBuild(cpus.get(cpunum).getModel(), buildName);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//  Auto-generated catch block
+						//e.printStackTrace();
 					}
-					//TODO: add Update for the cpu piece of build, 
-					//TODO: needs to know which build id it is working with
+					//: add Update for the cpu piece of build, 
+					//: needs to know which build id it is working with
 					
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
@@ -402,8 +402,8 @@ public class CreateBuildServlet extends HttpServlet {
 					try {
 						db.writeMotherBuild(mbs.get(mbnum).getModel(), buildName);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//  Auto-generated catch block
+						//e.printStackTrace();
 					}
 					//req.setAttribute("motherboardLink", baseMb.getUrl());
 					//req.setAttribute("motherboardPrice", baseMb.getPrice());
@@ -424,8 +424,8 @@ public class CreateBuildServlet extends HttpServlet {
 					try {
 						db.writeGpuBuild(gpus.get(gpunum).getModel(), buildName);	
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//  Auto-generated catch block
+						//e.printStackTrace();
 					}
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
@@ -445,8 +445,8 @@ public class CreateBuildServlet extends HttpServlet {
 					try {
 						db.writeRamBuild(rams.get(ramnum).getModel(), buildName);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//  Auto-generated catch block
+						//e.printStackTrace();
 					}
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
@@ -460,14 +460,14 @@ public class CreateBuildServlet extends HttpServlet {
 				int ssdnum = Integer.parseInt(req.getParameter("submitStorage"));
 				System.out.println(ssdnum);
 					String message = controller.addPartToParts(ssds.get(ssdnum));
-					RamPart baseRam = controller.getModel().getTheBuild().getRam();
+					StoragePart baseStorage = controller.getModel().getTheBuild().getStorage();
 					req.getSession().setAttribute("ssdbuild", ssds.get(ssdnum));
 					String model = ssds.get(ssdnum).getModel();
 					try {
 						db.writeStorageBuild(model, buildName);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//  Auto-generated catch block
+						////e.printStackTrace();
 					}
 					//req.setAttribute("cpuLink", baseCpu.getUrl());
 					//req.setAttribute("cpuModel", baseCpu.getName());
@@ -480,10 +480,6 @@ public class CreateBuildServlet extends HttpServlet {
 			{
 				
 			}
-			else if(req.getParameter("newB") != null)
-			{
-				
-			}
 			else if(req.getParameter("saveB") != null)
 			{
 				if(req.getParameter("buildName") != null){
@@ -493,15 +489,15 @@ public class CreateBuildServlet extends HttpServlet {
 					
 					String buildName = req.getParameter("buildName");
 					this.buildName = buildName;
-					List<NewBuild> build = new ArrayList<NewBuild>();
+					//List<NewBuild> build = new ArrayList<NewBuild>();
 					try {
 						db.insertBuild(u.getName(), buildName);
-						 build = db.findAllBuilds();
+						//build = db.findAllBuilds();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//  Auto-generated catch block
+						//e.printStackTrace();
 					}
-					build = new ArrayList<NewBuild>();
+					//build = new ArrayList<NewBuild>();
 				}else{
 					req.setAttribute("userVerify", "Please enter a name for your Build.");
 				}
@@ -512,11 +508,16 @@ public class CreateBuildServlet extends HttpServlet {
 				//List<NewBuild> builder = new ArrayList<NewBuild>();
 				try {
 					builds = db.findBuildsByUsername(username);
+					controller.removePart("cpu");
+					controller.removePart("mb");
+					controller.removePart("ram");
+					controller.removePart("gpu");
+					controller.removePart("ssd");
 					
 					//builder = db.findAllBuilds();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//  Auto-generated catch block
+					////e.printStackTrace();
 				}
 				req.setAttribute("blist", builds);
 				//builder = builds;
@@ -526,7 +527,7 @@ public class CreateBuildServlet extends HttpServlet {
 				int number = Integer.parseInt(req.getParameter("selectB"));
 				buildName = builds.get(number).getName();
 				NewBuild build = new NewBuild();
-				
+				req.setAttribute("buildName",  buildName);
 				try {
 					build = db.findBuildByBuildName(buildName, username);
 					req.setAttribute("cpubuild", db.loadCPUfromModel(build.getCpu()));
@@ -534,26 +535,36 @@ public class CreateBuildServlet extends HttpServlet {
 					req.setAttribute("gpubuild", db.loadGPUfromModel(build.getGpu()));
 					req.setAttribute("rambuild", db.loadRAMfromModel(build.getRam()));
 					req.setAttribute("ssdbuild", db.loadSTORAGEfromModel(build.getStorage()));
-					if(req.getAttribute("cpubuild") == null)
-					{
-						req.setAttribute("cpubuild", null);
-					}
+					
+					controller.addPartToParts(db.loadCPUfromModel(build.getCpu()));
+					controller.addPartToParts(db.loadMOBOfromModel(build.getMotherboard()));
+					controller.addPartToParts(db.loadGPUfromModel(build.getGpu()));
+					controller.addPartToParts(db.loadRAMfromModel(build.getRam()));
+					controller.addPartToParts(db.loadSTORAGEfromModel(build.getStorage()));
+					
+					req.getSession().setAttribute("cpubuild", db.loadCPUfromModel(build.getCpu()));
+					req.getSession().setAttribute("mbbuild", db.loadMOBOfromModel(build.getMotherboard()));
+					req.getSession().setAttribute("gpubuild", db.loadGPUfromModel(build.getGpu()));
+					req.getSession().setAttribute("rambuild", db.loadRAMfromModel(build.getRam()));
+					req.getSession().setAttribute("ssdbuild", db.loadSTORAGEfromModel(build.getStorage()));
+					
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//  Auto-generated catch block
+					//////e.printStackTrace();
 				}
 				
 			}else if(req.getParameter("deleteB") != null){
 				int number = Integer.parseInt(req.getParameter("deleteB"));
 				String buildN = builds.get(number).getName();
-				
+				if(buildN.equals(buildName))
+				{
+					req.setAttribute("buildName",  "Unnamed");
+				}
 				try {
-					builds = db.findBuildsByUsername(username);
 					db.deleteBuild(buildN, username);
-					builds = db.findBuildsByUsername(username);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//  Auto-generated catch block
+					////e.printStackTrace();
 				}
 				
 				

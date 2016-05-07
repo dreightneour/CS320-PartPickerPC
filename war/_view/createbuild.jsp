@@ -206,7 +206,6 @@ background-color: crimson;
 </div>
 <div style = "padding: 5px;">
 <button class = "button" type="submit" name="update" value="update"> Update the prices of current build </button>
-<button class = "button" type="submit" name="newB" value="newB"> Start New Build </button>
 <button class = "button" type="submit" name="saveB" value="saveB"> Save Build </button>
 <button class = "button" type="submit" name ="loadB" value = "loadB"> Load Build</button>
 </div>
