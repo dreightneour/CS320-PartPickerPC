@@ -1754,6 +1754,91 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 
 
 	@Override
+	public void insertBuild(String username, String name, Object cpu, Object motherboard, Object gpu, Object ram, Object storage) throws SQLException {
+		// TODO Auto-generated method stub added a user name
+		Connection conn = connect();
+		
+		PreparedStatement insertBuild= null;
+		try{
+		insertBuild = conn.prepareStatement("insert into builds (username, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ?, ?, ?)");
+		CpuPart cpuPart;
+		MotherboardPart motherPart;
+		GpuPart gpuPart;
+		RamPart ramPart;
+		StoragePart ssdPart;
+		
+		cpuPart = (CpuPart)cpu;
+		motherPart = (MotherboardPart)motherboard;
+		gpuPart = (GpuPart)gpu;
+		ramPart = (RamPart)ram;
+		ssdPart = (StoragePart)storage;
+		
+		
+		insertBuild.setString(1, username);
+		if(cpuPart != null)
+		{
+			insertBuild.setString(2,  cpuPart.getModel());
+		}
+		else
+		{
+			insertBuild.setString(2,  null);
+		}
+		
+		if(motherPart != null)
+		{
+			insertBuild.setString(3, motherPart.getModel());
+		}
+		else
+		{
+			insertBuild.setString(3,  null);
+		}
+		
+		if(gpuPart != null)
+		{
+			insertBuild.setString(4, gpuPart.getModel());
+		}
+		else
+		{
+			insertBuild.setString(4,  null);
+		}
+		
+		if(ramPart != null)
+		{
+			insertBuild.setString(5,  ramPart.getModel());;
+		}
+		else
+		{
+			insertBuild.setString(5,  null);
+		}
+		
+		if(ssdPart != null)
+		{
+			insertBuild.setString(6, ssdPart.getModel());
+		}
+		else
+		{
+			insertBuild.setString(6,  null);
+		}
+
+		
+		
+		
+		
+		
+		
+		insertBuild.setString(7, name);
+		
+		//insertBuild.addBatch();
+		insertBuild.executeUpdate();
+		//return true;
+		} finally {
+			DBUtil.closeQuietly(insertBuild);
+			conn.commit();
+			conn.close();
+		}
+
+	}
+	/*@Override
 	public void insertBuild(String username, String name) throws SQLException {
 		// TODO Auto-generated method stub added a user name
 		Connection conn = connect();
@@ -1761,6 +1846,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		PreparedStatement insertBuild= null;
 		try{
 		insertBuild = conn.prepareStatement("insert into builds (username, cpu, gpu, motherboard, ram, storage, name) values (?, ?, ?, ?, ?, ?, ?)");
+	    
 		
 		insertBuild.setString(1, username);
 		insertBuild.setString(2,  null);
@@ -1780,8 +1866,7 @@ return executeTransaction(new Transaction<List<StoragePart>>(){
 		}
 
 	}
-
-
+	*/
 	@Override
 	public List<NewBuild> findBuildsByUsername(String username) throws SQLException {
 		Connection conn = connect();

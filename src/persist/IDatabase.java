@@ -41,7 +41,7 @@ public interface IDatabase {
 	void writeMotherBuild(String model, String name) throws SQLException;
 	List<NewBuild> findAllBuilds();
 	List<NewBuild> findBuildsByUsername(String username) throws SQLException;
-	void insertBuild(String username, String name) throws SQLException;
+	//void insertBuild(String username, String name) throws SQLException;
 	NewBuild findBuildByBuildName(String name, String username) throws SQLException;
 	public StoragePart loadSTORAGEfromModel(String model) throws SQLException;
 	public GpuPart loadGPUfromModel(String model) throws SQLException;
@@ -49,4 +49,7 @@ public interface IDatabase {
 	public CpuPart loadCPUfromModel(String model) throws SQLException;//
 	public MotherboardPart loadMOBOfromModel(String model) throws SQLException;
 	public void deleteBuild(String buildName, String userName) throws SQLException;
+	void insertBuild(String username, String name, Object object, Object object2, Object object3, Object object4,
+			Object object5) throws SQLException;
+	//void insertBuild(String username, String name) throws SQLException;
 }

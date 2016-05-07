@@ -490,8 +490,11 @@ public class CreateBuildServlet extends HttpServlet {
 					String buildName = req.getParameter("buildName");
 					this.buildName = buildName;
 					//List<NewBuild> build = new ArrayList<NewBuild>();
+					//Object p = req.getSession().getAttribute("cpubuild");
+					//String doen = p.getClass().getName();	
 					try {
-						db.insertBuild(u.getName(), buildName);
+						//db.insertBuild(u.getName(), buildName);// req.getSession().getAttribute("cpubuild"), req.getSession().getAttribute("mbbuild"), req.getSession().getAttribute("gpubuild"), req.getSession().getAttribute("rambuild"), req.getSession().getAttribute("ssdbuild"));
+						db.insertBuild(u.getName(), buildName, req.getSession().getAttribute("cpubuild"), req.getSession().getAttribute("mbbuild"), req.getSession().getAttribute("gpubuild"), req.getSession().getAttribute("rambuild"), req.getSession().getAttribute("ssdbuild"));
 						//build = db.findAllBuilds();
 					} catch (SQLException e) {
 						//  Auto-generated catch block
