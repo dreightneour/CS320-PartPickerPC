@@ -94,8 +94,8 @@ background-color: crimson;
 	</head>
 
 	<body>
-<h2 class = "title"> Welcome to Part Picker PC ${username}
-<div style = "text-align: center">This is your Current Build ${buildName}</div>
+<h2 class = "title"> Welcome to Part Picker PC ${username}!
+<div style = "text-align: center">This is your Current Build: ${buildName}</div>
 </h2>
 <div class = "innerh">
 
