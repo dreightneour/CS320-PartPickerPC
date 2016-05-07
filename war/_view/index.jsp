@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--w3schools was used to help with css techniques like button styles and div styles-->
+<!--http://www.w3schools.com/css/css3_buttons.asp-->
+<!--also the below link was used to find more stylish divs to be used in the css-->
+<!--http://tympanus.net/codrops/2012/10/23/basic-ready-to-use-css-styles/-->
 <style>
 body{
 background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
