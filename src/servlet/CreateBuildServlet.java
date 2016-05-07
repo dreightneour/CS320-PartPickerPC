@@ -46,7 +46,9 @@ public class CreateBuildServlet extends HttpServlet {
 			throws ServletException, IOException {
 		if(req.getSession().getAttribute("buildName") == null){
 			req.setAttribute("buildName", "no title");
+			buildName = "no title";
 		}
+		
 		// pulls username from session or if no user, puts guest as username in session
 		if (req.getSession().getAttribute("theUser") != null)
 				{
@@ -374,7 +376,7 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(cpus.get(cpunum));
 					CpuPart baseCpu = controller.getModel().getTheBuild().getCpu();
 					req.getSession().setAttribute("cpubuild", cpus.get(cpunum));
-					
+					req.setAttribute("buildName", buildName);
 					try {
 						db.writeCpuBuild(cpus.get(cpunum).getModel(), buildName);
 					} catch (SQLException e) {
@@ -399,6 +401,7 @@ public class CreateBuildServlet extends HttpServlet {
 					MotherboardPart baseMb = controller.getModel().getTheBuild().getMb();
 					req.getSession().setAttribute("mbbuild", mbs.get(mbnum));
 					String model = mbs.get(mbnum).getModel();
+					req.setAttribute("buildName", buildName);
 					try {
 						db.writeMotherBuild(mbs.get(mbnum).getModel(), buildName);
 					} catch (SQLException e) {
@@ -421,6 +424,7 @@ public class CreateBuildServlet extends HttpServlet {
 					req.getSession().setAttribute("gpubuild", gpus.get(gpunum));
 					String model = gpus.get(gpunum).getModel();
 					NewBuild build = new NewBuild();
+					req.setAttribute("buildName", buildName);
 					try {
 						db.writeGpuBuild(gpus.get(gpunum).getModel(), buildName);	
 					} catch (SQLException e) {
@@ -441,7 +445,7 @@ public class CreateBuildServlet extends HttpServlet {
 					String message = controller.addPartToParts(rams.get(ramnum));
 					RamPart baseRam = controller.getModel().getTheBuild().getRam();
 					req.getSession().setAttribute("rambuild", rams.get(ramnum));
-					
+					req.setAttribute("buildName", buildName);
 					try {
 						db.writeRamBuild(rams.get(ramnum).getModel(), buildName);
 					} catch (SQLException e) {
