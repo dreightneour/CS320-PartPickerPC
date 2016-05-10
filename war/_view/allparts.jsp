@@ -16,7 +16,7 @@ background-color: crimson;
 .inner {
     position: absolute;
     top: 20%;
-    left: 20%;
+    left: 15%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     style:background-color:goldenrod;
@@ -33,7 +33,7 @@ head{
      position: absolute;
      text-align: center;
      top: 2%;
-     left: 65%;
+     left: 45%;
      padding: 10px
 }
 </style>
