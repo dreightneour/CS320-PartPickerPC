@@ -31,7 +31,8 @@ head{
      box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
      background-color:goldenrod;
      position: absolute;
-     top: 5%;
+     text-align: center;
+     top: 2%;
      left: 65%;
      padding: 10px
 }
@@ -44,7 +45,7 @@ head{
 
 	<body>
 <div class = "title" >
-<h1> <a href="/ppc/homepage">Home</a></h1>
+<h1><a href="/ppc/homepage">Home</a></h1>
 <h2 class = "head" style = "background-color: goldenrod" align="center" > List of Parts </h2></div>
 </div>
 <div class = "inner" style ="background-color:goldenrod">

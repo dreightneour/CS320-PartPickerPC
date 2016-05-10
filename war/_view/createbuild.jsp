@@ -84,9 +84,10 @@ background-color: crimson;
      box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
      background-color:goldenrod;
      position: absolute;
+     text-align: center;
      top: 5%;
      left: 35%;
-     padding: 10px
+     padding: 5px
 }
 .button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
@@ -98,8 +99,8 @@ background-color: crimson;
 	</head>
 
 	<body>
-<h1> <a href="/ppc/homepage">Home</a></h1>
-<h2 class = "title"> Welcome to Part Picker PC ${username}!
+
+<h2 class = "title"><a href="/ppc/homepage" >Home</a> <div>Welcome to Part Picker PC ${username}!</div>
 <div style = "text-align: center">This is your Current Build: ${buildName}</div>
 </h2>
 <div class = "innerh">

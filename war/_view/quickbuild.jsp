@@ -14,9 +14,10 @@ background-color: crimson;
      box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
      background-color:goldenrod;
      position: absolute;
-     top: 7%;
+     text-align: center;
+     top: 3%;
      left: 14%;
-     padding: 10px
+     padding: 5px
 }
 .innerbuttons {
     position: absolute;
@@ -86,7 +87,8 @@ background-color: crimson;
 	<body>
 <div class = "title">
 <h1> <a href="/ppc/homepage">Home</a></h1>
-<h2> Pick a type of Quick Build to make ${username}!</h2></div>
+<h2> Pick a type of Quick Build to make ${username}!</h2>
+<h2> TOTAL PRICE = $$$ ${total} $$$</h2></div>
 <FORM method="post" action="${pageContext.servletContext.contextPath}/quickbuild">
 <div class = "innerbuttons">
 <div style="background-color:green: color:orange: padding: 20px:"> 
@@ -192,7 +194,7 @@ Your Quick Build is...
 </div>
 </div>
 <div style="background-color:purple: color:red: padding:40px:">
-<h2> TOTAL PRICE = $$$ ${total} $$$</h2>
+
 </div>
 	</body>
 </html>
