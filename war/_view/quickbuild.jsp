@@ -16,32 +16,14 @@ background-color: crimson;
      position: absolute;
      text-align: center;
      top: 3%;
-     left: 14%;
+     left: 33%;
      padding: 5px
 }
 .innerbuttons {
     position: absolute;
-    top: 25%;
-    left: 40%;
-    align: center;
-    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
-    background-color:goldenrod;
-    padding: 5px
-}
-.innerbuttons1 {
-    position: absolute;
-    top: 26%;
-    left: 10%;
-    align: center;
-    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
-    background-color:goldenrod;
-    padding: 5px
-}
-.innerbuttons2 {
-    position: absolute;
-    top: 28%;
-    left: 1%;
-    align: center;
+    top: 30%;
+    left: 43%;
+    text-align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
     padding: 5px
@@ -50,15 +32,15 @@ background-color: crimson;
     position: absolute;
     top: 20%;
     left: 20%;
-    align: center;
+    text-align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     style:background-color:goldenrod;
 }
 .inner2 {
     position: absolute;
-    top: 35%;
-    left: 1%;
-    align: center;
+    top: 40%;
+    left: 33%;
+    text-align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
 }
