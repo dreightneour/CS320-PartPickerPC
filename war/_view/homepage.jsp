@@ -13,7 +13,7 @@ background-color: crimson;
 .inner {
     position: absolute;
     top: 40%;
-    left: 33.5%;
+    left: 30%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     style:background-color:goldenrod;
@@ -23,7 +23,7 @@ background-color: crimson;
      background-color:goldenrod;
      position: absolute;
      top: 10%;
-     left: 37%;
+     left: 36%;
      padding: 10px
 }
 .button:hover {
