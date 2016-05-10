@@ -38,11 +38,13 @@ head{
 </style>
 	<head>
 		<title>All Parts</title>
+		
 
 	</head>
 
 	<body>
 <div class = "title" >
+<h1> <a href="/ppc/homepage">Home</a></h1>
 <h2 class = "head" style = "background-color: goldenrod" align="center" > List of Parts </h2></div>
 </div>
 <div class = "inner" style ="background-color:goldenrod">
@@ -101,7 +103,7 @@ head{
 <button type="button" onclick="hideRam()">Hide Rams</button>
 <table>
 <caption> RAMs </caption>
-<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Type</td><td>Capacity(GB)</td><td>Multi-Channel Type</td></tr>
+<tr><td>Name</td><td>Price($)</td><td>Brand</td><td>Type</td><td>Capacity(GB)</td></tr>
 <c:forEach items="${rams}" var="ram">
     <tr>
        <td><a href="${ram.url}" target="_blank">${ram.model}</a></td>
@@ -109,7 +111,6 @@ head{
 	   <td>${ram.brand}</td>
 	   <td>${ram.type}</td>
 	   <td>${ram.capacity}</td>
-	   <td>${ram.multichannelType}</td>
     </tr>
 </c:forEach>
 </table>

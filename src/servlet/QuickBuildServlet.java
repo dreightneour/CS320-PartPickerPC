@@ -12,6 +12,7 @@ import Parts.CpuPart;
 import Parts.GpuPart;
 import Parts.MotherboardPart;
 import Parts.RamPart;
+import Parts.StoragePart;
 import QuickBuild.QuickBuildController;
 import QuickBuild.QuickBuildModel;
 import partPickerPC.Build;
@@ -69,6 +70,7 @@ public class QuickBuildServlet extends HttpServlet {
 			MotherboardPart motherboard = theBuild.getMb();
 			GpuPart gpu =  theBuild.getGpu();
 			RamPart ram = theBuild.getRam();
+			StoragePart storage = theBuild.getStorage();
 			// set cpu stuff
 			req.setAttribute("cpuLink", cpu.getUrl());
 			req.setAttribute("cpuModel", cpu.getModel());
@@ -101,6 +103,17 @@ public class QuickBuildServlet extends HttpServlet {
 			req.setAttribute("ramType", ram.getType());
 			req.setAttribute("ramCapacity", ram.getCapacity());
 			req.setAttribute("ramMulti", ram.getMultichannelType());
+			
+			//set storage stuff
+			if (storage != null)
+			{
+			req.setAttribute("storageLink", storage.getUrl());
+			req.setAttribute("storageModel", storage.getModel());
+			req.setAttribute("storageBrand", storage.getBrand());
+			req.setAttribute("storagePrice", storage.getPrice());
+			req.setAttribute("storageDataspeed", storage.getdataSpeed());
+			req.setAttribute("storageCapacity", storage.getCapacity());
+			}
 			
 			
 			// set total price

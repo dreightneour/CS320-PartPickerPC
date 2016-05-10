@@ -61,7 +61,7 @@ public class Build
 	{													    		// one type of part in a build
 
 		if ((added instanceof CpuPart && cpu == null) || (added instanceof MotherboardPart && mb == null) ||
-				(added instanceof GpuPart && gpu == null) || (added instanceof RamPart && ram == null))
+				(added instanceof GpuPart && gpu == null) || (added instanceof RamPart && ram == null) || (added instanceof StoragePart && storage == null))
 		{
 			return true;
 		}

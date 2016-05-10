@@ -44,6 +44,7 @@ public class AllPartsServlet extends HttpServlet {
 		req.setAttribute("motherboards", db.findAllMobos());
 		req.setAttribute("gpus", db.findAllGpus());
 		req.setAttribute("rams", db.findAllRam());
+		req.setAttribute("storages", db.findAllStorage());
 
 		req.getRequestDispatcher("/_view/allparts.jsp").forward(req, resp);
 	}
@@ -55,6 +56,6 @@ public class AllPartsServlet extends HttpServlet {
 			
 		
 		// Forward to view to render the result HTML document
-			req.getRequestDispatcher("/_view/quickbuild.jsp").forward(req, resp);
+			req.getRequestDispatcher("/_view/allparts.jsp").forward(req, resp);
 	}
 }

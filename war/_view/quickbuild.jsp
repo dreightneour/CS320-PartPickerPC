@@ -85,6 +85,7 @@ background-color: crimson;
 
 	<body>
 <div class = "title">
+<h1> <a href="/ppc/homepage">Home</a></h1>
 <h2> Pick a type of Quick Build to make ${username}!</h2></div>
 <FORM method="post" action="${pageContext.servletContext.contextPath}/quickbuild">
 <div class = "innerbuttons">
@@ -161,19 +162,32 @@ Your Quick Build is...
 <th>Name</th>
 <th>Price $</th>
 <th>Brand</th>
-<th>Series</th>
 <th>Type</th>
 <th>Capacity(GB)</th>
-<th>Multi-Channel Type</th>
 </tr>
 <tr>
 <td><a href="${ramLink}" target="_blank">${ramModel}</a></td>
 <td>${ramPrice}</td>
 <td>${ramBrand}</td>
-<td>${ramSeries}</td>
 <td>${ramType}</td>
 <td>${ramCapacity}</td>
-<td>${ramMulti}</td>
+</table>
+</div>
+<div style="background-color:purple: color:red: padding:40px:">
+<table border="1">
+<tr>
+<th>Name</th>
+<th>Price $</th>
+<th>Brand</th>
+<th>Speed</th>
+<th>Capacity{GB)</th>
+</tr>
+<tr>
+<td><a href="${storageLink}" target="_blank">${storageModel}</a></td>
+<td>${storagePrice}</td>
+<td>${storageBrand}</td>
+<td>${storageDataspeed}</td>
+<td>${storageCapacity}</td>
 </table>
 </div>
 </div>
