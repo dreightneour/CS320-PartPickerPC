@@ -11,54 +11,54 @@ background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
 background-color: crimson;
 }
 .inner {
-    position: absolute;
+    position: relative;
     top: 20%;
-    left: 34%;
+    left: 10px;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
     
 }
-.innerh {
+<!--.innerh {
     position: absolute;
     top: 18%;
-    left: 50%;
+    left: 500px;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
     
-}
+}-->
 .inner1 {
-    position: absolute;
+    position: relative;
     top: 28%;
-    left: 35%;
+    left: 10px;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
     
 }
 .inner2 {
-    position: absolute;
-    top: 36%;
-    left: 38.9%;
+    position: relative;
+    top: 0%;
+    left: 10px;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
     
 }
 .inner3 {
-    position: absolute;
+    position: relative;
     top: 44%;
-    left: 34%;
+    left: 10px;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
     
 }
 .inner4 {
-    position: absolute;
+    position: relative;
     top: 52%;
-    left: 37.5%;
+    left: 10px;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
@@ -67,11 +67,21 @@ background-color: crimson;
 .inner5 {
     position: absolute;
     top: 60%;
-    left: 32%;
+    left: 22.5%;
     align: center;
     box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
     background-color:goldenrod;
     padding: 5px
+    
+}
+.table {
+    position: absolute;
+    top: 25%;
+    left: 22.5%;
+    align: center;
+    box-shadow: inset 0 0 7px 4px rgba(255,255,255,.5);
+    background-color:goldenrod;
+    padding: 10px
     
 }
 .head{
@@ -103,100 +113,102 @@ background-color: crimson;
 <h2 class = "title"><a href="/ppc/homepage" >Home</a> <div>Welcome to Part Picker PC ${username}!</div>
 <div style = "text-align: center">This is your Current Build: ${buildName}</div>
 </h2>
+
 <div class = "innerh">
 
 </div>
-
-<div class = "inner" id="cpuCurrent">
-<table border="1">
-<tr>
-<th>Name</th>
-<th>Price $</th>
-<th>Brand</th>
-<th>Series</th>
-<th>Socket Type</th>
-<th>Frequency(Ghz)</th>
-<th>Cores</th>
-</tr>
-<tr>
-<td><a href="${cpubuild.url}" target="_blank">${cpubuild.model}</a></td>
-<td>${cpubuild.price}</td>
-<td>${cpubuild.brand}</td>
-<td>${cpubuild.series}</td>
-<td>${cpubuild.socketType}</td>
-<td>${cpubuild.frequency}</td>
-<td>${cpubuild.cores}</td>
-</table>
-</div>
-<div class = "inner1" id="GpuCurrent">
-<table border="1">
-<tr>
-<th>Name</th>
-<th>Price $</th>
-<th>Brand</th>
-<th>Series</th>
-<th>Slot Type</th>
-<th>Memory Size(GB)</th>
-</tr>
-<tr>
-<td><a href="${gpubuild.url}" target="_blank">${gpubuild.model}</a></td>
-<td>${gpubuild.price}</td>
-<td>${gpubuild.brand}</td>
-<td>${gpubuild.gpuBase}</td>
-<td>${gpubuild.slotType}</td>
-<td>${gpubuild.memorySize}</td>
-</table>
-</div>
-<div class = "inner2" id="MbCurrent">
-<table border="1">
-<tr>
-<th>Name</th>
-<th>Price $</th>
-<th>Brand</th>
-<th>Socket Type</th>
-</tr>
-<tr>
-<td><a href="${mbbuild.url}" target="_blank">${mbbuild.model}</a></td>
-<td>${mbbuild.price}</td>
-<td>${mbbuild.brand}</td>
-<td>${mbbuild.socketType}</td>
-</table>
-</div>
-<div class = "inner3" id="RamCurrent">
-<table border="1">
-<tr>
-<th>Name</th>
-<th>Price $</th>
-<th>Brand</th>
-<th>Type</th>
-<th>Capacity(GB)</th>
-<th>Multi-Channel Type</th>
-</tr>
-<tr>
-       <td><a href="${rambuild.url}" target="_blank">${rambuild.model}</a></td>
-	   <td>${rambuild.price}</td>
-	   <td>${rambuild.brand}</td>
-	   <td>${rambuild.type}</td>
-	   <td>${rambuild.capacity}</td>
-	   <td>${rambuild.multichannelType}</td>
-</table>
-</div>
-<div class = "inner4" id="StorageCurrent">
-<table border="1">
-<tr>
-<th>Name</th>
-<th>Price $</th>
-<th>Brand</th>
-<th>Capacity(GB)</th>
-<th>Speed</th>
-</tr>
-<tr>
-       <td><a href="${ssdbuild.url}" target="_blank">${ssdbuild.model}</a></td>
-	   <td>${ssdbuild.price}</td>
-	   <td>${ssdbuild.brand}</td>
-	   <td>${ssdbuild.capacity}</td>
-	   <td>${ssdbuild.dataSpeed}</td>
-</table>
+<div class = "table">
+	<div class = "inner" id="cpuCurrent">
+	<table border="1">
+	<tr>
+	<th>Name</th>
+	<th>Price $</th>
+	<th>Brand</th>
+	<th>Series</th>
+	<th>Socket Type</th>
+	<th>Frequency(Ghz)</th>
+	<th>Cores</th>
+	</tr>
+	<tr>
+	<td><a href="${cpubuild.url}" target="_blank">${cpubuild.model}</a></td>
+	<td>${cpubuild.price}</td>
+	<td>${cpubuild.brand}</td>
+	<td>${cpubuild.series}</td>
+	<td>${cpubuild.socketType}</td>
+	<td>${cpubuild.frequency}</td>
+	<td>${cpubuild.cores}</td>
+	</table>
+	</div>
+	<div class = "inner1" id="GpuCurrent">
+	<table border="1">
+	<tr>
+	<th>Name</th>
+	<th>Price $</th>
+	<th>Brand</th>
+	<th>Series</th>
+	<th>Slot Type</th>
+	<th>Memory Size(GB)</th>
+	</tr>
+	<tr>
+	<td><a href="${gpubuild.url}" target="_blank">${gpubuild.model}</a></td>
+	<td>${gpubuild.price}</td>
+	<td>${gpubuild.brand}</td>
+	<td>${gpubuild.gpuBase}</td>
+	<td>${gpubuild.slotType}</td>
+	<td>${gpubuild.memorySize}</td>
+	</table>
+	</div>
+	<div class = "inner2" id="MbCurrent">
+	<table border="1">
+	<tr>
+	<th>Name</th>
+	<th>Price $</th>
+	<th>Brand</th>
+	<th>Socket Type</th>
+	</tr>
+	<tr>
+	<td><a href="${mbbuild.url}" target="_blank">${mbbuild.model}</a></td>
+	<td>${mbbuild.price}</td>
+	<td>${mbbuild.brand}</td>
+	<td>${mbbuild.socketType}</td>
+	</table>
+	</div>
+	<div class = "inner3" id="RamCurrent">
+	<table border="1">
+	<tr>
+	<th>Name</th>
+	<th>Price $</th>
+	<th>Brand</th>
+	<th>Type</th>
+	<th>Capacity(GB)</th>
+	<th>Multi-Channel Type</th>
+	</tr>
+	<tr>
+	       <td><a href="${rambuild.url}" target="_blank">${rambuild.model}</a></td>
+		   <td>${rambuild.price}</td>
+		   <td>${rambuild.brand}</td>
+		   <td>${rambuild.type}</td>
+		   <td>${rambuild.capacity}</td>
+		   <td>${rambuild.multichannelType}</td>
+	</table>
+	</div>
+	<div class = "inner4" id="StorageCurrent">
+	<table border="1">
+	<tr>
+	<th>Name</th>
+	<th>Price $</th>
+	<th>Brand</th>
+	<th>Capacity(GB)</th>
+	<th>Speed</th>
+	</tr>
+	<tr>
+	       <td><a href="${ssdbuild.url}" target="_blank">${ssdbuild.model}</a></td>
+		   <td>${ssdbuild.price}</td>
+		   <td>${ssdbuild.brand}</td>
+		   <td>${ssdbuild.capacity}</td>
+		   <td>${ssdbuild.dataSpeed}</td>
+	</table>
+	</div>
 </div>
 <div class = "inner5">
 <FORM method="post" action="${pageContext.servletContext.contextPath}/createbuild">
