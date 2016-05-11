@@ -10,7 +10,7 @@ body{
 background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,0));
 background-color: crimson;
 }
-.inner {
+.inner {<!---->
     position: relative;
     top: 20%;
     left: 10px;
